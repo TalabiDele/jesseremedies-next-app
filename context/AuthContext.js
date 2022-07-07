@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { NEXT_PUBLIC_URL, NEXT_PUBLIC_API_URL } from "@/config/index";
+import { NEXT_PUBLIC_URL, API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 import { useRouter } from "next/router";
 
@@ -104,7 +104,6 @@ export const AuthProvider = ({ children }) => {
 
     if (res.ok) {
       setUser(data.user.user);
-      setUserData(data);
       // router.push("/feeds");
     } else {
       setErrorMessage(data.message);
@@ -150,24 +149,6 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       router.push("/login");
     }
-  };
-
-  // Get all users
-  const getUsers = async () => {
-    const res = await fetch(`${NEXT_PUBLIC_API_URL}/users`);
-    const data = await res.json();
-
-    if (res.ok) {
-      setAllUsers(data.res);
-    } else {
-      setAllUsers(null);
-    }
-  };
-
-  // Provider authentication
-  const userProvider = async () => {
-    setUser(session.user);
-    console.log(user);
   };
 
   // Check user logged in
