@@ -37,14 +37,18 @@ const Dashboard = ({ loans, customers }) => {
             <div className="card">
               <div className="texts">
                 <p>Total Loans</p>
-                {user && <h1>{user.loanees.length}</h1>}
+                {/* {user && user.loanees.length !== 0 && (
+                  <h1>{user.loanees.length}</h1>
+                )} */}
               </div>
               <RiFocus2Fill fontSize={30} />
             </div>
             <div className="card">
               <div className="texts">
                 <p>Total Customers</p>
-                {user && <h1>{user.loanees.length}</h1>}
+                {/* {user && user.loanees.length !== 0 && (
+                  <h1>{user.loanees.length}</h1>
+                )} */}
               </div>
               <RiFocus2Line fontSize={30} />
             </div>
@@ -86,7 +90,11 @@ const Dashboard = ({ loans, customers }) => {
                         {e.attributes.loans.data.map((loan) => (
                           <div className="loan" key={loan.id}>
                             <p className="id">{loan.attributes.loan_id}</p>
-                            <p className="name">{e.attributes.fullname}</p>
+                            <p className="name">
+                              {e.attributes.firstname +
+                                " " +
+                                e.attributes.lastname}
+                            </p>
                             {console.log(loan.attributes)}
                             {loan.attributes.disbursed && (
                               <p className="loaned btn">Disbursed</p>
