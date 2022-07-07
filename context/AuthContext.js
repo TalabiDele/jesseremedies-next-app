@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
 
     if (res.ok) {
       setUser(data.user.user);
-      setUserData(data);
+      // setUserData(data);
       router.push("/dashboard");
     } else {
       setErrorMessage(data.message);
