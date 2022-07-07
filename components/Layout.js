@@ -38,7 +38,7 @@ export default function Layout({
         />
         {/* <link rel="shortcut icon" href="/favicon.ico" /> */}
       </Head>
-      {isRouter.pathname !== "/" || (isRouter.pathname !== "/login" && <Nav />)}
+      <Nav />
       <div>{children}</div>
       {/* {isRouter.pathname === "/login" ||
       isRouter.pathname === "/forgot-password" ||
