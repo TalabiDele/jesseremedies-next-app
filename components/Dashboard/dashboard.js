@@ -15,14 +15,7 @@ const Dashboard = ({ loans, customers }) => {
   console.log("Loans", loans);
   console.log("Customers", customers);
 
-  useEffect(() => {
-    if (user) {
-      user.loanees.map((e) => {
-        console.log(e);
-      });
-      console.log(user.loanees);
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   // var a = moment([2007, 0, 29]);
   // var b = moment([2007, 0, 28]);
@@ -148,35 +141,41 @@ const Dashboard = ({ loans, customers }) => {
           </div>
           <div className="recent">
             <h2>Recent Customers</h2>
-            {user &&
-              user.loanees.map((e) => (
-                <div className="recent_customers" key={e.id}>
-                  {e.image ? (
-                    <Image
-                      src={e.image.url}
-                      width={50}
-                      height={50}
-                      alt="user image"
-                    />
-                  ) : (
-                    <Image
-                      src={userImage}
-                      width={50}
-                      height={50}
-                      alt="user image"
-                    />
-                  )}
-                  <div className="details">
-                    <h3>{e.fullname}</h3>
-                    {/* {e.disbursed && <p className="loaned">Loaned</p>}
-                    {e.Paid && <p className="paid">Paid</p>}
-                    {e.dues_soon && <p className="due_soon">Loan Due Soon</p>}
-                    {e.due && <p className="overdue">Loan Overdue</p>}
-                    {e.processing && <p className="processing">Processing</p>} */}
-                    <p>{e.status}</p>
+            {customers.data.map(
+              (c) =>
+                user &&
+                user.id === c.attributes.user.data.id && (
+                  <div className="recent_customers" key={c.id}>
+                    {c.image ? (
+                      <Image
+                        src={c.attributes.image.url}
+                        width={50}
+                        height={50}
+                        alt="user image"
+                      />
+                    ) : (
+                      <Image
+                        src={userImage}
+                        width={50}
+                        height={50}
+                        alt="user image"
+                      />
+                    )}
+                    <div className="details">
+                      {console.log(c)}
+                      <h3>
+                        {c.attributes.firstname + " " + c.attributes.lastname}
+                      </h3>
+                      {/* {e.disbursed && <p className="loaned">Loaned</p>}
+                      {e.Paid && <p className="paid">Paid</p>}
+                      {e.dues_soon && <p className="due_soon">Loan Due Soon</p>}
+                      {e.due && <p className="overdue">Loan Overdue</p>}
+                      {e.processing && <p className="processing">Processing</p>} */}
+                      <p>{c.status}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                )
+            )}
           </div>
         </div>
       </div>
