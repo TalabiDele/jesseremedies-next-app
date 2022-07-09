@@ -2,35 +2,51 @@ import { createContext, useState, useEffect } from "react";
 import { NEXT_PUBLIC_URL, API_URL } from "@/config/index";
 import { parseCookies } from "@/helpers/index";
 import { useRouter } from "next/router";
+import useLocalStorage from "@/components/hooks/useLocalStorage";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [sent, setSent] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [address, setAddress] = useState("");
-  const [state, setState] = useState("");
-  const [email, setEmail] = useState("");
-  const [reference, setReference] = useState("");
-  const [loanAmount, setLoanAmount] = useState("");
-  const [duration, setDuration] = useState("");
-  const [interest, setInterest] = useState("");
-  const [loanPurpose, setLoanPurpose] = useState("");
-  const [employmentStatus, setEmploymentStatus] = useState("");
-  const [employer, setEmployer] = useState("");
-  const [dateStarted, setDateStarted] = useState("");
-  const [workEmail, setWorkEmail] = useState("");
-  const [workNumber, setWorkNumber] = useState();
-  const [income, setIncome] = useState();
-  const [asset, setAsset] = useState("");
-  const [assetType, setAssetType] = useState("");
-  const [assetValue, setAssetValue] = useState();
-  const [cardNumber, setCardNumber] = useState();
-  const [cvv, setCvv] = useState();
-  const [cardExpiry, setCardExpiry] = useState();
-  const [monthlyPayment, setMonthlyPayment] = useState();
+  const [firstName, setFirstName] = useLocalStorage("firstname", "");
+  const [lastName, setLastName] = useLocalStorage("lastname", "");
+  const [address, setAddress] = useLocalStorage("address", "");
+  const [state, setState] = useLocalStorage("state", "");
+  const [email, setEmail] = useLocalStorage("email", "");
+  const [dob, setDob] = useLocalStorage("dob", null);
+  const [phoneNumber, setPhoneNumber] = useLocalStorage("phone_number", null);
+  const [reference, setReference] = useLocalStorage("reference", "");
+  const [referenceNumber, setReferenceNumber] = useLocalStorage(
+    "reference_number",
+    null
+  );
+  const [loanAmount, setLoanAmount] = useLocalStorage("loanAmount", "");
+  const [duration, setDuration] = useLocalStorage("duration", "");
+  const [interest, setInterest] = useLocalStorage("interest", "");
+  const [loanPurpose, setLoanPurpose] = useLocalStorage("loanPurpose", "");
+  const [employmentStatus, setEmploymentStatus] = useLocalStorage(
+    "employment_status",
+    ""
+  );
+  const [employer, setEmployer] = useLocalStorage("employer", "");
+  const [dateStarted, setDateStarted] = useLocalStorage("date_started", "");
+  const [workEmail, setWorkEmail] = useLocalStorage("workEmail", "");
+  const [workNumber, setWorkNumber] = useLocalStorage("work_number", null);
+  const [income, setIncome] = useLocalStorage("income", null);
+  const [asset, setAsset] = useLocalStorage("asset", "");
+  const [assetType, setAssetType] = useLocalStorage("asset_type", "");
+  const [assetValue, setAssetValue] = useLocalStorage("asset_value", null);
+  const [cardNumber, setCardNumber] = useLocalStorage("card_number", null);
+  const [cvv, setCvv] = useLocalStorage("cvv", null);
+  const [cardExpiry, setCardExpiry] = useLocalStorage("card_expiry", null);
+  const [monthlyPayment, setMonthlyPayment] = useLocalStorage(
+    "monthly_payment",
+    null
+  );
+  const [officeId, setOfficeId] = useLocalStorage("office_id", null);
+  const [passport, setPassport] = useLocalStorage("passport", null);
+  const [id, setId] = useLocalStorage("id", null);
 
   const router = useRouter();
 
@@ -182,6 +198,12 @@ export const AuthProvider = ({ children }) => {
         setEmail,
         reference,
         setReference,
+        referenceNumber,
+        setReferenceNumber,
+        dob,
+        setDob,
+        phoneNumber,
+        setPhoneNumber,
         loanAmount,
         setLoanAmount,
         duration,
@@ -216,6 +238,12 @@ export const AuthProvider = ({ children }) => {
         setCvv,
         cardExpiry,
         setCardExpiry,
+        passport,
+        setPassport,
+        id,
+        setId,
+        officeId,
+        setOfficeId,
       }}
     >
       {children}

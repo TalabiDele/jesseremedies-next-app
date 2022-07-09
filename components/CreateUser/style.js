@@ -60,43 +60,43 @@ export const Container = styled.div`
         margin-bottom: 0.5rem;
         font-size: 16px;
       }
+    }
 
-      div.btns {
-        display: flex;
-        gap: 10px;
-        width: 80%;
-        justify-content: flex-end;
-        margin-top: 2rem;
+    div.btns {
+      display: flex;
+      gap: 10px;
+      width: 80%;
+      justify-content: flex-end;
+      margin-top: 2rem;
 
-        button {
-          padding: 1rem 2rem;
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
+      button {
+        padding: 1rem 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+      }
+
+      button.cancel {
+        border: none;
+        background: none;
+        color: #5a5a5a;
+        font-size: 14px;
+
+        &:hover {
+          color: #0043f1;
         }
+      }
 
-        button.cancel {
-          border: none;
+      button.submit {
+        background: #0043f1;
+        border-radius: 4px;
+        border: none;
+        color: #fff;
+        border: 1px solid #0043f1;
+
+        &:hover {
+          color: #0043f1;
           background: none;
-          color: #5a5a5a;
-          font-size: 14px;
-
-          &:hover {
-            color: #0043f1;
-          }
-        }
-
-        button.submit {
-          background: #0043f1;
-          border-radius: 4px;
-          border: none;
-          color: #fff;
           border: 1px solid #0043f1;
-
-          &:hover {
-            color: #0043f1;
-            background: none;
-            border: 1px solid #0043f1;
-          }
         }
       }
     }

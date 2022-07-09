@@ -56,15 +56,44 @@ export const Wrapper = styled.div`
   padding: 2rem 0rem;
 
   div.wrapper {
-    width: 90%;
+    width: 100%;
     margin: auto;
+  }
+
+  .active {
+    transition: all 0.3s ease-in-out;
+
+    li {
+      border-left: 5px solid #003ad2;
+      width: 100%;
+    }
+
+    p {
+      background: #f5f7fb;
+      border-radius: 37px 0px 0px 37px;
+
+      margin: auto;
+    }
+  }
+
+  ul {
+    width: 100%;
   }
 
   li {
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     color: #1f417381;
+
+    p {
+      width: 80%;
+      padding: 0.8rem 1rem;
+    }
+
+    svg {
+      margin-left: 1rem;
+    }
   }
 `;

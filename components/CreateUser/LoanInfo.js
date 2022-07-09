@@ -28,28 +28,30 @@ const LoanInfo = ({
     setMonthlyPayment,
   } = useContext(AuthContext);
 
+  // console.log("S00" + Math.random().toString(36).substr(2, 2));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${API_URL}/loans`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        amount: loanAmount,
-        interest,
-        duration,
-        processing: true,
-        monthly_payment: monthlyPayment,
-        loan_id: `S000${Math.floor(Math.random() * 10)}`,
-      }),
-    });
+    // const res = await fetch(`${API_URL}/loans`, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     // Authorization: `Bearer ${token}`,
+    //   },
+    //   body: JSON.stringify({
+    //     amount: loanAmount,
+    //     interest,
+    //     duration,
+    //     processing: true,
+    //     monthly_payment: monthlyPayment,
+    //     loan_id: "S00" + Math.random().toString(36).substr(2, 2),
+    //   }),
+    // });
 
-    const data = await res.json();
+    // const data = await res.json();
     // setIsPosted(data);
-    console.log(data);
+    // console.log(data);
 
     router.push("/create_user/personal_info");
   };

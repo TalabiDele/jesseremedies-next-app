@@ -4,8 +4,10 @@ import CreateUserNav from "@/components/CreateUserNav/CreateUserNav";
 import Review from "@/components/CreateUser/Review";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { parseCookies } from "@/helpers/index";
+import { API_URL } from "@/config/index";
 
-const ReviewPage = () => {
+const ReviewPage = ({ token }) => {
   const [loanInfo, setLoanInfo] = useState(true);
   const [personalInfo, setPersonalInfo] = useState(false);
   const [financialInfo, setFinancialInfo] = useState(false);
@@ -37,6 +39,7 @@ const ReviewPage = () => {
         setFinancialInfo={setFinancialInfo}
         review={review}
         setReview={setReview}
+        token={token}
       />
     </Layout>
   );
@@ -56,3 +59,17 @@ const Back = styled.div`
     color: #0043f1;
   }
 `;
+
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
+
+  const res = await fetch(`${API_URL}/loans?_sort=created_at:DESC&populate=*`);
+  const loans = await res.json();
+
+  const resCustomers = await fetch(`${API_URL}/customers?populate=*`);
+  const customers = await resCustomers.json();
+
+  return {
+    props: { loans, customers, token },
+  };
+}

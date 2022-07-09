@@ -166,11 +166,19 @@ const Dashboard = ({ loans, customers }) => {
                       <h3>
                         {c.attributes.firstname + " " + c.attributes.lastname}
                       </h3>
-                      {/* {e.disbursed && <p className="loaned">Loaned</p>}
-                      {e.Paid && <p className="paid">Paid</p>}
-                      {e.dues_soon && <p className="due_soon">Loan Due Soon</p>}
-                      {e.due && <p className="overdue">Loan Overdue</p>}
-                      {e.processing && <p className="processing">Processing</p>} */}
+                      {c.attributes.disbursed && (
+                        <p className="loaned">Loaned</p>
+                      )}
+                      {c.attributes.paid && <p className="paid">Paid</p>}
+                      {c.attributes.dues_soon && (
+                        <p className="due_soon">Loan Due Soon</p>
+                      )}
+                      {c.attributes.due && (
+                        <p className="overdue">Loan Overdue</p>
+                      )}
+                      {c.attributes.processing && (
+                        <p className="processing">Processing</p>
+                      )}
                       <p>{c.status}</p>
                     </div>
                   </div>
