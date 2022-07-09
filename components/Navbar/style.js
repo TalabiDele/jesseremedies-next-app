@@ -83,7 +83,7 @@ export const Wrapper = styled.div`
   li {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     /* margin-bottom: 1rem; */
     color: #1f417381;
 

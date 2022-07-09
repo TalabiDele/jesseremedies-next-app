@@ -76,6 +76,7 @@ const Dashboard = ({ loans, customers }) => {
                 <li>Total</li>
               </ul>
               {user &&
+                user.teller &&
                 customers.data.map(
                   (e) =>
                     user.id === e.attributes.user.data.id && (
@@ -116,6 +117,80 @@ const Dashboard = ({ loans, customers }) => {
                       </div>
                     )
                 )}
+              {user &&
+                user.supervisor &&
+                customers.data.map((e) => (
+                  <div className="loanee_details" key={e.id}>
+                    {e.attributes.loans.data.map((loan) => (
+                      <div className="loan" key={loan.id}>
+                        <p className="id">{loan.attributes.loan_id}</p>
+                        <p className="name">
+                          {e.attributes.firstname + " " + e.attributes.lastname}
+                        </p>
+                        {console.log(loan.attributes)}
+                        {loan.attributes.disbursed && (
+                          <p className="loaned btn">Disbursed</p>
+                        )}
+                        {loan.attributes.paid && (
+                          <p className="paid btn">Paid</p>
+                        )}
+                        {loan.attributes.due_soon && (
+                          <p className="due_soon btn">Loan Due Soon</p>
+                        )}
+                        {loan.attributes.overdue && (
+                          <p className="overdue btn">Loan Overdue</p>
+                        )}
+                        {loan.attributes.processing && (
+                          <p className="processing btn">Processing</p>
+                        )}
+                        {loan.attributes.denied && (
+                          <p className="overdue btn">Denied</p>
+                        )}
+                        <p className="total">
+                          <TbCurrencyNaira fontSize={20} color="#1F4173" />
+                          {loan.attributes.amount}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              {user &&
+                user.manager &&
+                customers.data.map((e) => (
+                  <div className="loanee_details" key={e.id}>
+                    {e.attributes.loans.data.map((loan) => (
+                      <div className="loan" key={loan.id}>
+                        <p className="id">{loan.attributes.loan_id}</p>
+                        <p className="name">
+                          {e.attributes.firstname + " " + e.attributes.lastname}
+                        </p>
+                        {console.log(loan.attributes)}
+                        {loan.attributes.disbursed && (
+                          <p className="loaned btn">Disbursed</p>
+                        )}
+                        {loan.attributes.paid && (
+                          <p className="paid btn">Paid</p>
+                        )}
+                        {loan.attributes.due_soon && (
+                          <p className="due_soon btn">Loan Due Soon</p>
+                        )}
+                        {loan.attributes.overdue && (
+                          <p className="overdue btn">Loan Overdue</p>
+                        )}
+                        {loan.attributes.processing && (
+                          <p className="processing btn">Processing</p>
+                        )}
+                        {loan.attributes.denied && (
+                          <p className="overdue btn">Denied</p>
+                        )}
+                        <p className="total">
+                          <TbCurrencyNaira fontSize={20} color="#1F4173" />
+                          {loan.attributes.amount}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
             </div>
           </div>
         </div>

@@ -87,7 +87,7 @@ export const Container = styled.div`
 
       ul {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         width: 100%;
         justify-items: center;
         margin: 2rem 0rem 1rem 0rem;
@@ -103,7 +103,7 @@ export const Container = styled.div`
 
       div.loan {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         align-items: center;
         justify-items: center;
         width: 100%;
@@ -113,6 +113,7 @@ export const Container = styled.div`
 
         .id {
           color: #003ad2;
+          text-transform: uppercase;
         }
 
         .name {
