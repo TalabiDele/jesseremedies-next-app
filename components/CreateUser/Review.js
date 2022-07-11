@@ -35,30 +35,49 @@ const Review = ({ token }) => {
     cvv,
     cardExpiry,
     monthlyPayment,
+    passport,
+    officeId,
+    payslip,
+    utility,
+    cac,
+    memo,
     user,
   } = useContext(AuthContext);
 
   console.log(API_URL);
 
+  const imageUploaded = async (e) => {
+    // e.preventDefault();
+    // setUserInfo({ ...userInfo, user_image: e });
+
+    const res = await fetch(`${API_URL}/customers/${e.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        passport,
+        office_id: officeId,
+        cac,
+        payslip,
+        utility,
+        memo,
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
+    // setIsPosted(data);
+    // setIsOpen(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoanData({
-      data: {
-        interest,
-        duration,
-        processing: true,
-        monthly_payment: monthlyPayment,
-        loan_id: "S00" + Math.random().toString(36).substr(2, 2),
-        amount: loanAmount,
-      },
-    });
-
-    const res = await fetch(`${API_URL}/customers?populate=*`, {
+    const res = await fetch(`http://localhost:1337/api/customers?populate=*`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         data: {
@@ -87,18 +106,6 @@ const Review = ({ token }) => {
           user: {
             id: user.id,
           },
-          // loans: {
-          //   data: [
-          //     {
-          //       interest,
-          //       duration,
-          //       processing: true,
-          //       monthly_payment: monthlyPayment,
-          //       loan_id: "S00" + Math.random().toString(36).substr(2, 2),
-          //       amount: loanAmount,
-          //     },
-          //   ],
-          // },
         },
       }),
     });
@@ -107,6 +114,125 @@ const Review = ({ token }) => {
     console.log(data.data.id);
 
     handleLoanRes(data);
+    handleUploads(data);
+    imageUploaded(data);
+  };
+
+  const handleUploads = async (e) => {
+    console.log(e);
+    const passportData = new FormData();
+    passportData.append("files", passport);
+    passportData.append("ref", "customers");
+    passportData.append("refId", e.data.id);
+    passportData.append("field", "passport");
+
+    const resUpload = await fetch(`http://localhost:1337/api/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: passportData,
+    });
+
+    const data = await resUpload.json();
+    console.log("passport data", data);
+
+    // if (resUpload.ok) {
+    //   imageUploaded(data);
+    // } else {
+    // }
+
+    const officeIdData = new FormData();
+    officeIdData.append("files", officeId);
+    // officeIdData.append("ref", "user");
+    officeIdData.append("refId", e.data.id);
+    officeIdData.append("field", "office_id");
+
+    const officeIdUpload = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: officeIdData,
+    });
+
+    const officeData = await officeIdUpload.json();
+    console.log("Office ID data", officeData);
+
+    const payslipForm = new FormData();
+    payslipForm.append("files", payslip);
+    // payslipForm.append("ref", "user");
+    payslipForm.append("refId", e.data.id);
+    payslipForm.append("field", "payslip");
+
+    const payslipRes = await fetch(`http://localhost:1337/api/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: payslipForm,
+    });
+
+    const payslipData = await payslipRes.json();
+    console.log("payslip data", payslipData);
+
+    const utilityForm = new FormData();
+    utilityForm.append("files", utility);
+    // utilityForm.append("ref", "user");
+    utilityForm.append("refId", e.data.id);
+    utilityForm.append("field", "utility");
+
+    const resUtility = await fetch(`http://localhost:1337/api/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: utilityForm,
+    });
+
+    const utilityData = await resUtility.json();
+    console.log("utility data", utilityData);
+
+    const cacForm = new FormData();
+    cacForm.append("files", cac);
+    // cacForm.append("ref", "user");
+    cacForm.append("refId", e.data.id);
+    cacForm.append("field", "cac");
+
+    const resCac = await fetch(`http://localhost:1337/api/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: cacForm,
+    });
+
+    const cacData = await resCac.json();
+    console.log("cac data", cacData);
+
+    const memoForm = new FormData();
+    memoForm.append("files", memo);
+    // memoForm.append("ref", "user");
+    memoForm.append("refId", e.data.id);
+    memoForm.append("field", "memo");
+
+    const resMemo = await fetch(`http://localhost:1337/api/upload`, {
+      method: "POST",
+      // headers: {
+      //   // "Content-Type": "multipart/form-data",
+      //   Authorization: `Bearer ${token}`,
+      // },
+      body: memoForm,
+    });
+
+    const memoData = await resMemo.json();
+
+    console.log("memo data", memoData);
   };
 
   const handleLoanRes = async (e) => {

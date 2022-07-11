@@ -113,6 +113,7 @@ export const Container = styled.div`
 
         .id {
           color: #003ad2;
+          text-transform: uppercased;
         }
 
         .name {

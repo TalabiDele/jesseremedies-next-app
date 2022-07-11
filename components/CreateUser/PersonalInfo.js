@@ -45,6 +45,14 @@ const PersonalInfo = ({
     setPassport,
     officeId,
     setOfficeId,
+    payslip,
+    setPaySlip,
+    utility,
+    setUtility,
+    cac,
+    setCac,
+    memo,
+    setMemo,
   } = useContext(AuthContext);
 
   const convertBase64 = (file) => {
@@ -66,43 +74,7 @@ const PersonalInfo = ({
     });
   };
 
-  const handlePassportChange = async (e) => {
-    // setPassport(e.target.files[0]);
-
-    const selectedPassport = await convertBase64(e.target.files[0]);
-
-    setPassport(selectedPassport);
-
-    setPassportName(e.target.files[0].name);
-
-    console.log(passport);
-  };
-
-  const handleIdChange = async (e) => {
-    // setPassport(e.target.files[0]);
-
-    const selectedFile = await convertBase64(e.target.files[0]);
-
-    setId(selectedFile);
-
-    setIdName(e.target.files[0].name);
-
-    console.log(e.target.files[0].name);
-  };
-
-  const handleOfficeId = async (e) => {
-    // setPassport(e.target.files[0]);
-
-    const selectedFile = await convertBase64(e.target.files[0]);
-
-    setOfficeId(selectedFile);
-
-    setOfficeIdName(e.target.files[0].name);
-
-    console.log(officeId);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setPersonalInfo(false);
@@ -111,47 +83,32 @@ const PersonalInfo = ({
     router.push("/create_user/financial_info");
   };
 
-  const uploadPassport = async (e) => {
-    e.preventDefault();
+  const handlePassport = (e) => {
+    setPassport(e.target.files[0]);
+  };
 
-    setIsLoading(true);
-    setMessage("File uploading...");
+  const handleId = (e) => {
+    setId(e.target.files[0]);
+  };
 
-    const formData = new FormData();
-    formData.append("files", passport);
-    // formData.append("ref", "user");
-    formData.append("refId", e.id);
-    formData.append("field", "user_image");
+  const handleOfficeId = (e) => {
+    setOfficeId(e.target.files[0]);
+  };
 
-    const resUpload = await fetch(`${API_URL}/upload`, {
-      method: "POST",
-      headers: {
-        // "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
+  const handlePayslip = (e) => {
+    setPaySlip(e.target.files[0]);
+  };
 
-    const data = await resUpload.json();
+  const handleUtility = (e) => {
+    setUtility(e.target.files[0]);
+  };
 
-    if (resUpload.ok) {
-      imageUploaded(data);
-      setMessage("File uploaded successfully! Save Chages.");
-      setTimeout(() => {
-        setMessage();
-      }, 7000);
-    } else {
-      setMessage("Select a file");
-      setTimeout(() => {
-        setMessage();
-      }, 7000);
-    }
+  const handleCac = (e) => {
+    setCac(e.target.files[0]);
+  };
 
-    setIsLoading(false);
-
-    setUserProfileImage(data);
-
-    console.log(userProfileImage);
+  const handleMemo = (e) => {
+    setMemo(e.target.files[0]);
   };
 
   return (
@@ -252,11 +209,11 @@ const PersonalInfo = ({
           <div className="flex_two">
             <div className="no_flex">
               <label htmlFor="passport">Upload Passport Photograph</label>
-              <input type="file" onChange={(e) => handlePassportChange(e)} />
+              <input type="file" onChange={(e) => handlePassport(e)} />
             </div>
             <div className="no_flex">
               <label htmlFor="id">Upload Means of Identification</label>
-              <input type="file" onChange={(e) => handleIdChange(e)} />
+              <input type="file" onChange={(e) => handleId(e)} />
             </div>
           </div>
 
@@ -264,6 +221,28 @@ const PersonalInfo = ({
             <div className="no_flex">
               <label htmlFor="office_id">Upload Office ID</label>
               <input type="file" onChange={(e) => handleOfficeId(e)} />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="payslip">Upload Payslip</label>
+              <input type="file" onChange={(e) => handlePayslip(e)} />
+            </div>
+          </div>
+
+          <div className="flex_two">
+            <div className="no_flex">
+              <label htmlFor="utility">Upload Utility Bill</label>
+              <input type="file" onChange={(e) => handleUtility(e)} />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="cac">Upload CAC(Business Owners)</label>
+              <input type="file" onChange={(e) => handleCac(e)} />
+            </div>
+          </div>
+
+          <div className="flex_two">
+            <div className="no_flex">
+              <label htmlFor="memo">Upload Memorandum</label>
+              <input type="file" onChange={(e) => handleMemo(e)} />
             </div>
           </div>
 

@@ -47,6 +47,10 @@ export const AuthProvider = ({ children }) => {
   const [officeId, setOfficeId] = useLocalStorage("office_id", null);
   const [passport, setPassport] = useLocalStorage("passport", null);
   const [id, setId] = useLocalStorage("id", null);
+  const [payslip, setPaySlip] = useLocalStorage("payslip", null);
+  const [utility, setUtility] = useLocalStorage("utility", null);
+  const [cac, setCac] = useLocalStorage("cac", null);
+  const [memo, setMemo] = useLocalStorage("memo", null);
 
   const router = useRouter();
 
@@ -244,6 +248,14 @@ export const AuthProvider = ({ children }) => {
         setId,
         officeId,
         setOfficeId,
+        payslip,
+        setPaySlip,
+        utility,
+        setUtility,
+        cac,
+        setCac,
+        memo,
+        setMemo,
       }}
     >
       {children}
