@@ -6,7 +6,7 @@ function useLocalStorage(key, initialValue) {
     // Pass initial state function to useState so logic is only executed once
     try {
       // Get from local storage by key
-      const item = localStorage.getItem(key);
+      const item = window.localStorage.getItem(key);
       // Parse stored json or if none return initialValue
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
@@ -26,7 +26,7 @@ function useLocalStorage(key, initialValue) {
       // Save state
       setStoredValue(valueToStore);
       // Save to local storage
-      localStorage.setItem(key, JSON.stringify(valueToStore));
+      windowlocalStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.log(error);
