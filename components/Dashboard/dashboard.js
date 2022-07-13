@@ -8,14 +8,23 @@ import userImage from "@/public/userImage.png";
 import Image from "next/image";
 import Link from "next/link";
 import moment from "moment";
+import { useRouter } from "next/router";
 
 const Dashboard = ({ loans, customers }) => {
   const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   console.log("Loans", loans);
   console.log("Customers", customers);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    console.log("UseEffect");
+  }, []);
+
+  const displayCustomer = (e) => {
+    console.log("working");
+    router.push(`/${e.slug}`);
+  };
 
   // var a = moment([2007, 0, 29]);
   // var b = moment([2007, 0, 28]);
@@ -80,7 +89,11 @@ const Dashboard = ({ loans, customers }) => {
                 customers.data.map(
                   (e) =>
                     user.id === e.attributes.user.data.id && (
-                      <div className="loanee_details" key={e.id}>
+                      <div
+                        className="loanee_details"
+                        key={e.id}
+                        onClick={() => displayCustomer(e.attributes)}
+                      >
                         {e.attributes.loans.data.map((loan) => (
                           <div className="loan" key={loan.id}>
                             <p className="id">{loan.attributes.loan_id}</p>
@@ -122,7 +135,11 @@ const Dashboard = ({ loans, customers }) => {
                 customers.data.map((e) => (
                   <div className="loanee_details" key={e.id}>
                     {e.attributes.loans.data.map((loan) => (
-                      <div className="loan" key={loan.id}>
+                      <div
+                        className="loan"
+                        key={loan.id}
+                        onClick={() => displayCustomer(e.attributes)}
+                      >
                         <p className="id">{loan.attributes.loan_id}</p>
                         <p className="name">
                           {e.attributes.firstname + " " + e.attributes.lastname}
@@ -159,7 +176,11 @@ const Dashboard = ({ loans, customers }) => {
                 customers.data.map((e) => (
                   <div className="loanee_details" key={e.id}>
                     {e.attributes.loans.data.map((loan) => (
-                      <div className="loan" key={loan.id}>
+                      <div
+                        className="loan"
+                        key={loan.id}
+                        onClick={() => displayCustomer(e.attributes)}
+                      >
                         <p className="id">{loan.attributes.loan_id}</p>
                         <p className="name">
                           {e.attributes.firstname + " " + e.attributes.lastname}

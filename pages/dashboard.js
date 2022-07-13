@@ -14,10 +14,12 @@ const dashboard = ({ loans, customers }) => {
 export default dashboard;
 
 export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/loans?_sort=created_at:DESC&populate=*`);
+  const res = await fetch(`${API_URL}/loans?_sort=createdAt:DESC&populate=*`);
   const loans = await res.json();
 
-  const resCustomers = await fetch(`${API_URL}/customers?populate=*`);
+  const resCustomers = await fetch(
+    `${API_URL}/customers?populate=*&_sort=createdAt:DESC`
+  );
   const customers = await resCustomers.json();
 
   return {
