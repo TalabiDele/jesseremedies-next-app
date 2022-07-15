@@ -121,6 +121,9 @@ const Dashboard = ({ loans, customers }) => {
                             {loan.attributes.processing && (
                               <p className="processing btn">Processing</p>
                             )}
+                            {loan.attributes.loan_start && (
+                              <p className="start btn">Loaned</p>
+                            )}
                             {loan.attributes.denied && (
                               <p className="overdue btn">Denied</p>
                             )}
@@ -165,6 +168,9 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         {loan.attributes.processing && (
                           <p className="processing btn">Processing</p>
+                        )}
+                        {loan.attributes.loan_start && (
+                          <p className="start btn">Loaned</p>
                         )}
                         {loan.attributes.denied && (
                           <p className="overdue btn">Denied</p>
@@ -247,6 +253,9 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         {loan.attributes.due_soon && (
                           <p className="due_soon btn">Loan Due Soon</p>
+                        )}
+                        {loan.attributes.loan_start && (
+                          <p className="start btn">Loaned</p>
                         )}
                         {loan.attributes.approved && (
                           <p className="paid btn">Approved</p>
