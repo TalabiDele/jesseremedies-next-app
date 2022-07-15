@@ -109,6 +109,9 @@ const Dashboard = ({ loans, customers }) => {
                             {loan.attributes.paid && (
                               <p className="paid btn">Paid</p>
                             )}
+                            {loan.attributes.approved && (
+                              <p className="paid btn">Approved</p>
+                            )}
                             {loan.attributes.due_soon && (
                               <p className="due_soon btn">Loan Due Soon</p>
                             )}
@@ -154,6 +157,9 @@ const Dashboard = ({ loans, customers }) => {
                         {loan.attributes.due_soon && (
                           <p className="due_soon btn">Loan Due Soon</p>
                         )}
+                        {loan.attributes.approved && (
+                          <p className="paid btn">Approved</p>
+                        )}
                         {loan.attributes.overdue && (
                           <p className="overdue btn">Loan Overdue</p>
                         )}
@@ -194,6 +200,56 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         {loan.attributes.due_soon && (
                           <p className="due_soon btn">Loan Due Soon</p>
+                        )}
+                        {loan.attributes.approved && (
+                          <p className="paid btn">Approved</p>
+                        )}
+                        {loan.attributes.overdue && (
+                          <p className="overdue btn">Loan Overdue</p>
+                        )}
+                        {loan.attributes.processing && (
+                          <p className="processing btn">Processing</p>
+                        )}
+                        {loan.attributes.denied && (
+                          <p className="overdue btn">Denied</p>
+                        )}
+                        {loan.attributes.loan_start && (
+                          <p className="start btn">Loaned</p>
+                        )}
+                        <p className="total">
+                          <TbCurrencyNaira fontSize={20} color="#1F4173" />
+                          {loan.attributes.amount}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              {user &&
+                user.md &&
+                customers.data.map((e) => (
+                  <div className="loanee_details" key={e.id}>
+                    {e.attributes.loans.data.map((loan) => (
+                      <div
+                        className="loan"
+                        key={loan.id}
+                        onClick={() => displayCustomer(e.attributes)}
+                      >
+                        <p className="id">{loan.attributes.loan_id}</p>
+                        <p className="name">
+                          {e.attributes.firstname + " " + e.attributes.lastname}
+                        </p>
+                        {console.log(loan.attributes)}
+                        {loan.attributes.disbursed && (
+                          <p className="loaned btn">Disbursed</p>
+                        )}
+                        {loan.attributes.paid && (
+                          <p className="paid btn">Paid</p>
+                        )}
+                        {loan.attributes.due_soon && (
+                          <p className="due_soon btn">Loan Due Soon</p>
+                        )}
+                        {loan.attributes.approved && (
+                          <p className="paid btn">Approved</p>
                         )}
                         {loan.attributes.overdue && (
                           <p className="overdue btn">Loan Overdue</p>

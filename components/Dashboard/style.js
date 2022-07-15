@@ -143,6 +143,11 @@ export const Container = styled.div`
           background: rgba(22, 195, 91, 0.1);
         }
 
+        .start {
+          color: rgba(46, 124, 246, 1);
+          background: rgba(46, 124, 246, 0.1);
+        }
+
         .due_soon {
           color: rgba(255, 153, 0, 1);
           background: rgba(255, 153, 0, 0.1);

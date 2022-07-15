@@ -34,6 +34,7 @@ const Nav = () => {
                   {user.teller && <p className="type">Loan Officer</p>}
                   {user.supervisor && <p className="type">Supervisor</p>}
                   {user.manager && <p className="type">Manager</p>}
+                  {user.md && <p className="type">MD</p>}
                 </div>
               )}
             </div>

@@ -40,6 +40,11 @@ export const Container = styled.div`
     background: #e800002f;
   }
 
+  .start {
+    color: #2e7cf6;
+    background: #2e7bf629;
+  }
+
   div.container {
     margin-top: 3rem;
     padding-bottom: 10rem;
@@ -66,6 +71,47 @@ export const Container = styled.div`
   div.flex {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  div.btns {
+    button {
+      padding: 0.5rem;
+      background: none;
+      border-radius: 5px;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .approve {
+      border: 1px solid rgba(22, 195, 91, 1);
+      color: rgba(22, 195, 91, 1);
+
+      &:hover {
+        color: #fff;
+        background: rgba(22, 195, 91, 1);
+      }
+    }
+
+    .decline {
+      border: 1px solid #e80000;
+      color: #e80000;
+
+      &:hover {
+        color: #fff;
+        background: #e80000;
+      }
+    }
+
+    .start {
+      border: 1px solid #2e7cf6;
+      color: #2e7cf6;
+
+      &:hover {
+        color: #fff;
+        background: #2e7cf6;
+      }
+    }
   }
 
   div.loan_container,

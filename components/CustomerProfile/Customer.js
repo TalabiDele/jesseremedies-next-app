@@ -4,26 +4,112 @@ import AuthContext from "@/context/AuthContext";
 import Image from "next/image";
 import image from "@/public/userImage.png";
 import { TbCurrencyNaira } from "react-icons/tb";
+import { API_URL } from "@/config/index";
 
-const Customer = ({ customers }) => {
+const Customer = ({ customers, token }) => {
   const { user } = useContext(AuthContext);
-  const [totalInterest, setTotalInterest] = useState();
 
   console.log(customers);
-
-  const locale = 5000000;
 
   const addCommas = (e) => {
     return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   };
 
-  useEffect(() => {}, []);
+  const handleApprove = async (e) => {
+    const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        data: {
+          processing: false,
+          approved: true,
+          // customer: {
+          //   id: e.data.id,
+          // },
+        },
+      }),
+    });
 
-  const getTotal = (e) => {
-    console.log(e.attributes.amount);
-    console.log();
+    const data = loanRes.json();
 
-    return;
+    console.log(data);
+  };
+
+  const handleDecline = async (e) => {
+    const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        data: {
+          processing: false,
+          denied: true,
+          // customer: {
+          //   id: e.data.id,
+          // },
+        },
+      }),
+    });
+
+    const data = loanRes.json();
+
+    console.log(data);
+  };
+
+  const handleDisburse = async (e) => {
+    const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        data: {
+          processing: false,
+          denied: false,
+          approved: false,
+          disbursed: true,
+          // customer: {
+          //   id: e.data.id,
+          // },
+        },
+      }),
+    });
+
+    const data = loanRes.json();
+
+    console.log(data);
+  };
+
+  const handleStart = async (e) => {
+    const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        data: {
+          processing: false,
+          denied: false,
+          approved: false,
+          disbursed: false,
+          loan_start: true,
+          // customer: {
+          //   id: e.data.id,
+          // },
+        },
+      }),
+    });
+
+    const data = loanRes.json();
+
+    console.log(data);
   };
 
   return (
@@ -68,6 +154,7 @@ const Customer = ({ customers }) => {
                   <div className="loan_container" key={loan.id}>
                     <p>
                       <span>Loan Amount: </span>
+                      {console.log(loan)}
                       <TbCurrencyNaira />
                       {addCommas(loan.attributes.amount)}
                     </p>
@@ -105,6 +192,11 @@ const Customer = ({ customers }) => {
                         Loan Status: <span className="paid btn">Paid</span>
                       </p>
                     )}
+                    {loan.attributes.approved && (
+                      <p>
+                        Loan Status: <span className="paid btn">Approved</span>
+                      </p>
+                    )}
                     {loan.attributes.due_soon && (
                       <p>
                         Loan Status:
@@ -129,6 +221,12 @@ const Customer = ({ customers }) => {
                         <span className="overdue btn">Denied</span>
                       </p>
                     )}
+                    {loan.attributes.loan_start && (
+                      <p>
+                        Loan Status:
+                        <span className="start btn">Loaned</span>
+                      </p>
+                    )}
                     <p>
                       <span>Total: </span>
                       <TbCurrencyNaira />
@@ -142,13 +240,38 @@ const Customer = ({ customers }) => {
 
                     {user && user.manager && loan.attributes.processing && (
                       <div className="btns">
-                        <button>Approve</button>
-                        <button>Decline</button>
+                        <button
+                          className="approve"
+                          onClick={() => handleApprove(loan)}
+                        >
+                          Approve
+                        </button>
+                        <button
+                          className="decline"
+                          onClick={() => handleDecline(loan)}
+                        >
+                          Decline
+                        </button>
                       </div>
                     )}
                     {user && user.md && loan.attributes.approved && (
                       <div className="btns">
-                        <button>Disburse</button>
+                        <button
+                          className="approve"
+                          onClick={() => handleDisburse(loan)}
+                        >
+                          Disburse
+                        </button>
+                      </div>
+                    )}
+                    {user && user.manager && loan.attributes.disbursed && (
+                      <div className="btns">
+                        <button
+                          className="start"
+                          onClick={() => handleStart(loan)}
+                        >
+                          Start Loan
+                        </button>
                       </div>
                     )}
                   </div>
