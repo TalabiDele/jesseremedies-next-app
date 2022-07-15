@@ -206,7 +206,7 @@ const PersonalInfo = ({
             </div>
           </div>
 
-          {/* <div className="flex_two">
+          <div className="flex_two">
             <div className="no_flex">
               <label htmlFor="passport">Upload Passport Photograph</label>
               <input type="file" onChange={(e) => handlePassport(e)} />
@@ -244,7 +244,7 @@ const PersonalInfo = ({
               <label htmlFor="memo">Upload Memorandum</label>
               <input type="file" onChange={(e) => handleMemo(e)} />
             </div>
-          </div> */}
+          </div>
 
           {/* </div> */}
           <div className="btns">
