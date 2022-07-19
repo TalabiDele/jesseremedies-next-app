@@ -166,6 +166,58 @@ export const Container = styled.div`
       font-size: 16px;
     }
   }
+
+  div.documents {
+    margin-top: 2rem;
+
+    h3 {
+      margin-bottom: 1rem;
+    }
+
+    img {
+      border-radius: 10px;
+      border: 2px solid #2e7cf6;
+    }
+
+    div.docs {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .image {
+      border: 2px solid #000;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border: 2px solid #2e7cf6;
+      }
+    }
+
+    div.modal {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: #042b6997;
+      z-index: 1;
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      transition: all 0.3s ease-in-out;
+
+      svg {
+        position: absolute;
+        right: 43rem;
+        top: 7rem;
+        z-index: 3;
+        cursor: pointer;
+      }
+    }
+  }
 `;
 
 export const Wrapper = styled.div``;
