@@ -9,7 +9,7 @@ export default function Home() {
   );
 }
 
-// Printing
+// Create Comment on why loan was approved
 // Edit Profile
 // Add Loan
 // CRM

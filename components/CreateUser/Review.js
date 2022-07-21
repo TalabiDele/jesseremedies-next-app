@@ -247,10 +247,10 @@ const Review = ({ token }) => {
     console.log("memo data", memoData);
 
     const guarantorForm = new FormData();
-    memoForm.append("files", guarantorPassport);
-    memoForm.append("ref", "api::customer.customer");
-    memoForm.append("refId", e.data.id);
-    memoForm.append("field", "guarantor_passport");
+    guarantorForm.append("files", guarantorPassport);
+    guarantorForm.append("ref", "api::customer.customer");
+    guarantorForm.append("refId", e.data.id);
+    guarantorForm.append("field", "guarantor_passport");
 
     const resGuarantor = await fetch(`${API_URL}/upload`, {
       method: "POST",
@@ -310,7 +310,8 @@ const Review = ({ token }) => {
                   Loan Amount Requested:{" "}
                   <span>
                     <TbCurrencyNaira />
-                    {addCommas(loanAmount)}
+                    {/* {addCommas(loanAmount)} */}
+                    {loanAmount}
                   </span>
                 </p>
                 <p>
@@ -323,7 +324,8 @@ const Review = ({ token }) => {
                   Monthly Payment:{" "}
                   <span>
                     <TbCurrencyNaira />
-                    {addCommas(monthlyPayment)}
+                    {/* {addCommas(monthlyPayment)} */}
+                    {monthlyPayment}
                   </span>
                 </p>
                 <p>
@@ -384,7 +386,8 @@ const Review = ({ token }) => {
                   Current Net Income:{" "}
                   <span>
                     <TbCurrencyNaira />
-                    {addCommas(income)}
+                    {/* {addCommas(income)} */}
+                    {income}
                   </span>
                 </p>
                 <p>
@@ -397,7 +400,8 @@ const Review = ({ token }) => {
                   Value in Naira:{" "}
                   <span>
                     <TbCurrencyNaira />
-                    {addCommas(assetValue)}
+                    {/* {addCommas(assetValue)} */}
+                    {assetValue}
                   </span>
                 </p>
                 <p>

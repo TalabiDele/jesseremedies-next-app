@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
  @page {
    /* size: landscape; */
-   /* margin: 5cm; */
+   margin: 1cm;
    background-color: #fff;
  }
 `;
@@ -173,7 +173,7 @@ export const Wrapper = styled.div`
     width: 100%;
     margin: auto;
     background-color: #fff;
-    padding: 3rem;
+    /* padding: 3rem; */
 
     h3 {
       text-align: center;

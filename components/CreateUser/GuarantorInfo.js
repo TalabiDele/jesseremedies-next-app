@@ -41,7 +41,7 @@ const GuarantorInfo = () => {
 
   const handlePassport = (e) => {
     setGuarantorPassport(e.target.files[0]);
-    console.log(guarantorEmployer);
+    console.log(guarantorPassport);
   };
 
   return (
