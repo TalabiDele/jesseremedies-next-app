@@ -1,9 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useState, useContext, useRef } from "react";
-import { Container, Wrapper } from "./style";
+import { Container, GlobalStyle, Wrapper } from "./style";
 import AuthContext from "@/context/AuthContext";
 import { API_URL } from "@/config/index";
 import ReactToPrint, { PrintContextConsumer } from "react-to-print";
+import { TbCurrencyNaira } from "react-icons/tb";
 
 const Review = ({ token }) => {
   const router = useRouter();
@@ -56,6 +57,7 @@ const Review = ({ token }) => {
     guarantorEmployer,
     guarantorEmail,
     user,
+    addCommas,
   } = useContext(AuthContext);
 
   console.log(API_URL);
@@ -291,167 +293,186 @@ const Review = ({ token }) => {
   };
 
   return (
-    <Container>
-      <div className="container">
-        <div className="top">
-          <h1>Overview</h1>
-          <button className="edit">Edit</button>
-        </div>
-        <Wrapper ref={(el) => (componentRef = el)}>
-          <h3>Loan Application</h3>
-          <div className="info">
-            <h2>Loan Information</h2>
-            <div className="wrapper">
-              <p>
-                Loan Amount Requested: <span>{loanAmount}</span>
-              </p>
-              <p>
-                Purpose of Loan: <span>{loanPurpose}</span>
-              </p>
-              <p>
-                Interest: <span>{interest}</span>
-              </p>
-              <p>
-                Monthly Payment: <span>{monthlyPayment}</span>
-              </p>
-              <p>
-                Duration: <span>{duration} months</span>
-              </p>
-            </div>
+    <>
+      <Container>
+        <GlobalStyle />
+        <div className="container">
+          <div className="top">
+            <h1>Overview</h1>
+            <button className="edit">Edit</button>
           </div>
+          <Wrapper ref={(el) => (componentRef = el)}>
+            <h3>Loan Application</h3>
+            <div className="info">
+              <h2>Loan Information</h2>
+              <div className="wrapper">
+                <p>
+                  Loan Amount Requested:{" "}
+                  <span>
+                    <TbCurrencyNaira />
+                    {addCommas(loanAmount)}
+                  </span>
+                </p>
+                <p>
+                  Purpose of Loan: <span>{loanPurpose}</span>
+                </p>
+                <p>
+                  Interest: <span>{interest}%</span>
+                </p>
+                <p>
+                  Monthly Payment:{" "}
+                  <span>
+                    <TbCurrencyNaira />
+                    {addCommas(monthlyPayment)}
+                  </span>
+                </p>
+                <p>
+                  Duration: <span>{duration} months</span>
+                </p>
+              </div>
+            </div>
 
-          <div className="info">
-            <h2>Personal Information</h2>
-            <div className="wrapper">
-              <p>
-                Full Name: <span>{firstName + " " + lastName}</span>
-              </p>
-              <p>
-                DOB: <span>{dob}</span>
-              </p>
-              <p>
-                Current Address: <span>{address}</span>
-              </p>
-              <p>
-                Residential State: <span>{state}</span>
-              </p>
-              <p>
-                Email Address: <span>{email}</span>
-              </p>
-              <p>
-                Phone Number: <span>{phoneNumber}</span>
-              </p>
-              <p>
-                Reference Full Name: <span>{reference}</span>
-              </p>
-              <p>
-                Reference Phone Number: <span>{referenceNumber}</span>
-              </p>
+            <div className="info">
+              <h2>Personal Information</h2>
+              <div className="wrapper">
+                <p>
+                  Full Name: <span>{firstName + " " + lastName}</span>
+                </p>
+                <p>
+                  DOB: <span>{dob}</span>
+                </p>
+                <p>
+                  Current Address: <span>{address}</span>
+                </p>
+                <p>
+                  Residential State: <span>{state}</span>
+                </p>
+                <p>
+                  Email Address: <span>{email}</span>
+                </p>
+                <p>
+                  Phone Number: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Reference Full Name: <span>{reference}</span>
+                </p>
+                <p>
+                  Reference Phone Number: <span>{referenceNumber}</span>
+                </p>
+              </div>
             </div>
-          </div>
 
-          <div className="info">
-            <h2>Financial & Asset Information</h2>
-            <div className="wrapper">
-              <p>
-                Current Employment Status: <span>{employmentStatus}</span>
-              </p>
-              <p>
-                Current Employer: <span>{employer}</span>
-              </p>
-              <p>
-                Date Started: <span>{dateStarted}</span>
-              </p>
-              <p>
-                Work Contact Info (Email): <span>{workEmail}</span>
-              </p>
-              <p>
-                Work Phone Number: <span>{workNumber}</span>
-              </p>
-              <p>
-                Current Net Income: <span>{income}</span>
-              </p>
-              <p>
-                Asset: <span>{asset}</span>
-              </p>
-              <p>
-                Asset Type: <span>{assetType}</span>
-              </p>
-              <p>
-                Value in Naira: <span>{assetValue}</span>
-              </p>
-              <p>
-                Debit Card Details for Monthly Debit (Optional):{" "}
-                <span>{cardNumber}</span>
-              </p>
-              <p>
-                CVV: <span>{cvv}</span>
-              </p>
-              <p>
-                Expiry Date: <span>{cardExpiry}</span>
-              </p>
+            <div className="info">
+              <h2>Financial & Asset Information</h2>
+              <div className="wrapper">
+                <p>
+                  Current Employment Status: <span>{employmentStatus}</span>
+                </p>
+                <p>
+                  Current Employer: <span>{employer}</span>
+                </p>
+                <p>
+                  Date Started: <span>{dateStarted}</span>
+                </p>
+                <p>
+                  Work Contact Info (Email): <span>{workEmail}</span>
+                </p>
+                <p>
+                  Work Phone Number: <span>{workNumber}</span>
+                </p>
+                <p>
+                  Current Net Income:{" "}
+                  <span>
+                    <TbCurrencyNaira />
+                    {addCommas(income)}
+                  </span>
+                </p>
+                <p>
+                  Asset: <span>{asset}</span>
+                </p>
+                <p>
+                  Asset Type: <span>{assetType}</span>
+                </p>
+                <p>
+                  Value in Naira:{" "}
+                  <span>
+                    <TbCurrencyNaira />
+                    {addCommas(assetValue)}
+                  </span>
+                </p>
+                <p>
+                  Debit Card Details for Monthly Debit (Optional):{" "}
+                  <span>{cardNumber}</span>
+                </p>
+                <p>
+                  CVV: <span>{cvv}</span>
+                </p>
+                <p>
+                  Expiry Date: <span>{cardExpiry}</span>
+                </p>
+              </div>
             </div>
-          </div>
-          <div className="info">
-            <h2>Guarantor Information</h2>
-            <div className="wrapper">
-              <p>
-                Name: <span>{guarantorName}</span>
-              </p>
-              <p>
-                Place of Birth: <span>{guarantorBirth}</span>
-              </p>
-              <p>
-                Office Address: <span>{guarantorOffice}</span>
-              </p>
-              <p>
-                Home Address: <span>{guarantorHome}</span>
-              </p>
-              <p>
-                Office Employer: <span>{guarantorEmployer}</span>
-              </p>
-              <p>
-                Phone NUmber: <span>{guarantorPhone}</span>
-              </p>
-              <p>
-                Career: <span>{guarantorCareer}</span>
-              </p>
-              <p>
-                Position: <span>{guarantorPosition}</span>
-              </p>
-              <p>
-                Relationship: <span>{guarantorRelation}</span>
-              </p>
-              <p>
-                Email: <span>{guarantorEmail}</span>
-              </p>
-              <p>
-                How long have you known applicant:{" "}
-                <span>{guarantorLength} years</span>
-              </p>
+            <div className="info">
+              <h2>Guarantor Information</h2>
+              <div className="wrapper">
+                <p>
+                  Name: <span>{guarantorName}</span>
+                </p>
+                <p>
+                  Place of Birth: <span>{guarantorBirth}</span>
+                </p>
+                <p>
+                  Office Address: <span>{guarantorOffice}</span>
+                </p>
+                <p>
+                  Home Address: <span>{guarantorHome}</span>
+                </p>
+                <p>
+                  Office Employer: <span>{guarantorEmployer}</span>
+                </p>
+                <p>
+                  Phone NUmber: <span>{guarantorPhone}</span>
+                </p>
+                <p>
+                  Career: <span>{guarantorCareer}</span>
+                </p>
+                <p>
+                  Position: <span>{guarantorPosition}</span>
+                </p>
+                <p>
+                  Relationship: <span>{guarantorRelation}</span>
+                </p>
+                <p>
+                  Email: <span>{guarantorEmail}</span>
+                </p>
+                <p>
+                  How long have you known applicant:{" "}
+                  <span>{guarantorLength} years</span>
+                </p>
+              </div>
             </div>
+          </Wrapper>
+          <div className="btns">
+            <button className="cancel">Cancel</button>
+            <ReactToPrint
+              // trigger={() => <button className="print">Print this out!</button>}
+              content={() => componentRef}
+            >
+              <PrintContextConsumer>
+                {({ handlePrint }) => (
+                  <button onClick={handlePrint} className="print">
+                    Print this out!
+                  </button>
+                )}
+              </PrintContextConsumer>
+            </ReactToPrint>
+            <button type="submit" className="submit" onClick={handleSubmit}>
+              Continue
+            </button>
           </div>
-        </Wrapper>
-        <div className="btns">
-          <button className="cancel">Cancel</button>
-          <ReactToPrint
-            // trigger={() => <button className="print">Print this out!</button>}
-            content={() => componentRef}
-          >
-            <PrintContextConsumer>
-              {({ handlePrint }) => (
-                <button onClick={handlePrint} className="print">
-                  Print this out!
-                </button>
-              )}
-            </PrintContextConsumer>
-          </ReactToPrint>
-          <button type="submit" className="submit" onClick={handleSubmit}>
-            Continue
-          </button>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 };
 
