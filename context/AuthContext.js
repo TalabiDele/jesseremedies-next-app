@@ -51,6 +51,54 @@ export const AuthProvider = ({ children }) => {
   const [utility, setUtility] = useLocalStorage("utility", null);
   const [cac, setCac] = useLocalStorage("cac", null);
   const [memo, setMemo] = useLocalStorage("memo", null);
+  const [guarantorName, setGuarantorName] = useLocalStorage(
+    "guarantor_name",
+    ""
+  );
+  const [guarantorBirth, setGuarantorBirth] = useLocalStorage(
+    "guarantor_birth",
+    ""
+  );
+  const [guarantorOffice, setGuarantorOffice] = useLocalStorage(
+    "guarantor_office",
+    ""
+  );
+  const [guarantorHome, setGuarantorHome] = useLocalStorage(
+    "guarantor_home",
+    ""
+  );
+  const [guarantorPhone, setGuarantorPhone] = useLocalStorage(
+    "guarantor_phone",
+    null
+  );
+  const [guarantorCareer, setGuarantorCareer] = useLocalStorage(
+    "guarantor_career",
+    ""
+  );
+  const [guarantorPosition, setGuarantorPosition] = useLocalStorage(
+    "guarantor_position",
+    ""
+  );
+  const [guarantorRelation, setGuarantorRelation] = useLocalStorage(
+    "guarantor_relation",
+    ""
+  );
+  const [guarantorLength, setGuarantorLength] = useLocalStorage(
+    "guarantor_length",
+    null
+  );
+  const [guarantorPassport, setGuarantorPassport] = useLocalStorage(
+    "guarantor_passport",
+    null
+  );
+  const [guarantorEmployer, setGuarantorEmployer] = useLocalStorage(
+    "guarantor_employer",
+    ""
+  );
+  const [guarantorEmail, setGuarantorEmail] = useLocalStorage(
+    "guarantor_email",
+    ""
+  );
 
   const router = useRouter();
 
@@ -183,6 +231,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const addCommas = (e) => {
+    return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -256,6 +308,31 @@ export const AuthProvider = ({ children }) => {
         setCac,
         memo,
         setMemo,
+        addCommas,
+        guarantorHome,
+        setGuarantorHome,
+        guarantorBirth,
+        setGuarantorBirth,
+        guarantorOffice,
+        setGuarantorOffice,
+        guarantorPhone,
+        setGuarantorPhone,
+        guarantorCareer,
+        setGuarantorCareer,
+        guarantorPosition,
+        setGuarantorPosition,
+        guarantorRelation,
+        setGuarantorRelation,
+        guarantorLength,
+        setGuarantorLength,
+        guarantorPassport,
+        setGuarantorPassport,
+        guarantorName,
+        setGuarantorName,
+        guarantorEmployer,
+        setGuarantorEmployer,
+        guarantorEmail,
+        setGuarantorEmail,
       }}
     >
       {children}

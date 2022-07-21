@@ -11,7 +11,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 
 const Dashboard = ({ loans, customers }) => {
-  const { user } = useContext(AuthContext);
+  const { user, addCommas } = useContext(AuthContext);
   const router = useRouter();
 
   console.log("Loans", loans);
@@ -129,7 +129,7 @@ const Dashboard = ({ loans, customers }) => {
                             )}
                             <p className="total">
                               <TbCurrencyNaira fontSize={20} color="#1F4173" />
-                              {loan.attributes.amount}
+                              {addCommas(loan.attributes.amount)}
                             </p>
                           </div>
                         ))}
@@ -177,7 +177,7 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         <p className="total">
                           <TbCurrencyNaira fontSize={20} color="#1F4173" />
-                          {loan.attributes.amount}
+                          {addCommas(loan.attributes.amount)}
                         </p>
                       </div>
                     ))}
@@ -224,7 +224,7 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         <p className="total">
                           <TbCurrencyNaira fontSize={20} color="#1F4173" />
-                          {loan.attributes.amount}
+                          {addCommas(loan.attributes.amount)}
                         </p>
                       </div>
                     ))}
@@ -271,7 +271,7 @@ const Dashboard = ({ loans, customers }) => {
                         )}
                         <p className="total">
                           <TbCurrencyNaira fontSize={20} color="#1F4173" />
-                          {loan.attributes.amount}
+                          {addCommas(loan.attributes.amount)}
                         </p>
                       </div>
                     ))}

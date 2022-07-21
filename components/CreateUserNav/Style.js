@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 70%;
+  width: 80%;
   margin: 3rem auto;
 
   div.container {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(9, 1fr);
     justify-items: center;
     align-items: center;
     width: 60%;

@@ -6,6 +6,7 @@ import {
   RiShieldCheckLine,
   RiCoinLine,
 } from "react-icons/ri";
+import { BiBadgeCheck } from "react-icons/bi";
 import { useRouter } from "next/router";
 
 const CreateUserNav = ({ loanInfo, personalInfo, financialInfo, review }) => {
@@ -74,6 +75,27 @@ const CreateUserNav = ({ loanInfo, personalInfo, financialInfo, review }) => {
             }
           >
             Financial Info
+          </p>
+        </div>
+        ---------
+        <div className="wrapper">
+          <div
+            className={
+              router.pathname === "/create_user/guarantor_info"
+                ? "item active"
+                : "item"
+            }
+          >
+            <BiBadgeCheck fontSize={30} />
+          </div>
+          <p
+            className={
+              router.pathname === "/create_user/guarantor_info"
+                ? "text text_active"
+                : "text"
+            }
+          >
+            Guarantor Info
           </p>
         </div>
         ---------

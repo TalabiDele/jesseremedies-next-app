@@ -41,6 +41,18 @@ const Review = ({ token }) => {
     utility,
     cac,
     memo,
+    guarantorHome,
+    guarantorBirth,
+    guarantorOffice,
+    guarantorPhone,
+    guarantorCareer,
+    guarantorPosition,
+    guarantorRelation,
+    guarantorLength,
+    guarantorPassport,
+    guarantorName,
+    guarantorEmployer,
+    guarantorEmail,
     user,
   } = useContext(AuthContext);
 
@@ -53,40 +65,6 @@ const Review = ({ token }) => {
     const res = await fetch(`${API_URL}/customers/${e.data.id}?populate=*`);
     const data = await res.json();
     console.log(data);
-    // setIsPosted(data);
-
-    // const res = await fetch(`${API_URL}/customers/${e.data.id}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     data: {
-    //       passport: {
-    //         data: passport,
-    //       },
-    //       office_id: {
-    //         data: officeId,
-    //       },
-    //       cac: {
-    //         data: cac,
-    //       },
-    //       payslip: {
-    //         data: payslip,
-    //       },
-    //       utility: {
-    //         data: utility,
-    //       },
-    //       memo: {
-    //         data: memo,
-    //       },
-    //     },
-    //   }),
-    // });
-    // const data = await res.json();
-    // console.log(data);
-    // // setIsPosted(data);
-    // // setIsOpen(false);
   };
 
   const handleSubmit = async (e) => {
@@ -118,6 +96,17 @@ const Review = ({ token }) => {
           asset,
           asset_type: assetType,
           value_of_asset: assetValue,
+          guarantor_name: guarantorName,
+          guarantor_occupation: guarantorCareer,
+          guarantor_phone: guarantorPhone,
+          guarantor_email: guarantorEmail,
+          guarantor_office: guarantorOffice,
+          guarantor_birth: guarantorBirth,
+          guarantor_home: guarantorHome,
+          guarantor_employer: guarantorEmployer,
+          guarantor_position: guarantorPosition,
+          guarantor_relation: guarantorRelation,
+          guarantor_length: guarantorLength,
           card_number: cardNumber,
           cvv,
           // card_expiry: cardExpiry,
@@ -252,6 +241,25 @@ const Review = ({ token }) => {
     const memoData = await resMemo.json();
 
     console.log("memo data", memoData);
+
+    const guarantorForm = new FormData();
+    memoForm.append("files", guarantorPassport);
+    memoForm.append("ref", "api::customer.customer");
+    memoForm.append("refId", e.data.id);
+    memoForm.append("field", "guarantor_passport");
+
+    const resGuarantor = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: guarantorForm,
+    });
+
+    const guarantorData = await resGuarantor.json();
+
+    console.log("guarantor data", guarantorData);
   };
 
   const handleLoanRes = async (e) => {
@@ -290,90 +298,135 @@ const Review = ({ token }) => {
 
         <div className="info">
           <h2>Loan Information</h2>
-          <p>
-            Loan Amount Requested: <span>{loanAmount}</span>
-          </p>
-          <p>
-            Purpose of Loan <span>{loanPurpose}</span>
-          </p>
-          <p>
-            Interest <span>{interest}</span>
-          </p>
-          <p>
-            Monthly Payment <span>{monthlyPayment}</span>
-          </p>
-          <p>
-            Duration <span>{duration} months</span>
-          </p>
+          <div className="wrapper">
+            <p>
+              Loan Amount Requested: <span>{loanAmount}</span>
+            </p>
+            <p>
+              Purpose of Loan: <span>{loanPurpose}</span>
+            </p>
+            <p>
+              Interest: <span>{interest}</span>
+            </p>
+            <p>
+              Monthly Payment: <span>{monthlyPayment}</span>
+            </p>
+            <p>
+              Duration: <span>{duration} months</span>
+            </p>
+          </div>
         </div>
 
         <div className="info">
           <h2>Personal Information</h2>
-          <p>
-            Full Name <span>{firstName + " " + lastName}</span>
-          </p>
-          <p>
-            DOB <span>{dob}</span>
-          </p>
-          <p>
-            Current Address <span>{address}</span>
-          </p>
-          <p>
-            Residential State <span>{state}</span>
-          </p>
-          <p>
-            Email Address <span>{email}</span>
-          </p>
-          <p>
-            Phone Number <span>{phoneNumber}</span>
-          </p>
-          <p>
-            Reference Full Name <span>{reference}</span>
-          </p>
-          <p>
-            Reference Phone Number <span>{referenceNumber}</span>
-          </p>
+          <div className="wrapper">
+            <p>
+              Full Name: <span>{firstName + " " + lastName}</span>
+            </p>
+            <p>
+              DOB: <span>{dob}</span>
+            </p>
+            <p>
+              Current Address: <span>{address}</span>
+            </p>
+            <p>
+              Residential State: <span>{state}</span>
+            </p>
+            <p>
+              Email Address: <span>{email}</span>
+            </p>
+            <p>
+              Phone Number: <span>{phoneNumber}</span>
+            </p>
+            <p>
+              Reference Full Name: <span>{reference}</span>
+            </p>
+            <p>
+              Reference Phone Number: <span>{referenceNumber}</span>
+            </p>
+          </div>
         </div>
 
         <div className="info">
           <h2>Financial & Asset Information</h2>
-          <p>
-            Current Employment Status <span>{employmentStatus}</span>
-          </p>
-          <p>
-            Current Employer <span>{employer}</span>
-          </p>
-          <p>
-            Date Started <span>{dateStarted}</span>
-          </p>
-          <p>
-            Work Contact Info (Email) <span>{workEmail}</span>
-          </p>
-          <p>
-            Work Phone Number <span>{workNumber}</span>
-          </p>
-          <p>
-            Current Net Income <span>{income}</span>
-          </p>
-          <p>
-            Asset <span>{asset}</span>
-          </p>
-          <p>
-            Asset Type <span>{assetType}</span>
-          </p>
-          <p>
-            Value in Naira <span>{assetValue}</span>
-          </p>
-          <p>
-            Debit Card Details for Monthly Debit (Optional):{" "}
-            <span>{cardNumber}</span>
-          </p>
-          <p>
-            CVV <span>{cvv}</span>
-          </p>
-          <p>
-            Expiry Date <span>{cardExpiry}</span>
-          </p>
+          <div className="wrapper">
+            <p>
+              Current Employment Status: <span>{employmentStatus}</span>
+            </p>
+            <p>
+              Current Employer: <span>{employer}</span>
+            </p>
+            <p>
+              Date Started: <span>{dateStarted}</span>
+            </p>
+            <p>
+              Work Contact Info (Email): <span>{workEmail}</span>
+            </p>
+            <p>
+              Work Phone Number: <span>{workNumber}</span>
+            </p>
+            <p>
+              Current Net Income: <span>{income}</span>
+            </p>
+            <p>
+              Asset: <span>{asset}</span>
+            </p>
+            <p>
+              Asset Type: <span>{assetType}</span>
+            </p>
+            <p>
+              Value in Naira: <span>{assetValue}</span>
+            </p>
+            <p>
+              Debit Card Details for Monthly Debit (Optional):{" "}
+              <span>{cardNumber}</span>
+            </p>
+            <p>
+              CVV: <span>{cvv}</span>
+            </p>
+            <p>
+              Expiry Date: <span>{cardExpiry}</span>
+            </p>
+          </div>
+        </div>
+        <div className="info">
+          <h2>Guarantor Information</h2>
+          <div className="wrapper">
+            <p>
+              Name: <span>{guarantorName}</span>
+            </p>
+            <p>
+              Place of Birth: <span>{guarantorBirth}</span>
+            </p>
+            <p>
+              Office Address: <span>{guarantorOffice}</span>
+            </p>
+            <p>
+              Home Address: <span>{guarantorHome}</span>
+            </p>
+            <p>
+              Office Employer: <span>{guarantorEmployer}</span>
+            </p>
+            <p>
+              Phone NUmber: <span>{guarantorPhone}</span>
+            </p>
+            <p>
+              Career: <span>{guarantorCareer}</span>
+            </p>
+            <p>
+              Position: <span>{guarantorPosition}</span>
+            </p>
+            <p>
+              Relationship: <span>{guarantorRelation}</span>
+            </p>
+            <p>
+              Email: <span>{guarantorEmail}</span>
+            </p>
+            <p>
+              How long have you known applicant:{" "}
+              <span>{guarantorLength} years</span>
+            </p>
+          </div>
         </div>
         <div className="btns">
           <button className="cancel">Cancel</button>

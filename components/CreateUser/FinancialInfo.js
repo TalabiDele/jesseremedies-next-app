@@ -48,7 +48,7 @@ const FinancialInfo = ({
     setPersonalInfo(false);
     setFinancialInfo(true);
 
-    router.push("/create_user/review");
+    router.push("/create_user/guarantor_info");
   };
 
   return (

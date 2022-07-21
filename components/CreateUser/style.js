@@ -13,6 +13,11 @@ export const Container = styled.div`
     padding: 3rem;
     width: 80%;
 
+    h2 {
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
     h1 {
       font-size: 24px;
       color: #1f4173;
@@ -98,6 +103,23 @@ export const Container = styled.div`
           background: none;
           border: 1px solid #0043f1;
         }
+      }
+    }
+
+    div.wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin-bottom: 0.5rem;
+
+      p {
+        margin-bottom: 1rem;
+      }
+
+      span {
+        font-weight: bold;
+        border: 1px solid #cfcfcf;
+        padding: 0.2rem;
+        border-radius: 5px;
       }
     }
   }

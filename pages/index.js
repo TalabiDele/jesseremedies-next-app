@@ -8,3 +8,9 @@ export default function Home() {
     // {/* </Layout> */}
   );
 }
+
+// Printing
+// Edit Profile
+// Add Loan
+// CRM
+// Sorting by period in the reports page

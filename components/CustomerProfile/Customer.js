@@ -16,13 +16,9 @@ const Customer = ({ customers, token }) => {
   const [isPayslip, setIsPayslip] = useState(false);
   const [isUtility, setIsUtility] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { user, addCommas } = useContext(AuthContext);
 
   console.log(customers);
-
-  const addCommas = (e) => {
-    return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  };
 
   const handleApprove = async (e) => {
     const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {

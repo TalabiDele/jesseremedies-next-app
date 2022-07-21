@@ -1,13 +1,54 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "@/context/AuthContext";
 import { Container } from "./Style";
 import { TbCurrencyNaira } from "react-icons/tb";
 
-const Reports = ({ token, users, customers }) => {
-  const { user } = useContext(AuthContext);
+const Reports = ({ token, users, customers, loans }) => {
+  const { user, addCommas } = useContext(AuthContext);
 
   console.log("users", users);
   console.log("customers", customers);
+  console.log("loans", loans);
+
+  useEffect(() => {
+    // getSum();
+  }, []);
+
+  const getSum = (c) => {
+    //   console.log(
+    //     cust.attributes.loans.data.reduce(
+    //       (n, { attributes }) => n + +parseInt(attributes.amount),
+    //       0
+    //     )
+    //   );
+
+    loans.data.reduce(function (prev, current) {
+      //   console.log(
+      //     current.attributes.customer.data !== null &&
+      //       current.attributes.customer.data.id === c.id
+      //   );
+      //   if (
+      //     current.attributes.customer.data !== null &&
+      //     current.attributes.customer.data.id === c.id
+      //   ) {
+      return prev + +current.attributes.amount;
+      // console.log(prev + +parseInt(current.attributes.amount));
+      //   console.log(prev + +parseInt(current.attributes.amount));
+      //   }
+    }, 0);
+    // console.log(sum);
+
+    return <p>{sum}</p>;
+
+    // const sum = loans.data.reduce((prev, current) => {
+    //   return prev + +parseInt(current.attributes.amount);
+    //   //   console.log(current.attributes.loans.data.attributes);
+    // });
+
+    // console.log(sum);
+  };
+
+  let ans = 0;
 
   return (
     <Container>
@@ -21,6 +62,29 @@ const Reports = ({ token, users, customers }) => {
                 e.teller && (
                   <div className="user_container">
                     <h3>{e.username}</h3>
+                    {customers.data.map(
+                      (cust) =>
+                        cust.attributes.user.data.id === e.id && (
+                          <div
+                            className="loan_reports"
+                            key={cust.attributes.id}
+                          >
+                            <div className="total_loaned">
+                              {/* <h3>Total Amount Loaned</h3> */}
+                              {/* {console.log(cust.attributes.loans.data)} */}
+                              {/* {loans.data.map} */}
+                              <p>
+                                {loans.data.map(
+                                  (cur) =>
+                                    cur.attributes.customers &&
+                                    cur.attributes.customers.data.id ===
+                                      cust.id && <p>{getSum(cust)}</p>
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        )
+                    )}
                     <div className="orders">
                       <div className="search">
                         <div className="input">
@@ -48,7 +112,6 @@ const Reports = ({ token, users, customers }) => {
                               customer.attributes.user.data.id === e.id &&
                               customer.attributes.loans.data.map((loan) => (
                                 <div className="loan" key={loan.attributes.id}>
-                                  {console.log(loan.attributes)}
                                   <p className="id">
                                     {loan.attributes.loan_id}
                                   </p>
@@ -88,7 +151,7 @@ const Reports = ({ token, users, customers }) => {
                                       fontSize={20}
                                       color="#1F4173"
                                     />
-                                    {loan.attributes.amount}
+                                    {addCommas(loan.attributes.amount)}
                                   </p>
                                 </div>
                               ))
