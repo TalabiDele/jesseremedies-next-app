@@ -14,6 +14,7 @@ export const Container = styled.div`
     width: 80%;
 
     h2 {
+      font-size: 20px;
       margin-bottom: 1rem;
       font-weight: 500;
     }
@@ -104,6 +105,19 @@ export const Container = styled.div`
           border: 1px solid #0043f1;
         }
       }
+
+      button.print {
+        background: none;
+        border: 1px solid #0043f1;
+        color: #0043f1;
+        border-radius: 4px;
+
+        &:hover {
+          background: #000;
+          border: 1px solid #000;
+          color: #fff;
+        }
+      }
     }
 
     div.wrapper {
@@ -124,3 +138,5 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Wrapper = styled.div``;
