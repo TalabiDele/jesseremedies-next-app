@@ -173,6 +173,30 @@ export const Container = styled.div`
       }
     }
 
+    div.endorse,
+    div.official {
+      h3 {
+        font-size: 18px;
+        text-align: left;
+        margin-top: 1rem;
+      }
+    }
+
+    div.endorse {
+      margin-bottom: 2rem;
+    }
+
+    div.signature {
+      margin-bottom: 2rem;
+    }
+
+    div.signature,
+    div.details,
+    div.manager_details {
+      display: flex;
+      gap: 1rem;
+    }
+
     div.wrapper {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -201,6 +225,30 @@ export const Wrapper = styled.div`
     margin: auto;
     background-color: #fff;
     /* padding: 3rem; */
+
+    div.endorse,
+    div.official {
+      h3 {
+        font-size: 18px;
+        text-align: left;
+        margin-top: 1rem;
+      }
+    }
+
+    div.endorse {
+      margin-bottom: 2rem;
+    }
+
+    div.signature {
+      margin-bottom: 2rem;
+    }
+
+    div.signature,
+    div.details,
+    div.manager_details {
+      display: flex;
+      gap: 1rem;
+    }
 
     h3 {
       text-align: center;

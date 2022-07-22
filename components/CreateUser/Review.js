@@ -487,6 +487,42 @@ const Review = ({ token }) => {
                 </div>
               </div>
             )}
+            <div className="endorse">
+              <h3>Endorsement</h3>
+              <p>
+                By putting my signature on this form{" "}
+                <strong>
+                  I accept that Jesse Remedies Ltd can run several credit checks
+                  on me
+                </strong>
+              </p>
+            </div>
+            <div className="signature">
+              <p>Applicant{"'"}s Signature: ...............................</p>
+              <p>Date: ................................</p>
+            </div>
+
+            <div className="official">
+              <h3>FOR OFFICE USE ONLY</h3>
+              <h3>Basis for Recomendation</h3>
+              __________________________________________________________________________________________________________________________________________________________
+              <div className="officer">
+                <h3>Relationship Officer</h3>
+                <div className="details">
+                  <p>Name: _____________________________________</p>
+                  <p>Signature: ________________________________________</p>
+                  <p>Date: ___________________________________________</p>
+                </div>
+              </div>
+              <div className="manager">
+                <h3>Manager</h3>
+                <div className="manager_details">
+                  <p>Name: __________________________________________</p>
+                  <p>Signature: _________________________________________</p>
+                  <p>Date: ____________________________________________</p>
+                </div>
+              </div>
+            </div>
           </Wrapper>
           <div className="btns">
             <button className="cancel">Cancel</button>
