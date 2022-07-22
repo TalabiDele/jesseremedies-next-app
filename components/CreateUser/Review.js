@@ -446,45 +446,47 @@ const Review = ({ token }) => {
                 </p>
               </div>
             </div>
-            <div className="info">
-              <h2>Guarantor Information</h2>
-              <div className="wrapper">
-                <p>
-                  Name: <span>{guarantorName}</span>
-                </p>
-                <p>
-                  Place of Birth: <span>{guarantorBirth}</span>
-                </p>
-                <p>
-                  Office Address: <span>{guarantorOffice}</span>
-                </p>
-                <p>
-                  Home Address: <span>{guarantorHome}</span>
-                </p>
-                <p>
-                  Office Employer: <span>{guarantorEmployer}</span>
-                </p>
-                <p>
-                  Phone NUmber: <span>{guarantorPhone}</span>
-                </p>
-                <p>
-                  Career: <span>{guarantorCareer}</span>
-                </p>
-                <p>
-                  Position: <span>{guarantorPosition}</span>
-                </p>
-                <p>
-                  Relationship: <span>{guarantorRelation}</span>
-                </p>
-                <p>
-                  Email: <span>{guarantorEmail}</span>
-                </p>
-                <p>
-                  How long have you known applicant:{" "}
-                  <span>{guarantorLength} years</span>
-                </p>
+            {employmentType === "business owner" && (
+              <div className="info">
+                <h2>Guarantor Information</h2>
+                <div className="wrapper">
+                  <p>
+                    Name: <span>{guarantorName}</span>
+                  </p>
+                  <p>
+                    Place of Birth: <span>{guarantorBirth}</span>
+                  </p>
+                  <p>
+                    Office Address: <span>{guarantorOffice}</span>
+                  </p>
+                  <p>
+                    Home Address: <span>{guarantorHome}</span>
+                  </p>
+                  <p>
+                    Office Employer: <span>{guarantorEmployer}</span>
+                  </p>
+                  <p>
+                    Phone NUmber: <span>{guarantorPhone}</span>
+                  </p>
+                  <p>
+                    Career: <span>{guarantorCareer}</span>
+                  </p>
+                  <p>
+                    Position: <span>{guarantorPosition}</span>
+                  </p>
+                  <p>
+                    Relationship: <span>{guarantorRelation}</span>
+                  </p>
+                  <p>
+                    Email: <span>{guarantorEmail}</span>
+                  </p>
+                  <p>
+                    How long have you known applicant:{" "}
+                    <span>{guarantorLength} years</span>
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </Wrapper>
           <div className="btns">
             <button className="cancel">Cancel</button>
