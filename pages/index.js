@@ -10,7 +10,6 @@ export default function Home() {
 }
 
 // Create Comment on why loan was approved
-// Edit Profile
-// Add Loan
+// Display images in review
 // CRM
 // Sorting by period in the reports page

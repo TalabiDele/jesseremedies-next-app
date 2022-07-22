@@ -5,7 +5,9 @@ import GuarantorInfo from "@/components/CreateUser/GuarantorInfo";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
-const guarantor_info = () => {
+const Guarantor_info = () => {
+  const router = useRouter();
+
   return (
     <Layout>
       <Back className="back" onClick={() => router.back()}>
@@ -17,7 +19,7 @@ const guarantor_info = () => {
   );
 };
 
-export default guarantor_info;
+export default Guarantor_info;
 
 const Back = styled.div`
   margin-left: 20rem;

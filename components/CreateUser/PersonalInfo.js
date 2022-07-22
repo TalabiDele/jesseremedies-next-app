@@ -14,9 +14,7 @@ const PersonalInfo = ({
   review,
   setReview,
 }) => {
-  const [passportName, setPassportName] = useLocalStorage("passport_name", "");
-  const [idName, setIdName] = useLocalStorage("id_name", "");
-  const [officeIdName, setOfficeIdName] = useLocalStorage("office_id_name", "");
+  const [isGender, setIsGender] = useLocalStorage("is_gender", null);
 
   const router = useRouter();
 
@@ -53,6 +51,18 @@ const PersonalInfo = ({
     setCac,
     memo,
     setMemo,
+    gender,
+    setGender,
+    position,
+    setPosition,
+    employmentType,
+    setEmploymentType,
+    dependants,
+    setDependants,
+    origin,
+    setOrigin,
+    salaryData,
+    setSalaryDate,
   } = useContext(AuthContext);
 
   const convertBase64 = (file) => {
@@ -111,6 +121,16 @@ const PersonalInfo = ({
     setMemo(e.target.files[0]);
   };
 
+  const handleMale = () => {
+    setGender("male");
+    setIsGender(true);
+  };
+
+  const handleFemale = () => {
+    setGender("female");
+    setIsGender(false);
+  };
+
   return (
     <Container>
       <div className="container">
@@ -147,6 +167,40 @@ const PersonalInfo = ({
           </div>
           <div className="flex_two">
             <div className="no_flex">
+              <label htmlFor="address">Gender</label>
+              <input
+                type="button"
+                placeholder="Male"
+                value="male"
+                onChange={(e) => setGender(e.target.value)}
+                onClick={handleMale}
+                className={isGender ? "active btn" : "btn"}
+              />
+              <input
+                type="button"
+                placeholder="Female"
+                value="female"
+                onChange={(e) => setGender(e.target.value)}
+                onClick={handleFemale}
+                className={isGender ? "btn" : "active btn"}
+              />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="address">Employment Type</label>
+              <select
+                name="employment_type"
+                id="employment_type"
+                onChange={(e) => setEmploymentType(e.target.value)}
+              >
+                <option value="contract staff">Contract Staff</option>
+                <option value="Permanent Staff">Permanent Staff</option>
+                <option value="business owner">Business Owner</option>
+                <option value="part time staff">Part-Time Staff</option>
+              </select>
+            </div>
+          </div>
+          <div className="flex_two">
+            <div className="no_flex">
               <label htmlFor="address">Current Address</label>
               <input
                 type="text"
@@ -162,6 +216,46 @@ const PersonalInfo = ({
                 placeholder="Lagos"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex_two">
+            <div className="no_flex">
+              <label htmlFor="position">Position Held at Work</label>
+              <input
+                type="text"
+                placeholder="Manager"
+                value={position}
+                onChange={(e) => setPosition(e.target.value)}
+              />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="dependants">Number of Dependants</label>
+              <input
+                type="number"
+                placeholder="3"
+                value={dependants}
+                onChange={(e) => setDependants(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="flex_two">
+            <div className="no_flex">
+              <label htmlFor="origin">State of Origin</label>
+              <input
+                type="text"
+                placeholder="State of Origin"
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+              />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="dependants">Salary Data</label>
+              <input
+                type="date"
+                // placeholder="3"
+                value={salaryData}
+                onChange={(e) => setSalaryDate(e.target.value)}
               />
             </div>
           </div>

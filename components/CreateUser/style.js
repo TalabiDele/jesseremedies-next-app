@@ -72,10 +72,18 @@ export const Container = styled.div`
       div.flex_two {
         display: grid;
         grid-template-columns: 60% 30%;
+        align-items: flex-start;
 
         input {
           width: 80%;
         }
+      }
+
+      select {
+        border: none;
+        background: #f5f7fb;
+        padding: 1rem;
+        border-radius: 5px;
       }
 
       input {
@@ -91,6 +99,25 @@ export const Container = styled.div`
         color: #11142d;
         margin-bottom: 0.5rem;
         font-size: 16px;
+      }
+
+      .btn {
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: 1px solid #f5f7fb;
+        /* display: flex;
+        width: 5rem; */
+
+        &:hover {
+          border: 1px solid #0043f1;
+          color: #0043f1;
+        }
+      }
+
+      .active {
+        background: #0043f1;
+        color: #fff;
+        border: 1px solid #0043f1;
       }
     }
 

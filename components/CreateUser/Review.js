@@ -56,6 +56,12 @@ const Review = ({ token }) => {
     guarantorName,
     guarantorEmployer,
     guarantorEmail,
+    gender,
+    position,
+    employmentType,
+    dependants,
+    origin,
+    salaryDate,
     user,
     addCommas,
   } = useContext(AuthContext);
@@ -113,6 +119,11 @@ const Review = ({ token }) => {
           guarantor_length: guarantorLength,
           card_number: cardNumber,
           cvv,
+          employee_position: position,
+          employment_type: employmentType,
+          dependants,
+          state_or_origin: origin,
+          gender,
           // card_expiry: cardExpiry,
           state,
           user: {
@@ -303,6 +314,55 @@ const Review = ({ token }) => {
           </div>
           <Wrapper ref={(el) => (componentRef = el)}>
             <h3>Loan Application</h3>
+
+            <div className="info">
+              <h2>Personal Information</h2>
+              <div className="wrapper">
+                <p>
+                  Full Name: <span>{firstName + " " + lastName}</span>
+                </p>
+                <p>
+                  DOB: <span>{dob}</span>
+                </p>
+                <p>
+                  Current Address: <span>{address}</span>
+                </p>
+                <p>
+                  Residential State: <span>{state}</span>
+                </p>
+                <p>
+                  Email Address: <span>{email}</span>
+                </p>
+                <p>
+                  Phone Number: <span>{phoneNumber}</span>
+                </p>
+                <p>
+                  Gender: <span>{gender}</span>
+                </p>
+                <p>
+                  Position Held at Work: <span>{position}</span>
+                </p>
+                <p>
+                  Employment Type: <span>{employmentType}</span>
+                </p>
+                <p>
+                  Number of Dependants: <span>{dependants}</span>
+                </p>
+                <p>
+                  State of Origin: <span>{origin}</span>
+                </p>
+                <p>
+                  Salary Data: <span>{salaryDate}</span>
+                </p>
+                <p>
+                  Reference Full Name: <span>{reference}</span>
+                </p>
+                <p>
+                  Reference Phone Number: <span>{referenceNumber}</span>
+                </p>
+              </div>
+            </div>
+
             <div className="info">
               <h2>Loan Information</h2>
               <div className="wrapper">
@@ -330,36 +390,6 @@ const Review = ({ token }) => {
                 </p>
                 <p>
                   Duration: <span>{duration} months</span>
-                </p>
-              </div>
-            </div>
-
-            <div className="info">
-              <h2>Personal Information</h2>
-              <div className="wrapper">
-                <p>
-                  Full Name: <span>{firstName + " " + lastName}</span>
-                </p>
-                <p>
-                  DOB: <span>{dob}</span>
-                </p>
-                <p>
-                  Current Address: <span>{address}</span>
-                </p>
-                <p>
-                  Residential State: <span>{state}</span>
-                </p>
-                <p>
-                  Email Address: <span>{email}</span>
-                </p>
-                <p>
-                  Phone Number: <span>{phoneNumber}</span>
-                </p>
-                <p>
-                  Reference Full Name: <span>{reference}</span>
-                </p>
-                <p>
-                  Reference Phone Number: <span>{referenceNumber}</span>
                 </p>
               </div>
             </div>

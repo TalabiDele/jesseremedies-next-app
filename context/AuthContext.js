@@ -99,6 +99,15 @@ export const AuthProvider = ({ children }) => {
     "guarantor_email",
     ""
   );
+  const [gender, setGender] = useLocalStorage("gender", "");
+  const [position, setPosition] = useLocalStorage("position", "");
+  const [employmentType, setEmploymentType] = useLocalStorage(
+    "employment_type",
+    ""
+  );
+  const [dependants, setDependants] = useLocalStorage("dependants", null);
+  const [origin, setOrigin] = useLocalStorage("origin", "");
+  const [salaryData, setSalaryDate] = useLocalStorage("salaryData", null);
 
   const router = useRouter();
 
@@ -333,6 +342,18 @@ export const AuthProvider = ({ children }) => {
         setGuarantorEmployer,
         guarantorEmail,
         setGuarantorEmail,
+        gender,
+        setGender,
+        position,
+        setPosition,
+        employmentType,
+        setEmploymentType,
+        dependants,
+        setDependants,
+        origin,
+        setOrigin,
+        salaryData,
+        setSalaryDate,
       }}
     >
       {children}
