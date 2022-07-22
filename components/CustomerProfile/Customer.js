@@ -238,7 +238,7 @@ const Customer = ({ customers, token }) => {
               <Wrapper>
                 <div className="edit_modal">
                   <div className="form" action="" onSubmit={addLoan}>
-                    <h1>Loan Information</h1>
+                    <h1>Add a New Loan</h1>
                     <div className="no_flex">
                       <label htmlFor="loan_amount">Loan Amount Requested</label>
                       <input
@@ -346,7 +346,7 @@ const Customer = ({ customers, token }) => {
                                 action=""
                                 onSubmit={addLoan}
                               >
-                                <h1>Loan Information</h1>
+                                <h1>Edit Loan</h1>
                                 <div className="no_flex">
                                   <label htmlFor="loan_amount">
                                     Loan Amount Requested
