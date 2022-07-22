@@ -13,3 +13,5 @@ export default function Home() {
 // Display images in review
 // CRM
 // Sorting by period in the reports page
+// Signature Upload
+// Printable page (remove guarantor if user is an employer, add other details for print)

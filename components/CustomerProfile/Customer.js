@@ -65,6 +65,7 @@ const Customer = ({ customers, token }) => {
     });
 
     const data = loanRes.json();
+    refreshData();
 
     console.log(data);
   };
@@ -88,6 +89,7 @@ const Customer = ({ customers, token }) => {
     });
 
     const data = loanRes.json();
+    refreshData();
 
     console.log(data);
   };
@@ -113,6 +115,7 @@ const Customer = ({ customers, token }) => {
     });
 
     const data = loanRes.json();
+    refreshData();
 
     console.log(data);
   };
@@ -139,6 +142,7 @@ const Customer = ({ customers, token }) => {
     });
 
     const data = loanRes.json();
+    refreshData();
 
     console.log(data);
   };
