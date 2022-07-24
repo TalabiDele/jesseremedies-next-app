@@ -27,6 +27,10 @@ export const Container = styled.div`
   display: grid;
   justify-items: center;
 
+  .image {
+    margin-bottom: 1rem;
+  }
+
   div.container {
     background: #fff;
     box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
@@ -225,6 +229,10 @@ export const Wrapper = styled.div`
     margin: auto;
     background-color: #fff;
     /* padding: 3rem; */
+
+    .image {
+      margin-bottom: 1rem;
+    }
 
     div.endorse,
     div.official {

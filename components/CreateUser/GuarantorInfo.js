@@ -29,9 +29,30 @@ const GuarantorInfo = () => {
     setGuarantorEmployer,
     guarantorEmail,
     setGuarantorEmail,
+    isGuarantorPassort,
+    setIsGuarantorPassport,
   } = useContext(AuthContext);
 
   const router = useRouter();
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+
+      if (file) {
+        fileReader.readAsDataURL(file);
+        // reader.readAsDataURL(event.target.files[0]);
+      }
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,9 +60,11 @@ const GuarantorInfo = () => {
     router.push("/create_user/review");
   };
 
-  const handlePassport = (e) => {
+  const handlePassport = async (e) => {
     setGuarantorPassport(e.target.files[0]);
-    console.log(guarantorPassport);
+    const base64 = await convertBase64(e.target.files[0]);
+
+    setIsGuarantorPassport(base64);
   };
 
   return (

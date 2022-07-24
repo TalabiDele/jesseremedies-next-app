@@ -109,6 +109,11 @@ export const AuthProvider = ({ children }) => {
   const [origin, setOrigin] = useLocalStorage("origin", "");
   const [salaryData, setSalaryDate] = useLocalStorage("salaryData", null);
   const [signature, setSignature] = useLocalStorage("signature", null);
+  const [isPassport, setIsPassport] = useLocalStorage("isPassport", null);
+  const [isGuarantorPassport, setIsGuarantorPassport] = useLocalStorage(
+    "isGuarantorPassport",
+    null
+  );
 
   const router = useRouter();
 
@@ -357,6 +362,10 @@ export const AuthProvider = ({ children }) => {
         setSalaryDate,
         signature,
         setSignature,
+        isPassport,
+        setIsPassport,
+        isGuarantorPassport,
+        setIsGuarantorPassport,
       }}
     >
       {children}
@@ -365,12 +374,3 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default AuthContext;
-
-// export async function getServerSideProps() {
-
-//   return {
-//     props: {
-//       allUsers,
-//     },
-//   };
-// }

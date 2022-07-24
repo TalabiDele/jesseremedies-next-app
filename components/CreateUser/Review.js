@@ -5,6 +5,7 @@ import AuthContext from "@/context/AuthContext";
 import { API_URL } from "@/config/index";
 import ReactToPrint, { PrintContextConsumer } from "react-to-print";
 import { TbCurrencyNaira } from "react-icons/tb";
+import Image from "next/image";
 
 const Review = ({ token }) => {
   const router = useRouter();
@@ -64,6 +65,8 @@ const Review = ({ token }) => {
     salaryDate,
     user,
     addCommas,
+    isGuarantorPassport,
+    isPassport,
   } = useContext(AuthContext);
 
   console.log(API_URL);
@@ -321,6 +324,7 @@ const Review = ({ token }) => {
     const loanData = loanRes.json();
     console.log(loanData);
   };
+  console.log(isGuarantorPassport);
 
   return (
     <>
@@ -333,9 +337,17 @@ const Review = ({ token }) => {
           </div>
           <Wrapper ref={(el) => (componentRef = el)}>
             <h3>Loan Application</h3>
-
             <div className="info">
               <h2>Personal Information</h2>
+              <div className="image">
+                <Image
+                  src={isPassport}
+                  alt="passport"
+                  width={100}
+                  height={100}
+                  objectFit="cover"
+                />
+              </div>
               <div className="wrapper">
                 <p>
                   Full Name: <span>{firstName + " " + lastName}</span>
@@ -468,6 +480,16 @@ const Review = ({ token }) => {
             {employmentType === "business owner" && (
               <div className="info">
                 <h2>Guarantor Information</h2>
+                <div className="image">
+                  <Image
+                    src={isGuarantorPassport}
+                    alt="gurantor passport"
+                    width={100}
+                    height={100}
+                    objectFit="cover"
+                  />
+                </div>
+
                 <div className="wrapper">
                   <p>
                     Name: <span>{guarantorName}</span>

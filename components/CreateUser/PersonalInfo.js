@@ -65,6 +65,8 @@ const PersonalInfo = ({
     setSalaryDate,
     signature,
     setSignature,
+    isPassport,
+    setIsPassport,
   } = useContext(AuthContext);
 
   const convertBase64 = (file) => {
@@ -95,8 +97,12 @@ const PersonalInfo = ({
     router.push("/create_user/financial_info");
   };
 
-  const handlePassport = (e) => {
+  const handlePassport = async (e) => {
     setPassport(e.target.files[0]);
+
+    const base64 = await convertBase64(e.target.files[0]);
+
+    setIsPassport(base64);
   };
 
   const handleId = (e) => {
