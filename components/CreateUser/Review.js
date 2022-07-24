@@ -275,6 +275,25 @@ const Review = ({ token }) => {
     const guarantorData = await resGuarantor.json();
 
     console.log("guarantor data", guarantorData);
+
+    const signatureForm = new FormData();
+    signatureForm.append("files", signature);
+    signatureForm.append("ref", "api::customer.customer");
+    signatureForm.append("refId", e.data.id);
+    signatureForm.append("field", "signature");
+
+    const resSignature = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: guarantorForm,
+    });
+
+    const signatureData = await resSignature.json();
+
+    console.log("signature data", signatureData);
   };
 
   const handleLoanRes = async (e) => {
@@ -492,8 +511,8 @@ const Review = ({ token }) => {
               <p>
                 By putting my signature on this form{" "}
                 <strong>
-                  I accept that Jesse Remedies Ltd can run several credit checks
-                  on me
+                  I accept that Jesse Remedies Nig. Ltd. can run several credit
+                  checks on me
                 </strong>
               </p>
             </div>

@@ -63,6 +63,8 @@ const PersonalInfo = ({
     setOrigin,
     salaryData,
     setSalaryDate,
+    signature,
+    setSignature,
   } = useContext(AuthContext);
 
   const convertBase64 = (file) => {
@@ -119,6 +121,10 @@ const PersonalInfo = ({
 
   const handleMemo = (e) => {
     setMemo(e.target.files[0]);
+  };
+
+  const handleSignature = (e) => {
+    setSignature(e.target.files[0]);
   };
 
   const handleMale = () => {
@@ -337,6 +343,10 @@ const PersonalInfo = ({
             <div className="no_flex">
               <label htmlFor="memo">Upload Memorandum</label>
               <input type="file" onChange={(e) => handleMemo(e)} />
+            </div>
+            <div className="no_flex">
+              <label htmlFor="signature">Upload Signature</label>
+              <input type="file" onChange={(e) => handleSignature(e)} />
             </div>
           </div>
 

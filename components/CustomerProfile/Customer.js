@@ -24,6 +24,7 @@ const Customer = ({ customers, token }) => {
   const [loanPayment, setLoanPayment] = useState();
   const [purpose, setPurpose] = useState();
   const [id, setId] = useState();
+  const [approvalComment, setApprovalComment] = useState("");
 
   const router = useRouter();
 
@@ -57,6 +58,7 @@ const Customer = ({ customers, token }) => {
         data: {
           processing: false,
           approved: true,
+          approval_reason: approvalComment,
           // customer: {
           //   id: e.data.id,
           // },
@@ -511,6 +513,26 @@ const Customer = ({ customers, token }) => {
                                 parseInt(loan.attributes.amount)
                             )}
                           </p>
+                          {loan.attributes.processing && (
+                            <>
+                              <textarea
+                                name="comment"
+                                id="comment"
+                                cols="30"
+                                rows="5"
+                                placeholder="Reason for approval"
+                                onChange={(e) =>
+                                  setApprovalComment(e.target.value)
+                                }
+                              ></textarea>
+                            </>
+                          )}
+                          {loan.attributes.approval_reason && (
+                            <p>
+                              <span>Reason for Approval: </span>
+                              {loan.attributes.approval_reason}
+                            </p>
+                          )}
 
                           {user && user.manager && loan.attributes.processing && (
                             <div className="btns">

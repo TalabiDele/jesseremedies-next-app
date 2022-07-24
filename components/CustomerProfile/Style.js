@@ -4,6 +4,13 @@ export const Container = styled.div`
   width: 85%;
   margin-left: 13rem;
 
+  textarea {
+    border: none;
+    background: #f5f7fb;
+    border-radius: 5px;
+    padding: 1rem;
+  }
+
   div.wrapper {
     display: flex;
     justify-content: space-between;

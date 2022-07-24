@@ -108,6 +108,7 @@ export const AuthProvider = ({ children }) => {
   const [dependants, setDependants] = useLocalStorage("dependants", null);
   const [origin, setOrigin] = useLocalStorage("origin", "");
   const [salaryData, setSalaryDate] = useLocalStorage("salaryData", null);
+  const [signature, setSignature] = useLocalStorage("signature", null);
 
   const router = useRouter();
 
@@ -354,6 +355,8 @@ export const AuthProvider = ({ children }) => {
         setOrigin,
         salaryData,
         setSalaryDate,
+        signature,
+        setSignature,
       }}
     >
       {children}
