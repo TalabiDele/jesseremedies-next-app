@@ -114,6 +114,7 @@ export const AuthProvider = ({ children }) => {
     "isGuarantorPassport",
     null
   );
+  const [search, setSearch] = useState();
 
   const router = useRouter();
 
@@ -366,6 +367,8 @@ export const AuthProvider = ({ children }) => {
         setIsPassport,
         isGuarantorPassport,
         setIsGuarantorPassport,
+        search,
+        setSearch,
       }}
     >
       {children}

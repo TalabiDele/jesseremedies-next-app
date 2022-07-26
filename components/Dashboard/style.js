@@ -78,6 +78,18 @@ export const Container = styled.div`
         display: flex;
         width: 100%;
         justify-content: space-between;
+        align-items: center;
+
+        li {
+          cursor: pointer;
+        }
+
+        .active {
+          background: rgba(31, 65, 115, 0.1);
+          border-radius: 5px;
+          padding: 10px 20px;
+          font-weight: 700;
+        }
       }
     }
 

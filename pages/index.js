@@ -9,7 +9,6 @@ export default function Home() {
   );
 }
 
-// Display images in review
 // Sorting by period in the reports page
 // Implement search
 // CRM
