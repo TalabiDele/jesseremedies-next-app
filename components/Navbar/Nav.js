@@ -34,22 +34,29 @@ const Nav = () => {
     const query = qs.stringify(
       {
         filters: {
-          $or: [
-            {
-              $and: [
-                { firstname: { $notNull: true } },
-                { firstname: { $eq: search } },
-                { firstname: { $eq: search } },
-              ],
-            },
-            {
-              $and: [
-                { firstname: { $null: true } },
-                { lastname: { $eq: search } },
-                { lastname: { $eq: search } },
-              ],
-            },
-          ],
+          firstname: {
+            $eq: e.target.value,
+          },
+
+          lastname: {
+            $eq: e.target.value,
+          },
+          // $or: [
+          //   {
+          //     firstname: {
+          //       $contains: e.target.value,
+          //     },
+
+          //     lastname: {
+          //       $contains: e.target.value,
+          //     },
+          //   },
+          // ],
+          // loan: {
+          //   name: {
+          //     $eq: "Kai doe",
+          //   },
+          // },
         },
       },
       {
@@ -64,7 +71,7 @@ const Nav = () => {
     console.log(e.target.value);
 
     const res = await fetch(
-      `${API_URL}/customers?filters[firstname][$eq]=chima`,
+      `${API_URL}/customers?populate=*&filters[$or][0][firstname][$containsi]=${e.target.value}&filters[$or][1][lastname][$containsi]=${e.target.value}&filters[$or][2][loans][loan_id][$containsi]=${e.target.value}&filters[$or][3][user][username][$containsi]=${e.target.value}`,
       {
         method: "GET",
         // headers: {
@@ -77,7 +84,7 @@ const Nav = () => {
 
     const data = await res.json();
     setSearchData(data);
-    console.log(data);
+    console.log(searchData);
   };
 
   return (
