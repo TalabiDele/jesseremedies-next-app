@@ -18,6 +18,10 @@ export const Container = styled.div`
     font-size: 20px;
   }
 
+  form {
+    width: 100%;
+  }
+
   input {
     border: none;
     background: #f4f4f4;

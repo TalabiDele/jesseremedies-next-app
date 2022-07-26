@@ -27,6 +27,7 @@ const Nav = () => {
   const router = useRouter();
 
   const handleSearchChange = async (e) => {
+    e.preventDefault();
     setIsSearch(true);
 
     setSearch(e.target.value);
@@ -68,37 +69,39 @@ const Nav = () => {
       setIsSearch(false);
     }
 
-    console.log(e.target.value);
+    // console.log(e.target.value);
 
-    const res = await fetch(
-      `${API_URL}/customers?populate=*&filters[$or][0][firstname][$containsi]=${e.target.value}&filters[$or][1][lastname][$containsi]=${e.target.value}&filters[$or][2][loans][loan_id][$containsi]=${e.target.value}&filters[$or][3][user][username][$containsi]=${e.target.value}`,
-      {
-        method: "GET",
-        // headers: {
-        // "Content-Type": "application/json",filters[firstname][$contains][$eq]&filters[user][username][$eq]&filters[firstname]
-        // Authorization: `Bearer ${token}`,
-        // },
-        // body: JSON.stringify(postItem),
-      }
-    );
+    // const res = await fetch(
+    //   `${API_URL}/customers?populate=*&filters[$or][0][firstname][$containsi]=${search}&filters[$or][1][lastname][$containsi]=${search}&filters[$or][2][loans][loan_id][$containsi]=${search}&filters[$or][3][user][username][$containsi]=${search}`,
+    //   {
+    //     method: "GET",
+    //     // headers: {
+    //     // "Content-Type": "application/json",filters[firstname][$contains][$eq]&filters[user][username][$eq]&filters[firstname]
+    //     // Authorization: `Bearer ${token}`,
+    //     // },
+    //     // body: JSON.stringify(postItem),
+    //   }
+    // );
 
-    const data = await res.json();
-    setSearchData(data);
-    console.log(searchData);
+    // const data = await res.json();
+    // setSearchData(data);
+    // console.log(searchData);
+    router.push(`/search?term=${search}`);
   };
 
   return (
     <>
       <>
-        <Search searchData={searchData} />
         <Container>
           <div className="container">
             <h1>Jesse Remedies</h1>
-            <input
-              type="text"
-              placeholder="Search User, Loan Id etc"
-              onChange={(e) => handleSearchChange(e)}
-            />
+            <form action="" onSubmit={(e) => handleSearchChange(e)}>
+              <input
+                type="text"
+                placeholder="Search User, Loan Id etc"
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </form>
             <div className="user_info">
               <Image src={userImage} alt="user image" width={50} height={50} />
               {user && (

@@ -206,7 +206,6 @@ const Dashboard = ({ loans, customers }) => {
                                     " " +
                                     e.attributes.lastname}
                                 </p>
-                                {console.log(loan.attributes)}
                                 {loan.attributes.disbursed && (
                                   <p className="loaned btn">Disbursed</p>
                                 )}
