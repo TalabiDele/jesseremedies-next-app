@@ -9,6 +9,7 @@ import {
   RiLineChartLine,
   RiAccountCircleLine,
 } from "react-icons/ri";
+import { FaUsers } from "react-icons/fa";
 import AuthContext from "@/context/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,11 +18,6 @@ import Search from "../Search/Search";
 import { API_URL } from "@/config/index";
 
 const Nav = () => {
-  const qs = require("qs");
-
-  const [isSearch, setIsSearch] = useState(false);
-  const [searchData, setSearchData] = useState();
-
   const { user, logout, search, setSearch } = useContext(AuthContext);
 
   const router = useRouter();
@@ -32,60 +28,10 @@ const Nav = () => {
 
     setSearch(e.target.value);
 
-    const query = qs.stringify(
-      {
-        filters: {
-          firstname: {
-            $eq: e.target.value,
-          },
-
-          lastname: {
-            $eq: e.target.value,
-          },
-          // $or: [
-          //   {
-          //     firstname: {
-          //       $contains: e.target.value,
-          //     },
-
-          //     lastname: {
-          //       $contains: e.target.value,
-          //     },
-          //   },
-          // ],
-          // loan: {
-          //   name: {
-          //     $eq: "Kai doe",
-          //   },
-          // },
-        },
-      },
-      {
-        encodeValuesOnly: true,
-      }
-    );
-
     if (e.target.value === "") {
       setIsSearch(false);
     }
 
-    // console.log(e.target.value);
-
-    // const res = await fetch(
-    //   `${API_URL}/customers?populate=*&filters[$or][0][firstname][$containsi]=${search}&filters[$or][1][lastname][$containsi]=${search}&filters[$or][2][loans][loan_id][$containsi]=${search}&filters[$or][3][user][username][$containsi]=${search}`,
-    //   {
-    //     method: "GET",
-    //     // headers: {
-    //     // "Content-Type": "application/json",filters[firstname][$contains][$eq]&filters[user][username][$eq]&filters[firstname]
-    //     // Authorization: `Bearer ${token}`,
-    //     // },
-    //     // body: JSON.stringify(postItem),
-    //   }
-    // );
-
-    // const data = await res.json();
-    // setSearchData(data);
-    // console.log(searchData);
     router.push(`/search?term=${search}`);
   };
 
@@ -158,6 +104,13 @@ const Nav = () => {
                   <li>
                     <RiLineChartLine color="#1F4173" fontSize={30} />{" "}
                     <p>Report</p>
+                  </li>
+                </a>
+              </Link>
+              <Link href="/crm">
+                <a className={router.pathname === "/crm" ? "active" : ""}>
+                  <li>
+                    <FaUsers color="#1F4173" fontSize={30} /> <p>CRM</p>
                   </li>
                 </a>
               </Link>
