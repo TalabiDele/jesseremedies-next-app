@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
-import { Container, Wrapper } from "./style";
+import { Container, Wrapper, All } from "./style";
 import userImage from "@/public/userImage.png";
+import logo from "@/public/jesse-logo.png";
 import {
   RiFunctionLine,
   RiHandCoinLine,
@@ -37,10 +38,10 @@ const Nav = () => {
 
   return (
     <>
-      <>
+      <All>
         <Container>
           <div className="container">
-            <h1>Jesse Remedies</h1>
+            <Image src={logo} alt="" width={300} objectFit="contain" />
             <form action="" onSubmit={(e) => handleSearchChange(e)}>
               <input
                 type="text"
@@ -128,7 +129,7 @@ const Nav = () => {
             </ul>
           </div>
         </Wrapper>
-      </>
+      </All>
     </>
   );
 };

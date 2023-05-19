@@ -18,11 +18,16 @@ export async function getServerSideProps() {
   const loans = await res.json();
 
   const resCustomers = await fetch(
-    `${API_URL}/customers?populate=*&_sort=createdAt:DESC`
+    `${API_URL}/customers?_sort=createdAt:DESC&populate=*`
   );
   const customers = await resCustomers.json();
 
+  console.log(customers);
+
   return {
-    props: { loans, customers },
+    props: {
+      loans,
+      customers,
+    },
   };
 }

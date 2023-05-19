@@ -12,7 +12,7 @@ const UsersPage = ({ customers }) => {
 
   return (
     <Container>
-      <h1>Users</h1>
+      <h1>Customers</h1>
       <div className="all">
         <div className="container">
           <div className="orders">

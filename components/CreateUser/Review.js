@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState, useContext, useRef } from "react";
-import { Container, GlobalStyle, Wrapper } from "./style";
+import { Container, GlobalStyle, Loader, LoaderDiv, Wrapper } from "./style";
 import AuthContext from "@/context/AuthContext";
 import { API_URL } from "@/config/index";
 import ReactToPrint, { PrintContextConsumer } from "react-to-print";
@@ -67,6 +67,9 @@ const Review = ({ token }) => {
     addCommas,
     isGuarantorPassport,
     isPassport,
+    id,
+    signature,
+    loading,
   } = useContext(AuthContext);
 
   console.log(API_URL);
@@ -145,6 +148,8 @@ const Review = ({ token }) => {
   };
 
   const handleUploads = async (e) => {
+    setLoading(true);
+
     console.log(passport);
     const passportData = new FormData();
     passportData.append("files", passport);
@@ -168,6 +173,24 @@ const Review = ({ token }) => {
     //   imageUploaded(data);
     // } else {
     // }
+
+    const idForm = new FormData();
+    idForm.append("files", id);
+    idForm.append("ref", "api::customer.customer");
+    idForm.append("refId", e.data.id);
+    idForm.append("field", "identification");
+
+    const idUpload = await fetch(`${API_URL}/upload`, {
+      method: "POST",
+      headers: {
+        // "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+      body: idForm,
+    });
+
+    const idData = await idUpload.json();
+    console.log("Office ID data", idData);
 
     const officeIdData = new FormData();
     officeIdData.append("files", officeId);
@@ -291,15 +314,18 @@ const Review = ({ token }) => {
         // "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-      body: guarantorForm,
+      body: signatureForm,
     });
 
     const signatureData = await resSignature.json();
 
     console.log("signature data", signatureData);
+
+    setLoading(false);
   };
 
   const handleLoanRes = async (e) => {
+    setLoading(true);
     const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
       method: "POST",
       headers: {
@@ -323,13 +349,23 @@ const Review = ({ token }) => {
 
     const loanData = loanRes.json();
     console.log(loanData);
+
+    setLoading(false);
   };
   console.log(isGuarantorPassport);
 
   return (
     <>
+      {loading && (
+        <div className="">
+          <Loader></Loader>
+          <LoaderDiv></LoaderDiv>
+        </div>
+      )}
       <Container>
         <GlobalStyle />
+        <Loader></Loader>
+        <LoaderDiv></LoaderDiv>
         <div className="container">
           <div className="top">
             <h1>Overview</h1>

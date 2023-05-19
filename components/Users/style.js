@@ -1,7 +1,14 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 1rem 3rem 1rem 15rem;
+  margin: 0rem 0rem 1rem 15rem;
+  position: fixed;
+  top: 5rem;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  height: 100vh;
 
   p {
     font-size: 14px;
@@ -9,6 +16,7 @@ export const Container = styled.div`
 
   h1 {
     font-size: 26px;
+    margin-top: 3rem;
   }
 
   div.all {

@@ -5,6 +5,6 @@ module.exports = {
     domains: ["res.cloudinary.com"],
   },
   env: {
-    API_URL: "https://jesseremedies.herokuapp.com/api",
+    API_URL: "https://jesseremedies.up.railway.app/api",
   },
 };

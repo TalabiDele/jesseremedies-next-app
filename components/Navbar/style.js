@@ -1,8 +1,20 @@
 import styled from "styled-components";
 
+export const All = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+`;
+
 export const Container = styled.div`
   width: 100%;
-  background: #fcfcfc;
+  background: #fff;
+  position: relative;
+  z-index: 1;
+  top: 0;
 
   .container {
     display: grid;
@@ -51,7 +63,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  position: fixed;
+  /* position: fixed; */
   left: 0;
   right: 0;
   background: #fff;
