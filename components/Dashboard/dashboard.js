@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-export const Dashboard = ({ loans, customers }) => {
+const Dashboard = ({ loans, customers }) => {
 	const [isAll, setIsAll] = useState(true)
 	const [isLoaned, setIsLoaned] = useState(false)
 	const [isOverdue, setIsOverdue] = useState(false)
@@ -988,3 +988,5 @@ export const Dashboard = ({ loans, customers }) => {
 		</Container>
 	)
 }
+
+export default Dashboard
