@@ -1,7 +1,6 @@
 import React from 'react'
 import Layout from '@/components/Layout'
-// import Dashboard from '@/components/Dashboard/Dashboard'
-import Dashboard from '../components/Dashboard/Dashboard'
+import Dashboard from '@/components/Dashboard/Dashboard'
 import { API_URL } from '@/config/index'
 
 const dashboard = ({ loans, customers }) => {
