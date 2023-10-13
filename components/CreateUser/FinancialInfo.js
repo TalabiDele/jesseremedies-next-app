@@ -146,8 +146,6 @@ const FinancialInfo = ({
 						</div>
 					</div>
 
-					<Payment />
-
 					{/* </div> */}
 					<div className='btns'>
 						<button className='cancel'>Cancel</button>
