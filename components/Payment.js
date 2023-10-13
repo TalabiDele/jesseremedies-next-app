@@ -55,9 +55,9 @@ const Payment = () => {
 
 		const data = await res.json()
 
-		console.log(data)
+		console.log(data.data.authorization.authorization_code)
 
-		setAuthCode(data.authorization_code)
+		setAuthCode(data.data.authorization.authorization_code)
 	}
 
 	return (

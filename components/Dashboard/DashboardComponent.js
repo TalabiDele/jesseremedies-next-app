@@ -21,6 +21,10 @@ const DashboardComponent = ({ loans, customers }) => {
 	const { user, addCommas } = useContext(AuthContext)
 	const router = useRouter()
 
+	const { reference } = router.query
+
+	console.log(reference)
+
 	console.log('Loans', loans)
 	console.log('Customers', customers)
 
