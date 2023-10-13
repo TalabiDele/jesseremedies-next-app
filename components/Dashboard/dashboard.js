@@ -184,9 +184,9 @@ export const Dashboard = ({ loans, customers }) => {
 								<li>Total</li>
 							</ul>
 							{user &&
-								user.teller &&
+								user?.teller &&
 								customers &&
-								customers.data.map((e) => (
+								customers?.data?.map((e) => (
 									// user.id === e.attributes.user.data.id &&
 									<>
 										{isAll && (
@@ -195,7 +195,7 @@ export const Dashboard = ({ loans, customers }) => {
 												key={e.id}
 												onClick={() => displayCustomer(e.attributes)}
 											>
-												{e.attributes.loans.data.map((loan) => (
+												{e?.attributes?.loans?.data?.map((loan) => (
 													<div className='loan' key={loan.id}>
 														<p className='id'>{loan.attributes.loan_id}</p>
 														<p className='name'>
@@ -359,10 +359,10 @@ export const Dashboard = ({ loans, customers }) => {
 								))}
 
 							{user &&
-								user.supervisor &&
-								customers.data.map((e) => (
+								user?.supervisor &&
+								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
-										{e.attributes.loans.data.map((loan) => (
+										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
 													<div
@@ -547,7 +547,7 @@ export const Dashboard = ({ loans, customers }) => {
 								user.manager &&
 								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
-										{e.attributes.loans.data.map((loan) => (
+										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
 													<div
@@ -729,10 +729,10 @@ export const Dashboard = ({ loans, customers }) => {
 									</div>
 								))}
 							{user &&
-								user.md &&
-								customers.data.map((e) => (
+								user?.md &&
+								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
-										{e.attributes.loans.data.map((loan) => (
+										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
 													<div
