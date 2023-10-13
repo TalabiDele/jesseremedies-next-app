@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 		null
 	)
 	const [officeId, setOfficeId] = useLocalStorage('office_id', null)
-	const [passport, setPassport] = useLocalStorage('passport', null)
+	const [passport, setPassport] = useLocalStorage('passport', {})
 	const [id, setId] = useLocalStorage('id', null)
 	const [payslip, setPaySlip] = useLocalStorage('payslip', null)
 	const [utility, setUtility] = useLocalStorage('utility', null)
@@ -117,6 +117,14 @@ export const AuthProvider = ({ children }) => {
 	const [search, setSearch] = useState()
 	const [loading, setLoading] = useState(false)
 	const [authCode, setAuthCode] = useLocalStorage('authorization_code', '')
+	const [isId, setIsId] = useLocalStorage('is_id', {})
+	const [isPaySlip, setIsPaySlip] = useLocalStorage('is_payslip', {})
+	const [isUtility, setIsUtility] = useLocalStorage('is_utile', {})
+	const [isCac, setIsCac] = useLocalStorage('is_cac', {})
+	const [isMemo, setIsMemo] = useLocalStorage('is_memo', {})
+	const [isSign, setIsSign] = useLocalStorage('is_sign', {})
+	const [isOffice, setIsOffice] = useLocalStorage('is_office', {})
+	const [isGuarantor, setIsGuarantor] = useLocalStorage('is_guarantor', {})
 
 	const router = useRouter()
 
@@ -375,6 +383,22 @@ export const AuthProvider = ({ children }) => {
 				setLoading,
 				authCode,
 				setAuthCode,
+				isId,
+				setIsId,
+				isPaySlip,
+				setIsPaySlip,
+				isUtility,
+				setIsUtility,
+				isCac,
+				setIsCac,
+				isMemo,
+				setIsMemo,
+				isSign,
+				setIsSign,
+				isOffice,
+				setIsOffice,
+				isGuarantor,
+				setIsGuarantor,
 			}}
 		>
 			{children}

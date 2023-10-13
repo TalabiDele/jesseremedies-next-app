@@ -53,6 +53,8 @@ export const Loader = styled.span`
 	z-index: 100;
 	transform: translateZ(0);
 	animation: ${rotate} 1.7s infinite ease, ${round} 1.7s infinite ease;
+	display: flex;
+	justify-content: center;
 `
 
 export const LoaderDiv = styled.div`

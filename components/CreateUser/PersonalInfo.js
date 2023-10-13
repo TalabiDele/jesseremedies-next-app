@@ -67,6 +67,22 @@ const PersonalInfo = ({
 		setSignature,
 		isPassport,
 		setIsPassport,
+		isId,
+		setIsId,
+		isPaySlip,
+		setIsPaySlip,
+		isUtility,
+		setIsUtility,
+		isCac,
+		setIsCac,
+		isMemo,
+		setIsMemo,
+		isSign,
+		setIsSign,
+		isOffice,
+		setIsOffice,
+		isGuarantor,
+		setIsGuarantor,
 	} = useContext(AuthContext)
 
 	const convertBase64 = (file) => {
@@ -106,42 +122,56 @@ const PersonalInfo = ({
 	}
 
 	const handleId = async (e) => {
+		setIsId(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setId(base64)
 	}
 
 	const handleOfficeId = async (e) => {
+		setIsOffice(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setOfficeId(base64)
 	}
 
 	const handlePayslip = async (e) => {
+		setIsPaySlip(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setPaySlip(base64)
 	}
 
 	const handleUtility = async (e) => {
+		setIsUtility(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setUtility(base64)
 	}
 
 	const handleCac = async (e) => {
+		setIsCac(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setCac(base64)
 	}
 
 	const handleMemo = async (e) => {
+		setIsMemo(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setMemo(base64)
 	}
 
 	const handleSignature = async (e) => {
+		setIsSign(e.target.files[0])
+
 		const base64 = await convertBase64(e.target.files[0])
 
 		setSignature(base64)

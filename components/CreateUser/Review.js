@@ -70,6 +70,61 @@ const Review = ({ token }) => {
 		id,
 		signature,
 		loading,
+		isId,
+		setIsId,
+		isPaySlip,
+		setIsPaySlip,
+		isUtility,
+		setIsUtility,
+		isCac,
+		setIsCac,
+		isMemo,
+		setIsMemo,
+		isSign,
+		setIsSign,
+		isOffice,
+		setIsOffice,
+		setFirstName,
+		setLastName,
+		setAddress,
+		setState,
+		setEmail,
+		setDob,
+		setPhoneNumber,
+		setReference,
+		setReferenceNumber,
+		setLoanAmount,
+		setDuration,
+		setInterest,
+		setLoanPurpose,
+		setEmploymentStatus,
+		setEmployer,
+		setDateStarted,
+		setWorkEmail,
+		setWorkNumber,
+		setIncome,
+		setAsset,
+		setAssetType,
+		setAssetValue,
+		setMonthlyPayment,
+		setGuarantorHome,
+		setGuarantorBirth,
+		setGuarantorOffice,
+		setGuarantorPhone,
+		setGuarantorCareer,
+		setGuarantorPosition,
+		setGuarantorRelation,
+		setGuarantorName,
+		setGuarantorEmployer,
+		setGuarantorEmail,
+		setGender,
+		setPosition,
+		setEmploymentType,
+		setDependants,
+		setOrigin,
+		setSalaryDate,
+		setLoading,
+		authCode,
 	} = useContext(AuthContext)
 
 	console.log(API_URL)
@@ -85,6 +140,8 @@ const Review = ({ token }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
+
+		setLoading(true)
 
 		console.log(token)
 
@@ -134,6 +191,9 @@ const Review = ({ token }) => {
 					gender,
 					// card_expiry: cardExpiry,
 					state,
+					payment: {
+						authorization_code: authCode,
+					},
 					user: {
 						id: user.id,
 					},
@@ -144,14 +204,59 @@ const Review = ({ token }) => {
 		const data = await res.json()
 		console.log(data)
 		// console.log(data.data.id)
+		if (data) {
+			handleLoanRes(data)
+			handleUploads(data)
+			imageUploaded(data)
+		}
 
-		handleLoanRes(data)
-		handleUploads(data)
-		imageUploaded(data)
+		setFirstName('')
+		setLastName('')
+		setAddress('')
+		setState('')
+		setEmail('')
+		setDob('')
+		setPhoneNumber('')
+		setReference('')
+		setReferenceNumber('')
+		setLoanAmount('')
+		setDuration('')
+		setInterest('')
+		setLoanPurpose('')
+		setEmploymentStatus('')
+		setEmployer('')
+		setDateStarted('')
+		setWorkEmail('')
+		setWorkNumber('')
+		setIncome('')
+		setAsset('')
+		setAssetType('')
+		setAssetValue('')
+		setMonthlyPayment('')
+		setGuarantorHome('')
+		setGuarantorBirth('')
+		setGuarantorOffice('')
+		setGuarantorPhone('')
+		setGuarantorCareer('')
+		setGuarantorPosition('')
+		setGuarantorRelation('')
+		setGuarantorName('')
+		setGuarantorEmployer('')
+		setGuarantorEmail('')
+		setGender('')
+		setPosition('')
+		setEmploymentType('')
+		setDependants('')
+		setOrigin('')
+		setSalaryDate('')
+
+		router.push('/dashboard')
+
+		setLoading(false)
 	}
 
 	const handleUploads = async (e) => {
-		// setLoading(true)
+		setLoading(true)
 
 		console.log(passport)
 		const passportData = new FormData()
@@ -178,7 +283,7 @@ const Review = ({ token }) => {
 		// }
 
 		const idForm = new FormData()
-		idForm.append('files', id)
+		idForm.append('files', isId)
 		idForm.append('ref', 'api::customer.customer')
 		idForm.append('refId', e.data.id)
 		idForm.append('field', 'identification')
@@ -196,7 +301,7 @@ const Review = ({ token }) => {
 		console.log('Office ID data', idData)
 
 		const officeIdData = new FormData()
-		officeIdData.append('files', officeId)
+		officeIdData.append('files', isOffice)
 		officeIdData.append('ref', 'api::customer.customer')
 		officeIdData.append('refId', e.data.id)
 		officeIdData.append('field', 'office_id')
@@ -214,7 +319,7 @@ const Review = ({ token }) => {
 		console.log('Office ID data', officeData)
 
 		const payslipForm = new FormData()
-		payslipForm.append('files', payslip)
+		payslipForm.append('files', isPaySlip)
 		payslipForm.append('ref', 'api::customer.customer')
 		payslipForm.append('refId', e.data.id)
 		payslipForm.append('field', 'payslip')
@@ -232,7 +337,7 @@ const Review = ({ token }) => {
 		console.log('payslip data', payslipData)
 
 		const utilityForm = new FormData()
-		utilityForm.append('files', utility)
+		utilityForm.append('files', isUtility)
 		utilityForm.append('ref', 'api::customer.customer')
 		utilityForm.append('refId', e.data.id)
 		utilityForm.append('field', 'utility')
@@ -250,7 +355,7 @@ const Review = ({ token }) => {
 		console.log('utility data', utilityData)
 
 		const cacForm = new FormData()
-		cacForm.append('files', cac)
+		cacForm.append('files', isCac)
 		cacForm.append('ref', 'api::customer.customer')
 		cacForm.append('refId', e.data.id)
 		cacForm.append('field', 'cac')
@@ -268,7 +373,7 @@ const Review = ({ token }) => {
 		console.log('cac data', cacData)
 
 		const memoForm = new FormData()
-		memoForm.append('files', memo)
+		memoForm.append('files', isMemo)
 		memoForm.append('ref', 'api::customer.customer')
 		memoForm.append('refId', e.data.id)
 		memoForm.append('field', 'memo')
@@ -306,7 +411,7 @@ const Review = ({ token }) => {
 		console.log('guarantor data', guarantorData)
 
 		const signatureForm = new FormData()
-		signatureForm.append('files', signature)
+		signatureForm.append('files', isSign)
 		signatureForm.append('ref', 'api::customer.customer')
 		signatureForm.append('refId', e.data.id)
 		signatureForm.append('field', 'signature')
@@ -354,22 +459,63 @@ const Review = ({ token }) => {
 		const loanData = loanRes.json()
 		console.log(loanData)
 
-		// setLoading(false)
+		setLoading(false)
 	}
-	console.log(isGuarantorPassport)
+
+	const handleCancel = () => {
+		setFirstName('')
+		setLastName('')
+		setAddress('')
+		setState('')
+		setEmail('')
+		setDob('')
+		setPhoneNumber('')
+		setReference('')
+		setReferenceNumber('')
+		setLoanAmount('')
+		setDuration('')
+		setInterest('')
+		setLoanPurpose('')
+		setEmploymentStatus('')
+		setEmployer('')
+		setDateStarted('')
+		setWorkEmail('')
+		setWorkNumber('')
+		setIncome('')
+		setAsset('')
+		setAssetType('')
+		setAssetValue('')
+		setMonthlyPayment('')
+		setGuarantorHome('')
+		setGuarantorBirth('')
+		setGuarantorOffice('')
+		setGuarantorPhone('')
+		setGuarantorCareer('')
+		setGuarantorPosition('')
+		setGuarantorRelation('')
+		setGuarantorName('')
+		setGuarantorEmployer('')
+		setGuarantorEmail('')
+		setGender('')
+		setPosition('')
+		setEmploymentType('')
+		setDependants('')
+		setOrigin('')
+		setSalaryDate('')
+
+		router.push('/dashboard')
+	}
 
 	return (
 		<>
 			{loading && (
-				<div className=''>
+				<div className=' flex justify-center items-center'>
 					<Loader></Loader>
 					<LoaderDiv></LoaderDiv>
 				</div>
 			)}
 			<Container>
 				<GlobalStyle />
-				{/* <Loader></Loader>
-				<LoaderDiv></LoaderDiv> */}
 				<div className='container'>
 					<div className='top'>
 						<h1>Overview</h1>
@@ -606,7 +752,9 @@ const Review = ({ token }) => {
 						</div>
 					</Wrapper>
 					<div className='btns'>
-						<button className='cancel'>Cancel</button>
+						<button className='cancel' onClick={handleCancel}>
+							Cancel
+						</button>
 						<ReactToPrint
 							// trigger={() => <button className="print">Print this out!</button>}
 							content={() => componentRef}
