@@ -432,6 +432,28 @@ const Review = ({ token }) => {
 		// setLoading(false)
 	}
 
+	const handlePayment = async (e) => {
+		const res = await fetch(`${API_URL}/payments?populate=*`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				data: {
+					authorization_code: authCode,
+					customer: {
+						id: e.data.id,
+					},
+				},
+			}),
+		})
+
+		const data = await res.json()
+
+		console.log(data)
+	}
+
 	const handleLoanRes = async (e) => {
 		console.log(e)
 		// setLoading(true)
@@ -458,6 +480,8 @@ const Review = ({ token }) => {
 
 		const loanData = loanRes.json()
 		console.log(loanData)
+
+		handlePayment(e)
 
 		setLoading(false)
 	}
