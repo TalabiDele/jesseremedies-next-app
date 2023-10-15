@@ -12,6 +12,8 @@ const Review = ({ token }) => {
 	const componentRef = useRef()
 	const [loanData, setLoanData] = useState({})
 
+	const custId = Math.random().toString(36).substr(2, 5)
+
 	const {
 		firstName,
 		lastName,
@@ -157,7 +159,7 @@ const Review = ({ token }) => {
 					lastname: lastName,
 					address,
 					phone_1: phoneNumber,
-					customer_id: Math.random().toString(36).substr(2, 5),
+					customer_id: custId,
 					// dob,
 					email,
 					reference_name: reference,
@@ -197,6 +199,7 @@ const Review = ({ token }) => {
 					user: {
 						id: user.id,
 					},
+					slug: custId,
 				},
 			}),
 		})
