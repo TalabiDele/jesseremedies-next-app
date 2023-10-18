@@ -91,7 +91,7 @@ const PrintableBodyWrapper = styled.div`
 `
 
 export const Container = styled.div`
-	width: 80%;
+	width: 60%;
 	margin: auto;
 	display: grid;
 	justify-items: center;
@@ -106,7 +106,8 @@ export const Container = styled.div`
 		box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
 		border-radius: 20px;
 		padding: 3rem;
-		width: 100%;
+		width: 80%;
+		margin: auto;
 
 		h3 {
 			text-align: center;

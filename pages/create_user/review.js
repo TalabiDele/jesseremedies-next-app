@@ -53,9 +53,9 @@ const ReviewPage = ({ token }) => {
 export default ReviewPage
 
 const Back = styled.div`
-	margin-left: 20rem;
+	margin-left: 18rem;
 	position: relative;
-	top: 4rem;
+	top: 6rem;
 	text-decoration: underline;
 	cursor: pointer;
 	transition: all 0.3s ease-in-out;

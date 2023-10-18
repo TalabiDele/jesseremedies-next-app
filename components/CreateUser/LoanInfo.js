@@ -27,6 +27,8 @@ const LoanInfo = ({
 		setInterest,
 		monthlyPayment,
 		setMonthlyPayment,
+		email,
+		setEmail,
 	} = useContext(AuthContext)
 
 	// console.log("S00" + Math.random().toString(36).substr(2, 2));
@@ -63,6 +65,15 @@ const LoanInfo = ({
 				<h1>Loan Information</h1>
 				<form action='' onSubmit={handleSubmit}>
 					<div className='no_flex'>
+						<label htmlFor='email'>Email Address</label>
+						<input
+							type='email'
+							placeholder='johdoe@email.com'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+						/>
+					</div>
+					<div className='no_flex'>
 						<label htmlFor='loan_amount'>Loan Amount Requested</label>
 						<input
 							type='number'
@@ -84,13 +95,13 @@ const LoanInfo = ({
 							value={interest}
 							onChange={(e) => setInterest(e.target.value)}
 						/>
-						<label htmlFor='monthly_payment'>Monthly Payment</label>
+						{/* <label htmlFor='monthly_payment'>Monthly Payment</label>
 						<input
 							type='number'
 							placeholder='N100,000'
 							value={monthlyPayment}
 							onChange={(e) => setMonthlyPayment(e.target.value)}
-						/>
+						/> */}
 						<label htmlFor='monthly_payment'>Purpose of Loan</label>
 						<input
 							type='text'
@@ -100,7 +111,7 @@ const LoanInfo = ({
 						/>
 					</div>
 
-					<Payment />
+					<Payment email={email} />
 
 					<div className='btns'>
 						<button className='cancel'>Cancel</button>

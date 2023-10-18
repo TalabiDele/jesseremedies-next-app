@@ -44,7 +44,19 @@ const Customer = ({ customers, token }) => {
 		authCode,
 	} = useContext(AuthContext)
 
-	useEffect(() => {}, [])
+	const date = new Date()
+
+	console.log(date.getDate())
+
+	console.log(user)
+
+	useEffect(() => {
+		if (date.getDate() === 17) {
+			console.log('Its today')
+		} else {
+			console.log('Not today')
+		}
+	}, [])
 
 	console.log(customers)
 
@@ -305,11 +317,11 @@ const Customer = ({ customers, token }) => {
 							<div className='wrapper'>
 								<div className='personal'>
 									<div className='img'>
-										{e.attributes.passport.data ? (
+										{e?.attributes?.passport?.data ? (
 											<Image
 												src={e.attributes.passport.data.attributes.url}
-												width={200}
-												height={200}
+												width={100}
+												height={100}
 												alt='Profile image'
 												className='image'
 												objectFit='cover'
@@ -317,8 +329,8 @@ const Customer = ({ customers, token }) => {
 										) : (
 											<Image
 												src={image}
-												width={200}
-												height={200}
+												width={100}
+												height={100}
 												alt='Profile image'
 												className='image'
 											/>

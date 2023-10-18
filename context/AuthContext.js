@@ -125,17 +125,76 @@ export const AuthProvider = ({ children }) => {
 	const [isSign, setIsSign] = useLocalStorage('is_sign', {})
 	const [isOffice, setIsOffice] = useLocalStorage('is_office', {})
 	const [isGuarantor, setIsGuarantor] = useLocalStorage('is_guarantor', {})
+	const [loans, setLoans] = useState()
 
 	const router = useRouter()
 
+	const date = new Date()
+
 	useEffect(() => {
 		checkUserLoggedIn()
-		router.prefetch('/feeds')
+		handleLoans()
+
+		loans?.forEach((customer) => {
+			customer?.loans?.data?.forEach((loan) => {
+				if (loan?.disbursed) {
+					handleCharge(
+						customer?.attributes?.email,
+						loan.attributes.monthly_payment
+					)
+				}
+			})
+		})
+
+		// Update a field after payment is made
+		// Check if that field is updated to avoid double debit
+		// Check if loan amount + interest === paid amount
+		// Loop through all the loans to ensure debit
+		// Create a backend field that checks if the customer has an active loan
+		// Run the debit event if the customer has an active loan
+		// Set the active loan to false if the loan has been fully paid
+		// if(date.getDate() === )
 	}, [])
+
+	// Charge customers monthly
+	const handleCharge = async (email, amount, auth) => {
+		const res = await fetch(
+			`https://api.paystack.co/transaction/charge_authorization`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
+				},
+				body: JSON.stringify({
+					email,
+					amount,
+					authorization_code: auth,
+				}),
+			}
+		)
+
+		const data = await res.json()
+
+		console.log(data)
+	}
+
+	// Get all loans
+	const handleLoans = async () => {
+		const res = await fetch(`${API_URL}/customers?populate=*`, {
+			method: 'GET',
+		})
+
+		const data = await res.json()
+
+		setLoans(data.data)
+
+		console.log(data)
+	}
 
 	// Register
 	const register = async (user) => {
-		setIsLoading(true)
+		setLoading(true)
 		const res = await fetch(`${NEXT_PUBLIC_URL}/api/register`, {
 			method: 'POST',
 			headers: {
@@ -157,7 +216,7 @@ export const AuthProvider = ({ children }) => {
 		setUserData(data)
 
 		if (res.ok) {
-			setIsLoading(true)
+			setLoading(true)
 			setUser(data.user)
 			setSent(true)
 			window.scrollTo({
@@ -174,7 +233,7 @@ export const AuthProvider = ({ children }) => {
 			console.log('not working')
 			setEmailError(true)
 			setTimeout(() => {
-				setIsLoading(false)
+				setLoading(false)
 				setEmailError(false)
 			}, 1000)
 		}

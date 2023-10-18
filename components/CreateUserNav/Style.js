@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-	width: 70vw;
-	margin: 3rem auto;
+	width: 60vw;
+	margin: 7rem auto 2rem auto;
 
 	div.container {
 		display: grid;
@@ -21,8 +21,8 @@ export const Container = styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		height: 5rem;
-		width: 5rem;
+		height: 4rem;
+		width: 4rem;
 		margin: 0rem auto 1rem auto;
 	}
 
@@ -35,7 +35,7 @@ export const Container = styled.div`
 	p.text {
 		text-align: center;
 		color: #1f4173;
-		font-size: 14px;
+		font-size: 12px;
 	}
 
 	p.text_active {

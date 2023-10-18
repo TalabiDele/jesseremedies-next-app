@@ -187,6 +187,10 @@ const PersonalInfo = ({
 		setIsGender(false)
 	}
 
+	const handleDate = (e) => {
+		console.log(e.target.value)
+	}
+
 	return (
 		<Container>
 			<div className='container'>
@@ -217,7 +221,8 @@ const PersonalInfo = ({
 							<input
 								type='date'
 								value={dob}
-								onChange={(e) => setDob(e.target.value)}
+								// onChange={(e) => setDob(e.target.value)}
+								onChange={(e) => handleDate(e)}
 							/>
 						</div>
 					</div>
@@ -316,7 +321,7 @@ const PersonalInfo = ({
 						</div>
 					</div>
 					<div className='flex_two'>
-						<div className='no_flex'>
+						{/* <div className='no_flex'>
 							<label htmlFor='email'>Email Address</label>
 							<input
 								type='email'
@@ -324,7 +329,7 @@ const PersonalInfo = ({
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
-						</div>
+						</div> */}
 						<div className='no_flex'>
 							<label htmlFor='phone'>Phone Number</label>
 							<input

@@ -4,12 +4,12 @@ import { API_URL, NEXT_PUBLIC_URL } from '../config'
 import { useRouter } from 'next/router'
 import AuthContext from '@/context/AuthContext'
 
-const Payment = () => {
+const Payment = ({ email }) => {
 	const [ref, setRef] = useState('')
 
 	const router = useRouter()
 
-	const { authCode, setAuthCode } = useContext(AuthContext)
+	const { setAuthCode } = useContext(AuthContext)
 
 	const { reference } = router.query
 
@@ -27,7 +27,7 @@ const Payment = () => {
 				Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
 			},
 			body: JSON.stringify({
-				email: 'customer@email.com',
+				email,
 				currency: 'NGN',
 				amount: 5000,
 			}),
