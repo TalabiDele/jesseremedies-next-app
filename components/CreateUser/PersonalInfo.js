@@ -221,8 +221,7 @@ const PersonalInfo = ({
 							<input
 								type='date'
 								value={dob}
-								// onChange={(e) => setDob(e.target.value)}
-								onChange={(e) => handleDate(e)}
+								onChange={(e) => setDob(e.target.value)}
 							/>
 						</div>
 					</div>
