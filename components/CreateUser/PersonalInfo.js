@@ -61,7 +61,7 @@ const PersonalInfo = ({
 		setDependants,
 		origin,
 		setOrigin,
-		salaryData,
+		salaryDate,
 		setSalaryDate,
 		signature,
 		setSignature,
@@ -312,9 +312,9 @@ const PersonalInfo = ({
 						<div className='no_flex'>
 							<label htmlFor='dependants'>Salary Data</label>
 							<input
-								type='date'
+								type='number'
 								// placeholder="3"
-								value={salaryData}
+								value={salaryDate}
 								onChange={(e) => setSalaryDate(e.target.value)}
 							/>
 						</div>

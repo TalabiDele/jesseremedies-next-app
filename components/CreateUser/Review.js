@@ -135,7 +135,7 @@ const Review = ({ token }) => {
 		console.log(passport)
 		// e.preventDefault();
 		// setUserInfo({ ...userInfo, user_image: e });
-		const res = await fetch(`${API_URL}/customers/${e.data.id}?populate=*`)
+		const res = await fetch(`${API_URL}/customers/${e?.data?.id}?populate=*`)
 		const data = await res.json()
 		console.log(data)
 	}
@@ -171,7 +171,7 @@ const Review = ({ token }) => {
 					work_number: workNumber,
 					current_income: income,
 					asset,
-					salary_data: salaryDate,
+					salary_day: salaryDate,
 					asset_type: assetType,
 					value_of_asset: assetValue,
 					guarantor_name: guarantorName,
@@ -207,54 +207,56 @@ const Review = ({ token }) => {
 
 		const data = await res.json()
 		console.log(data)
-		// console.log(data.data.id)
-		if (data) {
+
+		if (res.ok) {
 			handleLoanRes(data)
 			handleUploads(data)
 			imageUploaded(data)
+
+			setFirstName('')
+			setLastName('')
+			setAddress('')
+			setState('')
+			setEmail('')
+			setDob('')
+			setPhoneNumber('')
+			setReference('')
+			setReferenceNumber('')
+			setLoanAmount('')
+			setDuration('')
+			setInterest('')
+			setLoanPurpose('')
+			setEmploymentStatus('')
+			setEmployer('')
+			setDateStarted('')
+			setWorkEmail('')
+			setWorkNumber('')
+			setIncome('')
+			setAsset('')
+			setAssetType('')
+			setAssetValue('')
+			setMonthlyPayment('')
+			setGuarantorHome('')
+			setGuarantorBirth('')
+			setGuarantorOffice('')
+			setGuarantorPhone('')
+			setGuarantorCareer('')
+			setGuarantorPosition('')
+			setGuarantorRelation('')
+			setGuarantorName('')
+			setGuarantorEmployer('')
+			setGuarantorEmail('')
+			setGender('')
+			setPosition('')
+			setEmploymentType('')
+			setDependants('')
+			setOrigin('')
+			setSalaryDate('')
+
+			router.push('/dashboard')
 		}
 
-		setFirstName('')
-		setLastName('')
-		setAddress('')
-		setState('')
-		setEmail('')
-		setDob('')
-		setPhoneNumber('')
-		setReference('')
-		setReferenceNumber('')
-		setLoanAmount('')
-		setDuration('')
-		setInterest('')
-		setLoanPurpose('')
-		setEmploymentStatus('')
-		setEmployer('')
-		setDateStarted('')
-		setWorkEmail('')
-		setWorkNumber('')
-		setIncome('')
-		setAsset('')
-		setAssetType('')
-		setAssetValue('')
-		setMonthlyPayment('')
-		setGuarantorHome('')
-		setGuarantorBirth('')
-		setGuarantorOffice('')
-		setGuarantorPhone('')
-		setGuarantorCareer('')
-		setGuarantorPosition('')
-		setGuarantorRelation('')
-		setGuarantorName('')
-		setGuarantorEmployer('')
-		setGuarantorEmail('')
-		setGender('')
-		setPosition('')
-		setEmploymentType('')
-		setDependants('')
-		setOrigin('')
-		setSalaryDate('')
-
-		router.push('/dashboard')
+		// console.log(data.data.id)
 
 		setLoading(false)
 	}
@@ -266,7 +268,7 @@ const Review = ({ token }) => {
 		const passportData = new FormData()
 		passportData.append('files', passport)
 		passportData.append('ref', 'api::customer.customer')
-		passportData.append('refId', e.data.id)
+		passportData.append('refId', e?.data?.id)
 		passportData.append('field', 'passport')
 
 		const resUpload = await fetch(`${API_URL}/upload`, {
@@ -289,7 +291,7 @@ const Review = ({ token }) => {
 		const idForm = new FormData()
 		idForm.append('files', isId)
 		idForm.append('ref', 'api::customer.customer')
-		idForm.append('refId', e.data.id)
+		idForm.append('refId', e?.data?.id)
 		idForm.append('field', 'identification')
 
 		const idUpload = await fetch(`${API_URL}/upload`, {
@@ -307,7 +309,7 @@ const Review = ({ token }) => {
 		const officeIdData = new FormData()
 		officeIdData.append('files', isOffice)
 		officeIdData.append('ref', 'api::customer.customer')
-		officeIdData.append('refId', e.data.id)
+		officeIdData.append('refId', e?.data?.id)
 		officeIdData.append('field', 'office_id')
 
 		const officeIdUpload = await fetch(`${API_URL}/upload`, {
@@ -325,7 +327,7 @@ const Review = ({ token }) => {
 		const payslipForm = new FormData()
 		payslipForm.append('files', isPaySlip)
 		payslipForm.append('ref', 'api::customer.customer')
-		payslipForm.append('refId', e.data.id)
+		payslipForm.append('refId', e?.data?.id)
 		payslipForm.append('field', 'payslip')
 
 		const payslipRes = await fetch(`${API_URL}/upload`, {
@@ -343,7 +345,7 @@ const Review = ({ token }) => {
 		const utilityForm = new FormData()
 		utilityForm.append('files', isUtility)
 		utilityForm.append('ref', 'api::customer.customer')
-		utilityForm.append('refId', e.data.id)
+		utilityForm.append('refId', e?.data?.id)
 		utilityForm.append('field', 'utility')
 
 		const resUtility = await fetch(`${API_URL}/upload`, {
@@ -361,7 +363,7 @@ const Review = ({ token }) => {
 		const cacForm = new FormData()
 		cacForm.append('files', isCac)
 		cacForm.append('ref', 'api::customer.customer')
-		cacForm.append('refId', e.data.id)
+		cacForm.append('refId', e?.data?.id)
 		cacForm.append('field', 'cac')
 
 		const resCac = await fetch(`${API_URL}/upload`, {
@@ -379,7 +381,7 @@ const Review = ({ token }) => {
 		const memoForm = new FormData()
 		memoForm.append('files', isMemo)
 		memoForm.append('ref', 'api::customer.customer')
-		memoForm.append('refId', e.data.id)
+		memoForm.append('refId', e?.data?.id)
 		memoForm.append('field', 'memo')
 
 		const resMemo = await fetch(`${API_URL}/upload`, {
@@ -398,7 +400,7 @@ const Review = ({ token }) => {
 		const guarantorForm = new FormData()
 		guarantorForm.append('files', guarantorPassport)
 		guarantorForm.append('ref', 'api::customer.customer')
-		guarantorForm.append('refId', e.data.id)
+		guarantorForm.append('refId', e?.data?.id)
 		guarantorForm.append('field', 'guarantor_passport')
 
 		const resGuarantor = await fetch(`${API_URL}/upload`, {
@@ -417,7 +419,7 @@ const Review = ({ token }) => {
 		const signatureForm = new FormData()
 		signatureForm.append('files', isSign)
 		signatureForm.append('ref', 'api::customer.customer')
-		signatureForm.append('refId', e.data.id)
+		signatureForm.append('refId', e?.data?.id)
 		signatureForm.append('field', 'signature')
 
 		const resSignature = await fetch(`${API_URL}/upload`, {
@@ -433,7 +435,7 @@ const Review = ({ token }) => {
 
 		console.log('signature data', signatureData)
 
-		// setLoading(false)
+		setLoading(false)
 	}
 
 	const handlePayment = async (e) => {
@@ -447,7 +449,7 @@ const Review = ({ token }) => {
 				data: {
 					authorization_code: authCode,
 					customer: {
-						id: e.data.id,
+						id: e?.data?.id,
 					},
 				},
 			}),
@@ -458,9 +460,16 @@ const Review = ({ token }) => {
 		console.log(data)
 	}
 
+	console.log(
+		Math.floor(
+			(parseInt(loanAmount) / 100) * parseInt(interest) * parseInt(duration) +
+				parseInt(loanAmount) / parseInt(duration)
+		)
+	)
+
 	const handleLoanRes = async (e) => {
 		console.log(e)
-		// setLoading(true)
+		setLoading(true)
 		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
 			method: 'POST',
 			headers: {
@@ -473,12 +482,21 @@ const Review = ({ token }) => {
 					duration,
 					processing: true,
 					monthly_payment:
-						((loanAmount / 100) * interest * duration + loanAmount) / duration,
-					total_payment: (loanAmount / 100) * interest * duration + loanAmount,
+						Math.floor(
+							(parseInt(loanAmount) / 100) *
+								parseInt(interest) *
+								parseInt(duration) +
+								parseInt(loanAmount)
+						) / parseInt(duration),
+					total_payment:
+						Math.floor(parseInt(loanAmount) / 100) *
+							parseInt(interest) *
+							parseInt(duration) +
+						parseInt(loanAmount),
 					loan_id: 'S00' + Math.random().toString(36).substr(2, 2),
 					amount: loanAmount,
 					customer: {
-						id: e.data.id,
+						id: e?.data?.id,
 					},
 				},
 			}),
@@ -534,6 +552,8 @@ const Review = ({ token }) => {
 		setSalaryDate('')
 
 		router.push('/dashboard')
+
+		// setLoading(false)
 	}
 
 	return (

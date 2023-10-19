@@ -107,7 +107,7 @@ export const AuthProvider = ({ children }) => {
 	)
 	const [dependants, setDependants] = useLocalStorage('dependants', null)
 	const [origin, setOrigin] = useLocalStorage('origin', '')
-	const [salaryData, setSalaryDate] = useLocalStorage('salaryData', null)
+	const [salaryDate, setSalaryDate] = useLocalStorage('salaryDate', null)
 	const [signature, setSignature] = useLocalStorage('signature', null)
 	const [isPassport, setIsPassport] = useLocalStorage('isPassport', null)
 	const [isGuarantorPassport, setIsGuarantorPassport] = useLocalStorage(
@@ -131,19 +131,28 @@ export const AuthProvider = ({ children }) => {
 
 	const date = new Date()
 
+	console.log(date)
+
 	useEffect(() => {
 		checkUserLoggedIn()
 		handleLoans()
 
+		// console.log(loans)
+
 		loans?.forEach((customer) => {
-			customer?.loans?.data?.forEach((loan) => {
-				if (loan?.disbursed) {
+			customer?.attributes?.loans?.data?.forEach((loan) => {
+				if (
+					loan?.attributes?.disbursed &&
+					date.getDate() === parseInt(customer?.attributes.salary_day)
+				) {
 					handleCharge(
 						customer?.attributes?.email,
 						loan.attributes.monthly_payment
 					)
 				}
 			})
+
+			console.log(customer.attributes.loans[0])
 		})
 
 		// Update a field after payment is made
@@ -317,7 +326,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const addCommas = (e) => {
-		return e.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+		return e?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 	}
 
 	return (
@@ -428,7 +437,7 @@ export const AuthProvider = ({ children }) => {
 				setDependants,
 				origin,
 				setOrigin,
-				salaryData,
+				salaryDate,
 				setSalaryDate,
 				signature,
 				setSignature,
