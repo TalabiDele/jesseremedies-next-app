@@ -127,6 +127,7 @@ const Review = ({ token }) => {
 		setSalaryDate,
 		setLoading,
 		authCode,
+		customerType,
 	} = useContext(AuthContext)
 
 	console.log(dob)
@@ -155,6 +156,7 @@ const Review = ({ token }) => {
 			},
 			body: JSON.stringify({
 				data: {
+					customer_type: customerType,
 					firstname: firstName,
 					lastname: lastName,
 					address,

@@ -29,6 +29,8 @@ const LoanInfo = ({
 		setMonthlyPayment,
 		email,
 		setEmail,
+		customerType,
+		setCustomerType,
 	} = useContext(AuthContext)
 
 	// console.log("S00" + Math.random().toString(36).substr(2, 2));
@@ -95,6 +97,19 @@ const LoanInfo = ({
 							value={interest}
 							onChange={(e) => setInterest(e.target.value)}
 						/>
+						<label htmlFor='customer_type'>Customer Type</label>
+						<select
+							name='customer_type'
+							id='customer_type'
+							onChange={(e) => setCustomerType(e.target.value)}
+							className='customer_type mb-[1rem]'
+						>
+							<option value='' selected>
+								Choose a customer type
+							</option>
+							<option value='sme'>SME</option>
+							<option value='salary earner'>Salary Earner</option>
+						</select>
 						{/* <label htmlFor='monthly_payment'>Monthly Payment</label>
 						<input
 							type='number'
@@ -111,7 +126,7 @@ const LoanInfo = ({
 						/>
 					</div>
 
-					<Payment email={email} />
+					{customerType === 'salary earner' && <Payment email={email} />}
 
 					<div className='btns'>
 						<button className='cancel'>Cancel</button>

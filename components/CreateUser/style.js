@@ -109,6 +109,10 @@ export const Container = styled.div`
 		/* width: 80%; */
 		margin: auto;
 
+		.customer_type {
+			width: 50%;
+		}
+
 		h3 {
 			text-align: center;
 			margin-bottom: 1rem;
@@ -309,18 +313,18 @@ export const Wrapper = styled.div`
 		div.endorse,
 		div.official {
 			h3 {
-				font-size: 18px;
+				font-size: 12px;
 				text-align: left;
 				margin-top: 1rem;
 			}
 		}
 
 		div.endorse {
-			margin-bottom: 2rem;
+			margin-bottom: 1rem;
 		}
 
 		div.signature {
-			margin-bottom: 2rem;
+			margin-bottom: 1rem;
 		}
 
 		div.signature,
@@ -328,7 +332,7 @@ export const Wrapper = styled.div`
 		div.manager_details {
 			display: flex;
 			gap: 1rem;
-			width: 80%;
+			width: 100%;
 		}
 
 		h3 {
@@ -338,7 +342,7 @@ export const Wrapper = styled.div`
 		}
 
 		h2 {
-			font-size: 16px;
+			font-size: 12px;
 			margin-bottom: 1rem;
 		}
 
@@ -353,7 +357,7 @@ export const Wrapper = styled.div`
 			}
 
 			h2 {
-				font-size: 20px;
+				font-size: 14px;
 			}
 
 			span {

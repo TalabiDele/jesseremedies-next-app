@@ -127,6 +127,7 @@ export const AuthProvider = ({ children }) => {
 	const [isGuarantor, setIsGuarantor] = useLocalStorage('is_guarantor', {})
 	const [loans, setLoans] = useState()
 	const [customers, setCustomers] = useState()
+	const [customerType, setCustomerType] = useLocalStorage('customer_type', '')
 
 	const router = useRouter()
 
@@ -498,6 +499,8 @@ export const AuthProvider = ({ children }) => {
 				setIsOffice,
 				isGuarantor,
 				setIsGuarantor,
+				customerType,
+				setCustomerType,
 			}}
 		>
 			{children}
