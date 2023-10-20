@@ -11,6 +11,7 @@
   "dependencies": {
     "cookie": "^0.5.0",
     "cookies": "^0.8.0",
+    "luxon": "^3.4.3",
     "moment": "^2.29.3",
     "next": "12.2.0",
     "qs": "^6.11.0",

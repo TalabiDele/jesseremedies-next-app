@@ -129,7 +129,7 @@ const Review = ({ token }) => {
 		authCode,
 	} = useContext(AuthContext)
 
-	console.log(API_URL)
+	console.log(dob)
 
 	const imageUploaded = async (e) => {
 		console.log(passport)
@@ -572,7 +572,7 @@ const Review = ({ token }) => {
 						<button className='edit'>Edit</button>
 					</div>
 					<Wrapper ref={(el) => (componentRef = el)}>
-						<h3>Loan Application</h3>
+						<h1 className=' text-center text-sm'>Loan Application</h1>
 						<div className='info'>
 							<h2>Personal Information</h2>
 							{/* <div className="image">
@@ -780,23 +780,59 @@ const Review = ({ token }) => {
 						</div>
 
 						<div className='official'>
-							<h3>FOR OFFICE USE ONLY</h3>
-							<h3>Basis for Recomendation</h3>
-							__________________________________________________________________________________________________________________________________________________________
+							<h3 className=' font-bold'>FOR OFFICE USE ONLY</h3>
+							<h3 className=' text-[0.7rem]'>Basis for Recommendation</h3>
+							<input type='text' className=' border-b border-black w-[100%]' />
 							<div className='officer'>
 								<h3>Relationship Officer</h3>
 								<div className='details'>
-									<p>Name: _____________________________________</p>
-									<p>Signature: ________________________________________</p>
-									<p>Date: ___________________________________________</p>
+									<p>
+										Name:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
+									<p>
+										Signature:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
+									<p>
+										Date:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
 								</div>
 							</div>
 							<div className='manager'>
 								<h3>Manager</h3>
 								<div className='manager_details'>
-									<p>Name: __________________________________________</p>
-									<p>Signature: _________________________________________</p>
-									<p>Date: ____________________________________________</p>
+									<p>
+										Name:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
+									<p>
+										Signature:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
+									<p>
+										Date:{' '}
+										<input
+											type='text'
+											className=' border-b border-black w-[100%]'
+										/>
+									</p>
 								</div>
 							</div>
 						</div>

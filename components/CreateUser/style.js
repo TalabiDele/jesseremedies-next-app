@@ -106,13 +106,13 @@ export const Container = styled.div`
 		box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
 		border-radius: 20px;
 		padding: 3rem;
-		width: 80%;
+		/* width: 80%; */
 		margin: auto;
 
 		h3 {
 			text-align: center;
 			margin-bottom: 1rem;
-			font-size: 26px;
+			font-size: 0.7rem;
 		}
 
 		h2 {
@@ -294,6 +294,7 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
 	background-color: #fff;
+	width: 100%;
 
 	@media print {
 		width: 100%;
@@ -327,12 +328,13 @@ export const Wrapper = styled.div`
 		div.manager_details {
 			display: flex;
 			gap: 1rem;
+			width: 80%;
 		}
 
 		h3 {
 			text-align: center;
 			margin-bottom: 1rem;
-			font-size: 26px;
+			font-size: 0.7rem;
 		}
 
 		h2 {

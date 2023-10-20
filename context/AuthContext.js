@@ -126,34 +126,24 @@ export const AuthProvider = ({ children }) => {
 	const [isOffice, setIsOffice] = useLocalStorage('is_office', {})
 	const [isGuarantor, setIsGuarantor] = useLocalStorage('is_guarantor', {})
 	const [loans, setLoans] = useState()
+	const [customers, setCustomers] = useState()
 
 	const router = useRouter()
 
 	const date = new Date()
 
-	console.log(date)
+	// console.log(date.getMonth() + 1)
+
+	const currentMonth = date.getMonth() + 1
 
 	useEffect(() => {
 		checkUserLoggedIn()
+		handleCustomers()
 		handleLoans()
 
+		handlePayment()
+
 		// console.log(loans)
-
-		loans?.forEach((customer) => {
-			customer?.attributes?.loans?.data?.forEach((loan) => {
-				if (
-					loan?.attributes?.disbursed &&
-					date.getDate() === parseInt(customer?.attributes.salary_day)
-				) {
-					handleCharge(
-						customer?.attributes?.email,
-						loan.attributes.monthly_payment
-					)
-				}
-			})
-
-			console.log(customer.attributes.loans[0])
-		})
 
 		// Update a field after payment is made
 		// Check if that field is updated to avoid double debit
@@ -165,8 +155,36 @@ export const AuthProvider = ({ children }) => {
 		// if(date.getDate() === )
 	}, [])
 
+	const handlePayment = () => {
+		customers?.forEach((customer) => {
+			// console.log(
+			// 	customer?.attributes?.payments?.data[0]?.attributes?.auth_code
+			// )
+			loans?.forEach((loan) => {
+				console.log(customer?.attributes?.payments?.data[0])
+				handleCharge(
+					customer?.attributes?.email,
+					parseInt(loan?.attributes?.monthly_payment),
+					customer?.attributes?.payments?.data[0]?.attributes
+						?.authorization_code
+				)
+				if (
+					loan?.attributes?.disbursed &&
+					date.getDate() === parseInt(customer?.attributes.salary_day)
+				) {
+					handleCharge(
+						customer?.attributes?.email,
+						loan?.attributes?.monthly_payment
+						// customer?.attributes?.payments?.data[0]?.attributes?.authorization_code
+					)
+				}
+			})
+		})
+	}
+
 	// Charge customers monthly
 	const handleCharge = async (email, amount, auth) => {
+		console.log(auth)
 		const res = await fetch(
 			`https://api.paystack.co/transaction/charge_authorization`,
 			{
@@ -176,9 +194,9 @@ export const AuthProvider = ({ children }) => {
 					Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
 				},
 				body: JSON.stringify({
-					email,
-					amount,
 					authorization_code: auth,
+					email,
+					amount: `${amount}00`,
 				}),
 			}
 		)
@@ -188,9 +206,22 @@ export const AuthProvider = ({ children }) => {
 		console.log(data)
 	}
 
+	// Get all customers
+	const handleCustomers = async () => {
+		const res = await fetch(`${API_URL}/customers?populate=*`, {
+			method: 'GET',
+		})
+
+		const data = await res.json()
+
+		setCustomers(data.data)
+
+		console.log(customers)
+	}
+
 	// Get all loans
 	const handleLoans = async () => {
-		const res = await fetch(`${API_URL}/customers?populate=*`, {
+		const res = await fetch(`${API_URL}/loans?populate=*`, {
 			method: 'GET',
 		})
 
@@ -198,7 +229,7 @@ export const AuthProvider = ({ children }) => {
 
 		setLoans(data.data)
 
-		console.log(data)
+		console.log(loans)
 	}
 
 	// Register
