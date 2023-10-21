@@ -7,7 +7,7 @@ import { API_URL } from '@/config/index'
 import AuthContext from '@/context/AuthContext'
 import { Loader, LoaderDiv } from '@/components/CreateUser/style'
 
-const dashboard = ({ loans, customers }) => {
+const Dashboard = ({ loans, customers }) => {
 	const { loading } = useContext(AuthContext)
 
 	return (
@@ -23,7 +23,7 @@ const dashboard = ({ loans, customers }) => {
 	)
 }
 
-export default dashboard
+export default Dashboard
 
 export async function getServerSideProps() {
 	const res = await fetch(`${API_URL}/loans?_sort=createdAt:DESC&populate=*`)

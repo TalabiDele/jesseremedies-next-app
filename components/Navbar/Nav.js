@@ -42,7 +42,13 @@ const Nav = () => {
 			<All>
 				<Container>
 					<div className='container'>
-						<Image src={logo} alt='' width={200} objectFit='contain' />
+						<Image
+							src={logo}
+							alt=''
+							width={200}
+							height={30}
+							objectFit='contain'
+						/>
 						<form action='' onSubmit={(e) => handleSearchChange(e)}>
 							<input
 								type='text'

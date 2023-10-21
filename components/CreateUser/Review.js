@@ -483,13 +483,12 @@ const Review = ({ token }) => {
 					interest,
 					duration,
 					processing: true,
-					monthly_payment:
-						Math.floor(
-							(parseInt(loanAmount) / 100) *
-								parseInt(interest) *
-								parseInt(duration) +
-								parseInt(loanAmount)
-						) / parseInt(duration),
+					monthly_payment: Math.floor(
+						(parseInt(loanAmount) / 100) *
+							parseInt(interest) *
+							parseInt(duration) +
+							parseInt(loanAmount) / parseInt(duration)
+					),
 					total_payment:
 						Math.floor(parseInt(loanAmount) / 100) *
 							parseInt(interest) *
