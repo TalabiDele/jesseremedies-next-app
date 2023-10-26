@@ -7,8 +7,9 @@ import { TbCurrencyNaira } from 'react-icons/tb'
 import { MdCancel } from 'react-icons/md'
 import { API_URL } from '@/config/index'
 import { useRouter } from 'next/router'
+import moment from 'moment'
 
-const Customer = ({ customers, token }) => {
+const Customer = ({ customers, token, payHistory }) => {
 	const [isImage, setIsImage] = useState(false)
 	const [isCac, setIsCac] = useState(false)
 	const [isIdentification, setIsIdentification] = useState(false)
@@ -25,8 +26,11 @@ const Customer = ({ customers, token }) => {
 	const [purpose, setPurpose] = useState()
 	const [id, setId] = useState()
 	const [approvalComment, setApprovalComment] = useState('')
+	const [isHistory, setIsHistory] = useState(false)
 
 	const router = useRouter()
+
+	console.log(payHistory)
 
 	const {
 		user,
@@ -46,6 +50,10 @@ const Customer = ({ customers, token }) => {
 
 	const date = new Date()
 
+	let day = date.getDate()
+	let month = date.getMonth() + 1
+	let year = date.getFullYear()
+
 	console.log(date.getDate())
 
 	console.log(user)
@@ -56,6 +64,8 @@ const Customer = ({ customers, token }) => {
 		} else {
 			console.log('Not today')
 		}
+
+		console.log(moment().endOf('week'))
 	}, [])
 
 	console.log(customers)
@@ -218,9 +228,15 @@ const Customer = ({ customers, token }) => {
 			},
 			body: JSON.stringify({
 				data: {
-					interest: loanInterest,
-					duration: loanDuration,
-					monthly_payment: loanPayment,
+					interest: loanInterest ? loanInterest : e.attributes.interest,
+					duration: loanDuration ? loanDuration : e.attributes.duration,
+					monthly_payment: Math.floor(
+						(parseInt(amount ? amount : e.attributes.amount) / 100) *
+							parseInt(loanInterest ? loanInterest : e.attributes.interest) *
+							parseInt(loanDuration ? loanDuration : e.attributes.duration) +
+							parseInt(amount ? amount : e.attributes.amount) /
+								parseInt(duration ? duration : e.attributes.duration)
+					),
 					amount,
 					purpose,
 				},
@@ -242,6 +258,29 @@ const Customer = ({ customers, token }) => {
 	const handleEdit = (e) => {
 		setIsEdit(true)
 		setId(e)
+	}
+
+	const handlePayment = async (e) => {
+		console.log(e.id)
+		const res = await fetch(`${API_URL}/weekly-payments?populate=*`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				data: {
+					payment_date: `${year}-${month}-${day}`,
+					loan: {
+						id: e.id,
+					},
+				},
+			}),
+		})
+
+		const data = await res.json()
+
+		console.log(data)
 	}
 
 	const refreshData = () => router.replace(router.asPath)
@@ -360,6 +399,44 @@ const Customer = ({ customers, token }) => {
 										<h3>Loans</h3>
 										{e.attributes.loans.data.map((loan) => (
 											<>
+												{isHistory && (
+													<Wrapper>
+														<div className='edit_modal'>
+															<div className='form' action=''>
+																<h1 className=' font-bold text-xl mb-[1rem]'>
+																	Payment History
+																</h1>
+																{payHistory.map(
+																	(history) =>
+																		history?.attributes.loan.data.id ===
+																			loan.id && (
+																			<div className='' key={history.id}>
+																				<div className=' flex border-b border-gray-200 p-[1rem] justify-between w-full'>
+																					<p className=''>
+																						{history?.attributes.payment_date}
+																					</p>
+																					<p className=''>
+																						<TbCurrencyNaira />
+																						{addCommas(
+																							loan?.attributes.monthly_payment
+																						)}
+																					</p>
+																				</div>
+																				<div className='btns'>
+																					<button
+																						className='cancel'
+																						onClick={() => setIsHistory(false)}
+																					>
+																						Cancel
+																					</button>
+																				</div>
+																			</div>
+																		)
+																)}
+															</div>
+														</div>
+													</Wrapper>
+												)}
 												{isEdit && (
 													<Wrapper>
 														<div className='edit_modal'>
@@ -598,6 +675,35 @@ const Customer = ({ customers, token }) => {
 														Edit Loan
 													</button>
 												</div>
+
+												{loan?.attributes.disbursed && (
+													<div className=''>
+														<div className=' mb-[1rem]'>
+															<h1 className=' font-bold text-xl mb-[1rem]'>
+																Payment for this week
+															</h1>
+
+															<button
+																className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
+																onClick={() => handlePayment(loan)}
+															>
+																Paid
+															</button>
+															{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
+																Not Paid
+															</button> */}
+														</div>
+
+														<div className=''>
+															<button
+																className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'
+																onClick={() => setIsHistory(true)}
+															>
+																View Payment history
+															</button>
+														</div>
+													</div>
+												)}
 											</>
 										))}
 									</div>
@@ -644,6 +750,12 @@ const Customer = ({ customers, token }) => {
 														<span>
 															<TbCurrencyNaira />
 															{addCommas(e.attributes.value_of_asset)}
+														</span>
+													</p>
+													<p>
+														Customer type:{' '}
+														<span className=' cust_type'>
+															{e.attributes.customer_type}
 														</span>
 													</p>
 												</div>

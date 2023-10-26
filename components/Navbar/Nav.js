@@ -95,7 +95,7 @@ const Nav = () => {
 								<a className={router.pathname === '/users' ? 'active' : ''}>
 									<li>
 										<RiFolderUserLine color='#1F4173' fontSize={30} />{' '}
-										<p>Users</p>
+										<p>Customers</p>
 									</li>
 								</a>
 							</Link>

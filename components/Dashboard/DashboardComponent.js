@@ -23,7 +23,7 @@ const DashboardComponent = ({ loans, customers }) => {
 
 	const { reference } = router.query
 
-	console.log(reference)
+	console.log(user)
 
 	console.log('Loans', loans)
 	console.log('Customers', customers)
@@ -187,47 +187,191 @@ const DashboardComponent = ({ loans, customers }) => {
 								<li>Loan Status</li>
 								<li>Total</li>
 							</ul>
-							{user &&
-								user?.teller &&
-								customers &&
-								customers?.data?.map((e) => (
-									// user.id === e.attributes.user.data.id &&
-									<>
-										{isAll && (
-											<div
-												className='loanee_details'
-												key={e.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												{e?.attributes?.loans?.data?.map((loan) => (
-													<div className='loan' key={loan.id}>
+							{user?.teller &&
+								customers?.data?.map(
+									(e) =>
+										user?.id === e?.attributes.user.data.id && (
+											<>
+												{isAll && (
+													<div
+														className='loanee_details'
+														key={e.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
+														{e?.attributes?.loans?.data?.map((loan) => (
+															<div className='loan' key={loan.id}>
+																<p className='id'>{loan.attributes.loan_id}</p>
+																<p className='name'>
+																	{e.attributes.firstname +
+																		' ' +
+																		e.attributes.lastname}
+																</p>
+																{loan.attributes.disbursed && (
+																	<p className='loaned btn'>Disbursed</p>
+																)}
+																{loan.attributes.paid && (
+																	<p className='paid btn'>Paid</p>
+																)}
+																{loan.attributes.approved && (
+																	<p className='paid btn'>Approved</p>
+																)}
+																{loan.attributes.due_soon && (
+																	<p className='due_soon btn'>Loan Due Soon</p>
+																)}
+																{loan.attributes.overdue && (
+																	<p className='overdue btn'>Loan Overdue</p>
+																)}
+																{loan.attributes.processing && (
+																	<p className='processing btn'>Processing</p>
+																)}
+																{loan.attributes.loan_start && (
+																	<p className='start btn'>Loaned</p>
+																)}
+																{loan.attributes.denied && (
+																	<p className='overdue btn'>Denied</p>
+																)}
+																<p className='total'>
+																	<TbCurrencyNaira
+																		fontSize={20}
+																		color='#1F4173'
+																	/>
+																	{addCommas(loan.attributes.amount)}
+																</p>
+															</div>
+														))}
+													</div>
+												)}
+
+												{e?.attributes?.loans?.data?.map(
+													(loan) =>
+														loan?.attributes.disbursed &&
+														isLoaned && (
+															<div
+																className='loan'
+																key={loan.id}
+																onClick={() => displayCustomer(e.attributes)}
+															>
+																{console.log(e?.attributes?.loans)}
+																<p className='id'>{loan.attributes.loan_id}</p>
+																<p className='name'>
+																	{e.attributes.firstname +
+																		' ' +
+																		e.attributes.lastname}
+																</p>
+																{loan.attributes.loan_start && (
+																	<p className='start btn'>Loaned</p>
+																)}
+																<p className='total'>
+																	<TbCurrencyNaira
+																		fontSize={20}
+																		color='#1F4173'
+																	/>
+																	{addCommas(loan.attributes.amount)}
+																</p>
+															</div>
+														)
+												)}
+
+												{isOverdue && loan.attributes.overdue && (
+													<div
+														className='loan'
+														key={loan.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
 														<p className='id'>{loan.attributes.loan_id}</p>
 														<p className='name'>
 															{e.attributes.firstname +
 																' ' +
 																e.attributes.lastname}
 														</p>
-														{loan.attributes.disbursed && (
-															<p className='loaned btn'>Disbursed</p>
-														)}
-														{loan.attributes.paid && (
-															<p className='paid btn'>Paid</p>
-														)}
-														{loan.attributes.approved && (
-															<p className='paid btn'>Approved</p>
-														)}
-														{loan.attributes.due_soon && (
-															<p className='due_soon btn'>Loan Due Soon</p>
-														)}
 														{loan.attributes.overdue && (
 															<p className='overdue btn'>Loan Overdue</p>
 														)}
+														<p className='total'>
+															<TbCurrencyNaira fontSize={20} color='#1F4173' />
+															{addCommas(loan.attributes.amount)}
+														</p>
+													</div>
+												)}
+
+												{isPaid && loan.attributes.paid && (
+													<div
+														className='loan'
+														key={loan.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
+														<p className='id'>{loan.attributes.loan_id}</p>
+														<p className='name'>
+															{e.attributes.firstname +
+																' ' +
+																e.attributes.lastname}
+														</p>
+														{loan.attributes.paid && (
+															<p className='paid btn'>Paid</p>
+														)}
+														<p className='total'>
+															<TbCurrencyNaira fontSize={20} color='#1F4173' />
+															{addCommas(loan.attributes.amount)}
+														</p>
+													</div>
+												)}
+
+												{isProcessing && loan.attributes.processing && (
+													<div
+														className='loan'
+														key={loan.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
+														<p className='id'>{loan.attributes.loan_id}</p>
+														<p className='name'>
+															{e.attributes.firstname +
+																' ' +
+																e.attributes.lastname}
+														</p>
 														{loan.attributes.processing && (
 															<p className='processing btn'>Processing</p>
 														)}
-														{loan.attributes.loan_start && (
-															<p className='start btn'>Loaned</p>
+														<p className='total'>
+															<TbCurrencyNaira fontSize={20} color='#1F4173' />
+															{addCommas(loan.attributes.amount)}
+														</p>
+													</div>
+												)}
+
+												{isApproved && loan.attributes.approved && (
+													<div
+														className='loan'
+														key={loan.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
+														<p className='id'>{loan.attributes.loan_id}</p>
+														<p className='name'>
+															{e.attributes.firstname +
+																' ' +
+																e.attributes.lastname}
+														</p>
+														{loan.attributes.approved && (
+															<p className='paid btn'>Approved</p>
 														)}
+														<p className='total'>
+															<TbCurrencyNaira fontSize={20} color='#1F4173' />
+															{addCommas(loan.attributes.amount)}
+														</p>
+													</div>
+												)}
+
+												{isDenied && loan.attributes.denied && (
+													<div
+														className='loan'
+														key={loan.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
+														<p className='id'>{loan.attributes.loan_id}</p>
+														<p className='name'>
+															{e.attributes.firstname +
+																' ' +
+																e.attributes.lastname}
+														</p>
 														{loan.attributes.denied && (
 															<p className='overdue btn'>Denied</p>
 														)}
@@ -236,134 +380,12 @@ const DashboardComponent = ({ loans, customers }) => {
 															{addCommas(loan.attributes.amount)}
 														</p>
 													</div>
-												))}
-											</div>
-										)}
-
-										{isLoaned && loan.attributes.loan_start && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.loan_start && (
-													<p className='start btn'>Loaned</p>
 												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
+											</>
+										)
+								)}
 
-										{isOverdue && loan.attributes.overdue && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.overdue && (
-													<p className='overdue btn'>Loan Overdue</p>
-												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
-
-										{isPaid && loan.attributes.paid && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.paid && (
-													<p className='paid btn'>Paid</p>
-												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
-
-										{isProcessing && loan.attributes.processing && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.processing && (
-													<p className='processing btn'>Processing</p>
-												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
-
-										{isApproved && loan.attributes.approved && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.approved && (
-													<p className='paid btn'>Approved</p>
-												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
-
-										{isDenied && loan.attributes.denied && (
-											<div
-												className='loan'
-												key={loan.id}
-												onClick={() => displayCustomer(e.attributes)}
-											>
-												<p className='id'>{loan.attributes.loan_id}</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.denied && (
-													<p className='overdue btn'>Denied</p>
-												)}
-												<p className='total'>
-													<TbCurrencyNaira fontSize={20} color='#1F4173' />
-													{addCommas(loan.attributes.amount)}
-												</p>
-											</div>
-										)}
-									</>
-								))}
-
-							{user &&
-								user?.supervisor &&
+							{user?.supervisor &&
 								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
@@ -547,8 +569,7 @@ const DashboardComponent = ({ loans, customers }) => {
 										))}
 									</div>
 								))}
-							{user &&
-								user.manager &&
+							{user?.manager &&
 								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
@@ -732,8 +753,7 @@ const DashboardComponent = ({ loans, customers }) => {
 										))}
 									</div>
 								))}
-							{user &&
-								user?.md &&
+							{user?.md &&
 								customers?.data?.map((e) => (
 									<div className='loanee_details' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
@@ -930,14 +950,6 @@ const DashboardComponent = ({ loans, customers }) => {
 									</a>
 								</Link>
 							</button>
-						</div>
-						<div className='account'>
-							<div className='item'>
-								<RiFileReduceLine fontSize={20} /> New Loan
-							</div>
-							<div className='item'>
-								<RiFileReduceLine fontSize={20} /> Update User Information
-							</div>
 						</div>
 					</div>
 					<div className='recent'>

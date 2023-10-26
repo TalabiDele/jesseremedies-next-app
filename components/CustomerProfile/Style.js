@@ -5,8 +5,18 @@ export const Container = styled.div`
 	margin-left: 12rem;
 	margin-top: 5rem;
 	position: relative;
-	z-index: 0;
+	/* z-index: 0; */
 	color: #11142d;
+
+	.cust_type {
+		text-transform: uppercase;
+	}
+
+	p > span,
+	p {
+		display: flex;
+		align-items: center;
+	}
 
 	textarea {
 		border: none;
@@ -295,7 +305,7 @@ export const Wrapper = styled.div`
 	position: fixed;
 	top: 0;
 	bottom: 0;
-	z-index: 14;
+	z-index: 100;
 	left: 0;
 	right: 0;
 	display: grid;
@@ -303,7 +313,7 @@ export const Wrapper = styled.div`
 
 	div.edit_modal {
 		background: #fff;
-		width: 80%;
+		width: 40%;
 		margin: auto;
 		box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
 		border-radius: 20px;
@@ -318,7 +328,7 @@ export const Wrapper = styled.div`
 		}
 
 		.form {
-			width: 70%;
+			width: 80%;
 			margin: auto;
 		}
 
@@ -327,14 +337,14 @@ export const Wrapper = styled.div`
 			border: none;
 			background: #f5f7fb;
 			border-radius: 8px;
-			padding: 1rem;
+			padding: 0.5rem;
 			margin-bottom: 1rem;
 		}
 
 		label {
 			color: #11142d;
 			margin-bottom: 0.5rem;
-			font-size: 16px;
+			font-size: 12px;
 		}
 
 		div.btns {
@@ -345,7 +355,7 @@ export const Wrapper = styled.div`
 			margin-top: 2rem;
 
 			button {
-				padding: 1rem 2rem;
+				padding: 0.5rem;
 				cursor: pointer;
 				transition: all 0.3s ease-in-out;
 			}

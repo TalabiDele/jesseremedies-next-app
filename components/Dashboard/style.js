@@ -214,7 +214,7 @@ export const Container = styled.div`
 	}
 
 	button {
-		margin: 2rem 0rem 0rem 0rem;
+		margin: 2rem 0rem;
 		width: 90%;
 		border: none;
 		background: #0043f1;

@@ -34,8 +34,6 @@ export async function getServerSideProps() {
 	)
 	const customers = await resCustomers.json()
 
-	console.log(customers)
-
 	return {
 		props: {
 			loans,

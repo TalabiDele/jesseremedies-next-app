@@ -6,6 +6,7 @@ import { API_URL } from '@/config/index'
 import ReactToPrint, { PrintContextConsumer } from 'react-to-print'
 import { TbCurrencyNaira } from 'react-icons/tb'
 import Image from 'next/image'
+import toast from 'react-hot-toast'
 
 const Review = ({ token }) => {
 	const router = useRouter()
@@ -255,7 +256,16 @@ const Review = ({ token }) => {
 			setOrigin('')
 			setSalaryDate('')
 
+			toast.success('Customer has been created!', {
+				duration: 6000,
+			})
+
 			router.push('/dashboard')
+		} else {
+			console.log(data.error.message)
+			toast.error(data.error.message, {
+				duration: 6000,
+			})
 		}
 
 		// console.log(data.data.id)
@@ -507,6 +517,16 @@ const Review = ({ token }) => {
 		console.log(loanData)
 
 		handlePayment(e)
+
+		if (loanRes.ok) {
+			toast.success('Loan has been created!', {
+				duration: 6000,
+			})
+		} else {
+			toast.error(data.error.message, {
+				duration: 6000,
+			})
+		}
 
 		setLoading(false)
 	}
