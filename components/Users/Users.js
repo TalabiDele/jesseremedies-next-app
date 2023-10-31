@@ -179,6 +179,12 @@ const UsersPage = ({ customers }) => {
 														{loan.attributes.denied && (
 															<p className='overdue btn'>Denied</p>
 														)}
+														{loan.attributes.approved && (
+															<p className='paid btn'>Approved</p>
+														)}
+														{loan.attributes.loan_start && (
+															<p className='start btn'>Loaned</p>
+														)}
 														<p className='total'>
 															{/* <TbCurrencyNaira fontSize={20} color='#1F4173' /> */}
 															{e.attributes.email}
@@ -218,51 +224,60 @@ const UsersPage = ({ customers }) => {
 												{loan.attributes.denied && (
 													<p className='overdue btn'>Denied</p>
 												)}
+												{loan.attributes.loan_start && (
+													<p className='start btn'>Loaned</p>
+												)}
+												{loan.attributes.approved && (
+													<p className='paid btn'>Approved</p>
+												)}
 												<p className='total'>{e.attributes.email}</p>
 												<p className='total'>{e.attributes.phone_1}</p>
 											</div>
 										))}
 									</div>
 								))}
-							{user?.manager ||
-								(user?.md &&
-									customers?.data?.map((e) => (
-										<div className='loanee_details' key={e.id}>
-											{e.attributes.loans.data.map((loan) => (
-												<div className='loan' key={loan.id}>
-													<p className='id'>
-														{e.attributes.user.data.attributes.username}
-													</p>
-													<p className='name'>
-														{e.attributes.firstname +
-															' ' +
-															e.attributes.lastname}
-													</p>
-													<p className='total'>{e.attributes.phone_1}</p>
-													<p className='total'>{e.attributes.email}</p>
-													{console.log(loan.attributes)}
-													{loan.attributes.disbursed && (
-														<p className='loaned btn'>Disbursed</p>
-													)}
-													{loan.attributes.paid && (
-														<p className='paid btn'>Paid</p>
-													)}
-													{loan.attributes.due_soon && (
-														<p className='due_soon btn'>Loan Due Soon</p>
-													)}
-													{loan.attributes.overdue && (
-														<p className='overdue btn'>Loan Overdue</p>
-													)}
-													{loan.attributes.processing && (
-														<p className='processing btn'>Processing</p>
-													)}
-													{loan.attributes.denied && (
-														<p className='overdue btn'>Denied</p>
-													)}
-												</div>
-											))}
-										</div>
-									)))}
+							{(user?.manager || user?.md) &&
+								customers?.data?.map((e) => (
+									<div className='loanee_details' key={e.id}>
+										{e.attributes.loans.data.map((loan) => (
+											<div className='loan' key={loan.id}>
+												<p className='id'>
+													{e.attributes.user.data.attributes.username}
+												</p>
+												<p className='name'>
+													{e.attributes.firstname + ' ' + e.attributes.lastname}
+												</p>
+												{loan.attributes.disbursed && (
+													<p className='loaned btn'>Disbursed</p>
+												)}
+												{loan.attributes.paid && (
+													<p className='paid btn'>Paid</p>
+												)}
+												{loan.attributes.due_soon && (
+													<p className='due_soon btn'>Loan Due Soon</p>
+												)}
+												{loan.attributes.overdue && (
+													<p className='overdue btn'>Loan Overdue</p>
+												)}
+												{loan.attributes.processing && (
+													<p className='processing btn'>Processing</p>
+												)}
+												{loan.attributes.loan_start && (
+													<p className='start btn'>Loaned</p>
+												)}
+												{loan.attributes.approved && (
+													<p className='paid btn'>Approved</p>
+												)}
+												{loan.attributes.denied && (
+													<p className='overdue btn'>Denied</p>
+												)}
+												<p className='total'>{e.attributes.email}</p>
+												{console.log(loan.attributes)}
+												<p className='total'>{e.attributes.phone_1}</p>
+											</div>
+										))}
+									</div>
+								))}
 						</div>
 					</div>
 				</div>

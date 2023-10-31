@@ -122,14 +122,14 @@ const Nav = () => {
 									</li>
 								</a>
 							</Link>
-							<Link href='/profile'>
+							{/* <Link href='/profile'>
 								<a className={router.pathname === '/profile' ? 'active' : ''}>
 									<li>
 										<RiAccountCircleLine color='#1F4173' fontSize={30} />{' '}
 										<p>Profile</p>
 									</li>
 								</a>
-							</Link>
+							</Link> */}
 							<li onClick={() => logout()} className=' logout'>
 								<MdOutlineLogout color='#ff0000' fontSize={30} /> Logout
 							</li>

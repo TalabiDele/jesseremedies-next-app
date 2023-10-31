@@ -676,32 +676,38 @@ const Customer = ({ customers, token, payHistory }) => {
 													</button>
 												</div>
 
-												{loan?.attributes.disbursed && (
+												{loan?.attributes.loan_start && (
 													<div className=''>
-														<div className=' mb-[1rem]'>
-															<h1 className=' font-bold text-xl mb-[1rem]'>
-																Payment for this week
-															</h1>
+														{(user?.manager ||
+															user?.md ||
+															user?.supervisor) && (
+															<div className=''>
+																<div className=' mb-[1rem]'>
+																	<h1 className=' font-bold text-xl mb-[1rem]'>
+																		Payment for this week
+																	</h1>
 
-															<button
-																className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
-																onClick={() => handlePayment(loan)}
-															>
-																Paid
-															</button>
-															{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
-																Not Paid
-															</button> */}
-														</div>
+																	<button
+																		className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
+																		onClick={() => handlePayment(loan)}
+																	>
+																		Paid
+																	</button>
+																	{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
+																	Not Paid
+																</button> */}
+																</div>
 
-														<div className=''>
-															<button
-																className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'
-																onClick={() => setIsHistory(true)}
-															>
-																View Payment history
-															</button>
-														</div>
+																<div className=''>
+																	<button
+																		className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'
+																		onClick={() => setIsHistory(true)}
+																	>
+																		View Payment history
+																	</button>
+																</div>
+															</div>
+														)}
 													</div>
 												)}
 											</>

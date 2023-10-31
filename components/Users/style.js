@@ -67,13 +67,15 @@ export const Container = styled.div`
 
 			div.input {
 				display: grid;
-				width: 70%;
 
 				input {
 					border: none;
 					border-bottom: 1px solid #e6eaf0;
-					padding: 0.3rem 1rem 1rem 0rem;
+					padding: 0.3rem 1rem 0.3rem 0rem;
 					font-size: 13px;
+					outline: none;
+					width: 7rem;
+					margin-right: 1rem;
 				}
 
 				label {
@@ -86,6 +88,19 @@ export const Container = styled.div`
 				display: flex;
 				width: 100%;
 				justify-content: space-between;
+				justify-content: space-between;
+				align-items: center;
+
+				li {
+					cursor: pointer;
+				}
+
+				.active {
+					background: rgba(31, 65, 115, 0.1);
+					border-radius: 5px;
+					padding: 0.5rem;
+					font-weight: 700;
+				}
 			}
 		}
 
@@ -153,6 +168,11 @@ export const Container = styled.div`
 				.due_soon {
 					color: rgba(255, 153, 0, 1);
 					background: rgba(255, 153, 0, 0.1);
+				}
+
+				.start {
+					color: rgba(46, 124, 246, 1);
+					background: rgba(46, 124, 246, 0.1);
 				}
 
 				.overdue {
