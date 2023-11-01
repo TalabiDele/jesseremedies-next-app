@@ -8,6 +8,7 @@ import { MdCancel } from 'react-icons/md'
 import { API_URL } from '@/config/index'
 import { useRouter } from 'next/router'
 import moment from 'moment'
+import toast from 'react-hot-toast'
 
 const Customer = ({ customers, token, payHistory }) => {
 	const [isImage, setIsImage] = useState(false)
@@ -27,6 +28,7 @@ const Customer = ({ customers, token, payHistory }) => {
 	const [id, setId] = useState()
 	const [approvalComment, setApprovalComment] = useState('')
 	const [isHistory, setIsHistory] = useState(false)
+	const [isPay, setIsPay] = useState(true)
 
 	const router = useRouter()
 
@@ -65,7 +67,27 @@ const Customer = ({ customers, token, payHistory }) => {
 			console.log('Not today')
 		}
 
-		console.log(moment().endOf('week'))
+		customers?.forEach((customer) => {
+			customer?.attributes.loans.data.forEach((loan) => {
+				payHistory?.forEach((history) => {
+					console.log(moment().format('YYYY-MM-DD'))
+					if (
+						history.attributes.payment_date === moment().format('YYYY-MM-DD')
+					) {
+						console.log(loan)
+						setIsPay(false)
+
+						if (moment().day() === 6 || moment().day() === 0) {
+							setIsPay(false)
+						}
+					} else if (moment().day() === 1) {
+						setIsPlay(true)
+					}
+				})
+			})
+		})
+
+		console.log(moment().day())
 	}, [])
 
 	console.log(customers)
@@ -270,7 +292,7 @@ const Customer = ({ customers, token, payHistory }) => {
 			},
 			body: JSON.stringify({
 				data: {
-					payment_date: `${year}-${month}-${day}`,
+					payment_date: `${year}-${month}-0${day}`,
 					loan: {
 						id: e.id,
 					},
@@ -279,6 +301,12 @@ const Customer = ({ customers, token, payHistory }) => {
 		})
 
 		const data = await res.json()
+
+		if (res.ok) {
+			toast.success('Payment recorded!', {
+				duration: 6000,
+			})
+		}
 
 		console.log(data)
 	}
@@ -422,17 +450,17 @@ const Customer = ({ customers, token, payHistory }) => {
 																						)}
 																					</p>
 																				</div>
-																				<div className='btns'>
-																					<button
-																						className='cancel'
-																						onClick={() => setIsHistory(false)}
-																					>
-																						Cancel
-																					</button>
-																				</div>
 																			</div>
 																		)
 																)}
+															</div>
+															<div className='btns'>
+																<button
+																	className='cancel'
+																	onClick={() => setIsHistory(false)}
+																>
+																	Cancel
+																</button>
 															</div>
 														</div>
 													</Wrapper>
@@ -686,13 +714,17 @@ const Customer = ({ customers, token, payHistory }) => {
 																	<h1 className=' font-bold text-xl mb-[1rem]'>
 																		Payment for this week
 																	</h1>
-
-																	<button
-																		className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
-																		onClick={() => handlePayment(loan)}
-																	>
-																		Paid
-																	</button>
+																	{isPay && (
+																		<button
+																			className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
+																			onClick={() => handlePayment(loan)}
+																		>
+																			Paid
+																		</button>
+																	)}
+																	{!isPay && (
+																		<p className=''>Paid for this week</p>
+																	)}
 																	{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
 																	Not Paid
 																</button> */}

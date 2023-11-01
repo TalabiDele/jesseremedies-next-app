@@ -3,11 +3,18 @@ import { Container } from './style'
 import moment from 'moment'
 import AuthContext from '@/context/AuthContext'
 import { TbCurrencyNaira } from 'react-icons/tb'
+import { useRouter } from 'next/router'
 
 const CRM = ({ crms }) => {
 	const { addCommas } = useContext(AuthContext)
 
-	console.log(crms)
+	const router = useRouter()
+
+	const displayCustomer = (e) => {
+		console.log(e)
+		router.push(`/${e?.attributes?.slug}`)
+	}
+
 	return (
 		<Container>
 			<div className='head'>
@@ -25,7 +32,11 @@ const CRM = ({ crms }) => {
 					<li>Loan Request</li>
 				</ul>
 				{crms.data.map((e) => (
-					<div className='wrapper text-sm' key={e.id}>
+					<div
+						className='wrapper text-sm cursor-pointer'
+						key={e.id}
+						onClick={() => displayCustomer(e)}
+					>
 						{/* {console.log(moment(e.attributes.date).format())}
 						{moment(e.attributes.data).format()} */}
 						{/* <p>{moment(e.attributes.date).format()}</p> */}

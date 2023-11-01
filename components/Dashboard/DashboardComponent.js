@@ -194,7 +194,7 @@ const DashboardComponent = ({ loans, customers }) => {
 											<>
 												{isAll && (
 													<div
-														className='loanee_details'
+														className='loanee_details cursor-pointer'
 														key={e.id}
 														onClick={() => displayCustomer(e.attributes)}
 													>
@@ -387,7 +387,7 @@ const DashboardComponent = ({ loans, customers }) => {
 
 							{user?.supervisor &&
 								customers?.data?.map((e) => (
-									<div className='loanee_details' key={e.id}>
+									<div className='loanee_details cursor-pointer' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
@@ -571,7 +571,7 @@ const DashboardComponent = ({ loans, customers }) => {
 								))}
 							{user?.manager &&
 								customers?.data?.map((e) => (
-									<div className='loanee_details' key={e.id}>
+									<div className='loanee_details cursor-pointer' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
@@ -755,7 +755,7 @@ const DashboardComponent = ({ loans, customers }) => {
 								))}
 							{user?.md &&
 								customers?.data?.map((e) => (
-									<div className='loanee_details' key={e.id}>
+									<div className='loanee_details cursor-pointer' key={e.id}>
 										{e?.attributes?.loans?.data?.map((loan) => (
 											<>
 												{isAll && (
