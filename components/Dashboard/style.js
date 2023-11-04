@@ -29,7 +29,7 @@ export const Container = styled.div`
 		margin-top: 1rem;
 
 		@media not all and (min-width: 768px) {
-			display: ;
+			display: flex;
 		}
 	}
 
