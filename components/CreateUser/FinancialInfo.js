@@ -62,12 +62,15 @@ const FinancialInfo = ({
 					<div className='flex_three'>
 						<div className='no_flex'>
 							<label htmlFor='employ_status'>Current Employment Status</label>
-							<input
-								type='text'
-								placeholder='Employed'
-								value={employmentStatus}
+							<select
+								name='employ_status'
+								id='employ_status'
 								onChange={(e) => setEmploymentStatus(e.target.value)}
-							/>
+							>
+								<option value='Employed'>Employed</option>
+								<option value='Unemployed'>Unemployed</option>
+								<option value='Self-Employed'>Self Employed</option>
+							</select>
 						</div>
 						<div className='no_flex'>
 							<label htmlFor='employer'>Current Employer</label>
@@ -148,7 +151,9 @@ const FinancialInfo = ({
 
 					{/* </div> */}
 					<div className='btns'>
-						<button className='cancel'>Cancel</button>
+						<button className='cancel' onClick={() => router.back()}>
+							Back
+						</button>
 						<button type='submit' className='submit'>
 							Continue
 						</button>

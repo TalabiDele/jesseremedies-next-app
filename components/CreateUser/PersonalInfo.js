@@ -3,6 +3,7 @@ import { Container } from './style'
 import { useRouter } from 'next/router'
 import AuthContext from '@/context/AuthContext'
 import useLocalStorage from '../hooks/useLocalStorage'
+import toast from 'react-hot-toast'
 
 const PersonalInfo = ({
 	loanInfo,
@@ -110,7 +111,37 @@ const PersonalInfo = ({
 		setPersonalInfo(false)
 		setFinancialInfo(true)
 
-		router.push('/create_user/financial_info')
+		if (firstName === '') {
+			toast.error('First name is required!', {
+				duration: 6000,
+			})
+		} else if (lastName === '') {
+			toast.error('Last name is required!', {
+				duration: 6000,
+			})
+		} else if (dob === '') {
+			toast.error('Date of birth is required!', {
+				duration: 6000,
+			})
+		} else if (address === '') {
+			toast.error('Address is required!', {
+				duration: 6000,
+			})
+		} else if (state === '') {
+			toast.error('State is required!', {
+				duration: 6000,
+			})
+		} else if (origin === '') {
+			toast.error('State of origin is required!', {
+				duration: 6000,
+			})
+		} else if (phoneNumber === '') {
+			toast.error('Phone number is required!', {
+				duration: 6000,
+			})
+		} else {
+			router.push('/create_user/financial_info')
+		}
 	}
 
 	const handlePassport = async (e) => {
@@ -217,7 +248,7 @@ const PersonalInfo = ({
 							/>
 						</div>
 						<div className='no_flex'>
-							<label htmlFor='dob'>DOB</label>
+							<label htmlFor='dob'>Date of Birth</label>
 							<input
 								type='date'
 								value={dob}
@@ -406,7 +437,9 @@ const PersonalInfo = ({
 
 					{/* </div> */}
 					<div className='btns'>
-						<button className='cancel'>Cancel</button>
+						<button className='cancel' onClick={() => router.back()}>
+							Back
+						</button>
 						<button type='submit' className='submit'>
 							Continue
 						</button>

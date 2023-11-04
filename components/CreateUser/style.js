@@ -143,7 +143,8 @@ export const Container = styled.div`
 				display: grid;
 				grid-template-columns: 30% 30% 30%;
 
-				input {
+				input,
+				select {
 					width: 80%;
 				}
 			}
@@ -153,7 +154,8 @@ export const Container = styled.div`
 				grid-template-columns: 60% 30%;
 				align-items: flex-start;
 
-				input {
+				input,
+				select {
 					width: 80%;
 				}
 			}
@@ -165,7 +167,8 @@ export const Container = styled.div`
 				border-radius: 5px;
 			}
 
-			input {
+			input,
+			select {
 				width: 50%;
 				border: none;
 				background: #f5f7fb;

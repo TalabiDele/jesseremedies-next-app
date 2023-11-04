@@ -859,6 +859,9 @@ const Review = ({ token }) => {
 						</div>
 					</Wrapper>
 					<div className='btns'>
+						<button className='cancel' onClick={() => router.back()}>
+							Back
+						</button>
 						<button className='cancel' onClick={handleCancel}>
 							Cancel
 						</button>
@@ -875,7 +878,7 @@ const Review = ({ token }) => {
 							</PrintContextConsumer>
 						</ReactToPrint>
 						<button type='submit' className='submit' onClick={handleSubmit}>
-							Continue
+							Submit
 						</button>
 					</div>
 				</div>

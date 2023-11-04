@@ -10,9 +10,9 @@ const Guarantor_info = () => {
 
 	return (
 		<Layout>
-			<Back className='back' onClick={() => router.back()}>
+			{/* <Back className='back' onClick={() => router.back()}>
 				Back
-			</Back>
+			</Back> */}
 			<CreateUserNav />
 			<GuarantorInfo />
 		</Layout>

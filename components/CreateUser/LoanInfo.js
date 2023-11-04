@@ -4,6 +4,7 @@ import { Container } from './style'
 import AuthContext from '@/context/AuthContext'
 import { API_URL } from '@/config/index'
 import Payment from '../Payment'
+import toast from 'react-hot-toast'
 
 const LoanInfo = ({
 	loanInfo,
@@ -38,27 +39,20 @@ const LoanInfo = ({
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
-		// const res = await fetch(`${API_URL}/loans`, {
-		//   method: "POST",
-		//   headers: {
-		//     "Content-Type": "application/json",
-		//     // Authorization: `Bearer ${token}`,
-		//   },
-		//   body: JSON.stringify({
-		//     amount: loanAmount,
-		//     interest,
-		//     duration,
-		//     processing: true,
-		//     monthly_payment: monthlyPayment,
-		//     loan_id: "S00" + Math.random().toString(36).substr(2, 2),
-		//   }),
-		// });
-
-		// const data = await res.json();
-		// setIsPosted(data);
-		// console.log(data);
-
-		router.push('/create_user/personal_info')
+		if (
+			loanAmount === '' ||
+			loanPurpose === '' ||
+			duration === '' ||
+			interest === '' ||
+			email === '' ||
+			customerType === ''
+		) {
+			toast.error('All fields are required!', {
+				duration: 6000,
+			})
+		} else {
+			router.push('/create_user/personal_info')
+		}
 	}
 
 	return (
@@ -129,7 +123,7 @@ const LoanInfo = ({
 					{customerType === 'salary earner' && <Payment email={email} />}
 
 					<div className='btns'>
-						<button className='cancel'>Cancel</button>
+						{/* <button className='cancel'>Cancel</button> */}
 						<button type='submit' className='submit'>
 							Continue
 						</button>

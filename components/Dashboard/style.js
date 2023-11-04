@@ -10,6 +10,10 @@ export const Container = styled.div`
 	overflow-y: scroll;
 	height: 100vh;
 
+	@media not all and (min-width: 768px) {
+		margin: 1rem auto;
+	}
+
 	p {
 		font-size: 14px;
 	}
@@ -23,6 +27,10 @@ export const Container = styled.div`
 		display: grid;
 		grid-template-columns: 70% 30%;
 		margin-top: 1rem;
+
+		@media not all and (min-width: 768px) {
+			display: ;
+		}
 	}
 
 	div.top_cards {
@@ -49,6 +57,9 @@ export const Container = styled.div`
 		font-size: 14px;
 		padding-top: 2rem;
 		/* padding: 2rem; */
+
+		@media not all and (min-width: 768px) {
+		}
 
 		h2 {
 			font-size: 16px;

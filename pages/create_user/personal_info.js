@@ -16,9 +16,9 @@ const Personal_Info = () => {
 
 	return (
 		<Layout>
-			<Back className='back' onClick={() => router.back()}>
+			{/* <Back className='back' onClick={() => router.back()}>
 				Back
-			</Back>
+			</Back> */}
 			<CreateUserNav
 				loanInfo={loanInfo}
 				setLoanInfo={setLoanInfo}

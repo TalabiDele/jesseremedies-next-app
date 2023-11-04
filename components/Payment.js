@@ -3,6 +3,7 @@ import { usePaystackPayment } from 'react-paystack'
 import { API_URL, NEXT_PUBLIC_URL } from '../config'
 import { useRouter } from 'next/router'
 import AuthContext from '@/context/AuthContext'
+import toast from 'react-hot-toast'
 
 const Payment = ({ email }) => {
 	const [ref, setRef] = useState('')
@@ -58,6 +59,12 @@ const Payment = ({ email }) => {
 		console.log(data.data.authorization.authorization_code)
 
 		setAuthCode(data.data.authorization.authorization_code)
+
+		if (data.status === 'success') {
+			toast.success('Card added successfully!', {
+				duration: 6000,
+			})
+		}
 	}
 
 	return (
