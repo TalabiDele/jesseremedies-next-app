@@ -12,6 +12,11 @@ export const Container = styled.div`
 
 	@media not all and (min-width: 768px) {
 		margin: 1rem auto;
+
+		.mobile {
+			margin: 1rem auto;
+			width: 90vw;
+		}
 	}
 
 	p {
@@ -29,7 +34,9 @@ export const Container = styled.div`
 		margin-top: 1rem;
 
 		@media not all and (min-width: 768px) {
-			display: flex;
+			grid-template-columns: repeat(1, 1fr);
+			justify-items: center;
+			width: 100%;
 		}
 	}
 

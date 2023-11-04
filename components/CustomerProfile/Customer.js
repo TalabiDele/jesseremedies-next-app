@@ -205,7 +205,7 @@ const Customer = ({ customers, token, payHistory }) => {
 	const addLoan = async (e) => {
 		console.log(e)
 
-		const loanRes = await fetch(`${API_URL}/loans/?populate=*`, {
+		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -709,7 +709,7 @@ const Customer = ({ customers, token, payHistory }) => {
 														{(user?.manager ||
 															user?.md ||
 															user?.supervisor) && (
-															<div className=''>
+															<div className=' mb-[2rem]'>
 																<div className=' mb-[1rem]'>
 																	<h1 className=' font-bold text-xl mb-[1rem]'>
 																		Payment for this week
