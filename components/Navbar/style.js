@@ -17,7 +17,15 @@ export const Container = styled.div`
 	z-index: 3;
 	top: 0;
 
+	.icon {
+		display: none;
+	}
+
 	@media not all and (min-width: 768px) {
+		.user_img {
+			width: 2rem;
+		}
+
 		.container {
 			padding: 1rem;
 			width: 90vw;
@@ -40,6 +48,7 @@ export const Container = styled.div`
 		.icon {
 			font-size: 2rem;
 			cursor: pointer;
+			display: block;
 		}
 	}
 
@@ -74,16 +83,30 @@ export const Container = styled.div`
 		align-items: center;
 		gap: 10px;
 
+		@media not all and (min-width: 768px) {
+			p {
+				font-size: 12px;
+			}
+		}
+
 		p {
 			color: #11142d;
 			font-size: 16px;
 			font-weight: 500;
 			text-transform: capitalize;
+
+			@media not all and (min-width: 768px) {
+				font-size: 13px;
+			}
 		}
 
 		p.type {
 			color: #808191;
 			font-size: 12px;
+
+			@media not all and (min-width: 768px) {
+				font-size: 10px;
+			}
 		}
 	}
 `
@@ -166,6 +189,7 @@ export const Mobile = styled.div`
 	width: 12rem;
 	height: 100vh;
 	padding: 2rem 0rem;
+	box-shadow: 0px 0px 20px #ccc;
 
 	@media not all and (min-width: 1280px) {
 		width: 10rem;

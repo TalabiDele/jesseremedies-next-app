@@ -35,6 +35,7 @@ const Customer = ({ customers, token, payHistory }) => {
 	console.log(payHistory)
 
 	const {
+		setLoading,
 		user,
 		addCommas,
 		loanAmount,
@@ -81,7 +82,7 @@ const Customer = ({ customers, token, payHistory }) => {
 							setIsPay(false)
 						}
 					} else if (moment().day() === 1) {
-						setIsPlay(true)
+						setIsPay(true)
 					}
 				})
 			})
@@ -205,6 +206,8 @@ const Customer = ({ customers, token, payHistory }) => {
 	const addLoan = async (e) => {
 		console.log(e)
 
+		setLoading(true)
+
 		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
 			method: 'POST',
 			headers: {
@@ -216,7 +219,12 @@ const Customer = ({ customers, token, payHistory }) => {
 					interest,
 					duration,
 					processing: true,
-					monthly_payment: monthlyPayment,
+					monthly_payment: Math.floor(
+						(parseInt(loanAmount) / 100) *
+							parseInt(interest) *
+							parseInt(duration) +
+							parseInt(loanAmount) / parseInt(duration)
+					),
 					loan_id: 'S00' + Math.random().toString(36).substr(2, 2),
 					amount: loanAmount,
 					purpose: loanPurpose,
@@ -230,15 +238,26 @@ const Customer = ({ customers, token, payHistory }) => {
 			}),
 		})
 
-		const data = loanRes.json()
+		const data = await loanRes.json()
+
+		if (loanRes.ok) {
+			toast.success('Loan added!', {
+				duration: 6000,
+			})
+			refreshData()
+			setInterest('')
+			setDuration('')
+			setMonthlyPayment('')
+			setLoanAmount('')
+			setIsAdd(false)
+		} else {
+			toast.error(data.error.message, {
+				duration: 6000,
+			})
+		}
 		console.log(data)
 
-		refreshData()
-		setInterest('')
-		setDuration('')
-		setMonthlyPayment('')
-		setLoanAmount('')
-		setIsAdd(false)
+		setLoading(false)
 	}
 
 	const editLoan = async (e) => {
@@ -350,13 +369,13 @@ const Customer = ({ customers, token, payHistory }) => {
 												value={interest}
 												onChange={(e) => setInterest(e.target.value)}
 											/>
-											<label htmlFor='monthly_payment'>Monthly Payment</label>
+											{/* <label htmlFor='monthly_payment'>Monthly Payment</label>
 											<input
 												type='number'
 												placeholder='N100,000'
 												value={monthlyPayment}
 												onChange={(e) => setMonthlyPayment(e.target.value)}
-											/>
+											/> */}
 											<label htmlFor='monthly_payment'>Purpose of Loan</label>
 											<input
 												type='text'

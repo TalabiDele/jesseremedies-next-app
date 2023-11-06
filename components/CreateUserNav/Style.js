@@ -4,6 +4,14 @@ export const Container = styled.div`
 	width: 60vw;
 	margin: 7rem auto 2rem auto;
 
+	@media not all and (min-width: 768px) {
+		width: 90vw;
+
+		div.dash {
+			display: none;
+		}
+	}
+
 	div.container {
 		display: grid;
 		grid-template-columns: repeat(9, 1fr);
@@ -12,6 +20,12 @@ export const Container = styled.div`
 		width: 100%;
 		margin: auto;
 		color: #1f4173;
+
+		@media not all and (min-width: 768px) {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
 	}
 
 	.item {
@@ -24,6 +38,14 @@ export const Container = styled.div`
 		height: 4rem;
 		width: 4rem;
 		margin: 0rem auto 1rem auto;
+		font-size: 2rem;
+
+		@media not all and (min-width: 768px) {
+			height: 3rem;
+			width: 3rem;
+			padding: 0rem;
+			font-size: 1rem;
+		}
 	}
 
 	.active {
@@ -36,6 +58,10 @@ export const Container = styled.div`
 		text-align: center;
 		color: #1f4173;
 		font-size: 12px;
+
+		@media not all and (min-width: 768px) {
+			font-size: 10px;
+		}
 	}
 
 	p.text_active {

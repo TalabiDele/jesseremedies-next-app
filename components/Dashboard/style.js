@@ -19,6 +19,10 @@ export const Container = styled.div`
 		}
 	}
 
+	@media not all and (min-width: 640px) {
+		top: 3rem;
+	}
+
 	p {
 		font-size: 14px;
 	}
@@ -43,6 +47,11 @@ export const Container = styled.div`
 	div.top_cards {
 		display: flex;
 		gap: 3rem;
+
+		@media not all and (min-width: 640px) {
+			flex-direction: column;
+			gap: 1rem;
+		}
 	}
 
 	div.card {
@@ -52,6 +61,10 @@ export const Container = styled.div`
 		background: #ffffff;
 		border-radius: 15px;
 		padding: 1rem;
+
+		@media not all and (min-width: 640px) {
+			/* gap: 0.5rem; */
+		}
 	}
 
 	div.orders {
@@ -60,12 +73,23 @@ export const Container = styled.div`
 		border-radius: 20px;
 		width: 90%;
 		margin-top: 2rem;
-		padding-bottom: 10rem;
+		/* padding-bottom: 2rem; */
 		font-size: 14px;
 		padding-top: 2rem;
 		/* padding: 2rem; */
 
 		@media not all and (min-width: 768px) {
+			width: 100%;
+			height: 50vh;
+			overflow-x: scroll;
+		}
+
+		@media not all and (min-width: 640px) {
+			width: 90vw;
+
+			.inner {
+				width: 30rem;
+			}
 		}
 
 		h2 {
@@ -81,6 +105,15 @@ export const Container = styled.div`
 			justify-content: center;
 			margin: 1rem auto;
 			color: #1f4173;
+
+			@media not all and (min-width: 768px) {
+				flex-direction: column;
+				align-items: flex-start;
+
+				div.input {
+					margin-bottom: 1rem;
+				}
+			}
 
 			div.input {
 				display: grid;
@@ -162,7 +195,6 @@ export const Container = styled.div`
 				.btn {
 					border-radius: 5px;
 					padding: 0.5rem;
-					width: 50%;
 					margin: auto;
 					text-align: center;
 				}
@@ -214,6 +246,37 @@ export const Container = styled.div`
 
 	div.wrapper {
 		width: 90%;
+		margin-bottom: 10rem;
+
+		@media not all and (min-width: 768px) {
+			width: 50%;
+			justify-self: flex-start;
+		}
+
+		@media not all and (min-width: 640px) {
+			width: 90vw;
+		}
+	}
+
+	.actions_mobile {
+		background: #ffffff;
+		box-shadow: 0px 4px 90px rgba(163, 171, 185, 0.24);
+		border-radius: 20px;
+		color: #11142d;
+		display: none;
+		margin: 1rem auto;
+		width: 50vw;
+		justify-self: flex-start;
+
+		@media not all and (min-width: 768px) {
+			display: block;
+
+			margin: 1rem 0rem;
+		}
+
+		@media not all and (min-width: 640px) {
+			width: 90vw;
+		}
 	}
 
 	div.actions {
@@ -223,6 +286,10 @@ export const Container = styled.div`
 		color: #11142d;
 		/* padding: 2rem; */
 		/* width: 70%; */
+
+		@media not all and (min-width: 768px) {
+			display: none;
+		}
 	}
 
 	div.btn {
@@ -276,6 +343,11 @@ export const Container = styled.div`
 		border-radius: 20px;
 		margin-top: 2rem;
 		padding: 1rem 0rem 1rem 2rem;
+
+		@media not all and (min-width: 768px) {
+			height: 40vh;
+			overflow-y: scroll;
+		}
 
 		h2 {
 			font-size: 18px;

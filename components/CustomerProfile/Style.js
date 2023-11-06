@@ -8,6 +8,16 @@ export const Container = styled.div`
 	/* z-index: 0; */
 	color: #11142d;
 
+	@media not all and (min-width: 1024px) {
+		margin-left: 10rem;
+		width: 90%;
+	}
+
+	@media not all and (min-width: 768px) {
+		margin: 5rem auto;
+		width: 95vw;
+	}
+
 	.cust_type {
 		text-transform: uppercase;
 	}
@@ -36,12 +46,19 @@ export const Container = styled.div`
 			margin-left: 1rem;
 			cursor: pointer;
 			transition: all 0.2s ease-in-out;
+
+			@media not all and (min-width: 768px) {
+				padding: 0.5rem;
+			}
 		}
 
 		.add_loan {
 			border: 1px solid #e80000;
 			background: none;
 			color: #e80000;
+
+			@media not all and (min-width: 768px) {
+			}
 
 			&:hover {
 				background: #e80000;
@@ -108,6 +125,10 @@ export const Container = styled.div`
 		padding-bottom: 10rem;
 		font-size: 14px;
 		padding: 2rem;
+
+		@media not all and (min-width: 1024px) {
+			padding: 1rem;
+		}
 	}
 
 	div.personal {
@@ -116,20 +137,36 @@ export const Container = styled.div`
 		gap: 1rem;
 		margin-bottom: 2rem;
 
+		.img {
+			width: 4rem;
+		}
+
 		h2 {
 			font-weight: bold;
 			font-size: 1.5rem;
+
+			@media not all and (min-width: 768px) {
+				font-size: 0.8rem;
+			}
 		}
 
 		p {
 			font-size: 14px;
 			text-transform: capitalize;
+
+			@media not all and (min-width: 768px) {
+				font-size: 10px;
+			}
 		}
 	}
 
 	div.flex {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+
+		@media not all and (min-width: 768px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
 	}
 
 	.edit_loan {
@@ -195,6 +232,14 @@ export const Container = styled.div`
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		margin-bottom: 1rem;
+
+		@media not all and (min-width: 1024px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
+
+		@media not all and (min-width: 768px) {
+			grid-template-columns: repeat(1, 1fr);
+		}
 	}
 
 	div.financial_wrapper {
@@ -319,6 +364,10 @@ export const Wrapper = styled.div`
 		border-radius: 20px;
 		padding: 2rem;
 
+		@media not all and (min-width: 768px) {
+			width: 90vw;
+		}
+
 		.no_flex {
 			display: grid;
 			grid-template-columns: repeat(1, 1fr);
@@ -358,6 +407,9 @@ export const Wrapper = styled.div`
 				padding: 0.5rem;
 				cursor: pointer;
 				transition: all 0.3s ease-in-out;
+
+				@media not all and (min-width: 768px) {
+				}
 			}
 
 			button.cancel {

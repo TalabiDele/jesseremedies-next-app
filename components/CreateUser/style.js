@@ -97,6 +97,10 @@ export const Container = styled.div`
 	justify-items: center;
 	margin-bottom: 5rem;
 
+	@media not all and (min-width: 768px) {
+		width: 90vw;
+	}
+
 	.image {
 		margin-bottom: 1rem;
 	}
@@ -109,8 +113,17 @@ export const Container = styled.div`
 		/* width: 80%; */
 		margin: auto;
 
+		@media not all and (min-width: 768px) {
+			width: 90vw;
+			padding: 1rem;
+		}
+
 		.customer_type {
 			width: 50%;
+
+			@media not all and (min-width: 768px) {
+				width: 100%;
+			}
 		}
 
 		h3 {
@@ -122,6 +135,7 @@ export const Container = styled.div`
 		h2 {
 			font-size: 16px;
 			margin-bottom: 1rem;
+			font-weight: bold;
 		}
 
 		h1 {
@@ -143,9 +157,17 @@ export const Container = styled.div`
 				display: grid;
 				grid-template-columns: 30% 30% 30%;
 
+				@media not all and (min-width: 768px) {
+					grid-template-columns: repeat(1, 1fr);
+				}
+
 				input,
 				select {
 					width: 80%;
+
+					@media not all and (min-width: 768px) {
+						width: 100%;
+					}
 				}
 			}
 
@@ -154,9 +176,17 @@ export const Container = styled.div`
 				grid-template-columns: 60% 30%;
 				align-items: flex-start;
 
+				@media not all and (min-width: 768px) {
+					grid-template-columns: repeat(1, 1fr);
+				}
+
 				input,
 				select {
 					width: 80%;
+
+					@media not all and (min-width: 768px) {
+						width: 100%;
+					}
 				}
 			}
 
@@ -175,6 +205,10 @@ export const Container = styled.div`
 				border-radius: 8px;
 				padding: 0.5rem;
 				margin-bottom: 1rem;
+
+				@media not all and (min-width: 768px) {
+					width: 100%;
+				}
 			}
 
 			label {
@@ -208,6 +242,12 @@ export const Container = styled.div`
 			gap: 10px;
 			width: 80%;
 			margin-top: 2rem;
+
+			@media not all and (min-width: 768px) {
+				flex-direction: column;
+				align-items: center;
+				margin: 2rem auto;
+			}
 
 			button {
 				padding: 0.5rem 2rem;
@@ -284,6 +324,10 @@ export const Container = styled.div`
 			grid-template-columns: repeat(2, 1fr);
 			margin-bottom: 0.5rem;
 
+			@media not all and (min-width: 768px) {
+				grid-template-columns: repeat(1, 1fr);
+			}
+
 			p {
 				margin-bottom: 1rem;
 				font-size: 13px;
@@ -302,6 +346,9 @@ export const Container = styled.div`
 export const Wrapper = styled.div`
 	background-color: #fff;
 	width: 100%;
+
+	@media not all and (min-width: 768px) {
+	}
 
 	@media print {
 		width: 100%;
@@ -347,6 +394,7 @@ export const Wrapper = styled.div`
 		h2 {
 			font-size: 12px;
 			margin-bottom: 1rem;
+			font-weight: bold;
 		}
 
 		div.wrapper {

@@ -129,6 +129,10 @@ const Review = ({ token }) => {
 		setLoading,
 		authCode,
 		customerType,
+		guarantorId,
+		setGuarantorId,
+		isGuarantorId,
+		setIsGuarantorId,
 	} = useContext(AuthContext)
 
 	console.log(dob)
@@ -317,6 +321,24 @@ const Review = ({ token }) => {
 
 		const idData = await idUpload.json()
 		console.log('Office ID data', idData)
+
+		const guarantorIdForm = new FormData()
+		idForm.append('files', isGuarantorId)
+		idForm.append('ref', 'api::customer.customer')
+		idForm.append('refId', e?.data?.id)
+		idForm.append('field', 'identification')
+
+		const guarantorIdUpload = await fetch(`${API_URL}/upload`, {
+			method: 'POST',
+			headers: {
+				// "Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${token}`,
+			},
+			body: guarantorIdForm,
+		})
+
+		const guarantorIdData = await idUpload.json()
+		console.log('Office ID data', guarantorIdData)
 
 		const officeIdData = new FormData()
 		officeIdData.append('files', isOffice)
@@ -593,7 +615,7 @@ const Review = ({ token }) => {
 						<button className='edit'>Edit</button>
 					</div>
 					<Wrapper ref={(el) => (componentRef = el)}>
-						<h1 className=' text-center text-sm'>Loan Application</h1>
+						{/* <h1 className=' text-center text-sm'>Loan Application</h1> */}
 						<div className='info'>
 							<h2>Personal Information</h2>
 							{/* <div className="image">

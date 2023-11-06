@@ -10,6 +10,19 @@ export const Container = styled.div`
 	overflow-y: scroll;
 	height: 100vh;
 
+	@media not all and (min-width: 768px) {
+		margin: 1rem auto;
+
+		.mobile {
+			margin: 1rem auto;
+			width: 90vw;
+		}
+	}
+
+	@media not all and (min-width: 640px) {
+		top: 3rem;
+	}
+
 	p {
 		font-size: 14px;
 	}
@@ -20,8 +33,8 @@ export const Container = styled.div`
 	}
 
 	div.all {
-		display: grid;
-		grid-template-columns: 70% 30%;
+		/* display: grid;
+		grid-template-columns: 70% 30%; */
 		/* margin-top: 2rem; */
 	}
 
@@ -50,6 +63,21 @@ export const Container = styled.div`
 		padding-top: 2rem;
 		/* padding: 2rem; */
 
+		@media not all and (min-width: 768px) {
+			width: 100%;
+			height: 70vh;
+			overflow-x: scroll;
+			margin-top: 1rem;
+		}
+
+		@media not all and (min-width: 640px) {
+			width: 90vw;
+
+			.inner {
+				width: 30rem;
+			}
+		}
+
 		h2 {
 			font-size: 16px;
 			color: #1f4173;
@@ -64,6 +92,16 @@ export const Container = styled.div`
 			margin: 1rem auto;
 			gap: 4rem;
 			color: #1f4173;
+
+			@media not all and (min-width: 768px) {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0rem;
+
+				div.input {
+					margin-bottom: 1rem;
+				}
+			}
 
 			div.input {
 				display: grid;

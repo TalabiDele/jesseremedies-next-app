@@ -32,6 +32,10 @@ const GuarantorInfo = () => {
 		setGuarantorEmail,
 		isGuarantorPassort,
 		setIsGuarantorPassport,
+		guarantorId,
+		setGuarantorId,
+		isGuarantorId,
+		setIsGuarantorId,
 	} = useContext(AuthContext)
 
 	const router = useRouter()
@@ -80,6 +84,13 @@ const GuarantorInfo = () => {
 		const base64 = await convertBase64(e.target.files[0])
 
 		setIsGuarantorPassport(base64)
+	}
+
+	const handleGuarantorId = async (e) => {
+		setGuarantorId(e.target.files[0])
+		const base64 = await convertBase64(e.target.files[0])
+
+		setIsGuarantorId(base64)
 	}
 
 	return (
@@ -179,6 +190,10 @@ const GuarantorInfo = () => {
 						<div className='no_flex'>
 							<label htmlFor='passport'>Guarantor Passport Photograph</label>
 							<input type='file' onChange={(e) => handlePassport(e)} />
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='guarantorId'>Guarantor ID</label>
+							<input type='file' onChange={(e) => handleGuarantorId(e)} />
 						</div>
 						<div className='no_flex'>
 							<label htmlFor='passport'>How long have you know guarantor</label>

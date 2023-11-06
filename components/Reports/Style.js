@@ -3,11 +3,36 @@ import styled from 'styled-components'
 export const Container = styled.div`
 	margin-left: 15rem;
 	margin-top: 3rem;
+	position: relative;
+	top: 5rem;
 	padding-bottom: 5rem;
+
+	h1 {
+		font-weight: bold;
+		font-size: 1.5rem;
+		width: 90vw;
+		margin: auto;
+	}
+
+	@media not all and (min-width: 768px) {
+		margin: 1rem auto;
+
+		.mobile {
+			margin: 1rem auto;
+			width: 90vw;
+		}
+	}
 
 	div.user_report {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+
+		@media not all and (min-width: 768px) {
+			grid-template-columns: repeat(1, 1fr);
+			justify-items: center;
+			width: 95vw;
+			margin: auto;
+		}
 	}
 
 	.user_container {
@@ -19,6 +44,20 @@ export const Container = styled.div`
 		padding-bottom: 1rem;
 		font-size: 14px;
 		padding-top: 1rem;
+
+		@media not all and (min-width: 768px) {
+			width: 100%;
+			height: 50vh;
+			overflow-x: scroll;
+		}
+
+		@media not all and (min-width: 640px) {
+			width: 90vw;
+
+			.inside {
+				width: 30rem;
+			}
+		}
 
 		h3 {
 			margin-left: 1rem;

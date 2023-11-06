@@ -67,7 +67,14 @@ const Nav = () => {
 							/>
 						</form>
 						<div className='user_info'>
-							<Image src={userImage} alt='user image' width={50} height={50} />
+							<div className='user_img'>
+								<Image
+									src={userImage}
+									alt='user image'
+									width={50}
+									height={50}
+								/>
+							</div>
 							{user && (
 								<div className='username'>
 									<p>{user.username}</p>

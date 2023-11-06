@@ -128,6 +128,11 @@ export const AuthProvider = ({ children }) => {
 	const [loans, setLoans] = useState()
 	const [customers, setCustomers] = useState()
 	const [customerType, setCustomerType] = useLocalStorage('customer_type', '')
+	const [guarantorId, setGuarantorId] = useLocalStorage('guarantor_id', null)
+	const [isGuarantorId, setIsGuarantorId] = useLocalStorage(
+		'is_guarantor_id',
+		null
+	)
 
 	const router = useRouter()
 
@@ -501,6 +506,10 @@ export const AuthProvider = ({ children }) => {
 				setIsGuarantor,
 				customerType,
 				setCustomerType,
+				guarantorId,
+				setGuarantorId,
+				isGuarantorId,
+				setIsGuarantorId,
 			}}
 		>
 			{children}

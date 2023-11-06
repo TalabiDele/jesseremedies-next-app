@@ -5,6 +5,11 @@ export const Container = styled.div`
 	/* margin: auto; */
 	margin-left: 10rem;
 
+	@media not all and (min-width: 768px) {
+		margin: auto;
+		width: 100vw;
+	}
+
 	div.head {
 		display: flex;
 		justify-content: space-between;
@@ -22,6 +27,15 @@ export const Container = styled.div`
 		padding-bottom: 10rem;
 		font-size: 14px;
 		padding-top: 2rem;
+
+		@media not all and (min-width: 768px) {
+			overflow-x: scroll;
+			width: 90vw;
+
+			.inner {
+				width: 60rem;
+			}
+		}
 
 		ul,
 		div.wrapper {

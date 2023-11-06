@@ -95,60 +95,116 @@ const UsersPage = ({ customers }) => {
 
 	return (
 		<Container>
-			<h1>Customers</h1>
-			<div className='all'>
-				<div className='container'>
-					<div className='orders'>
-						<h2>Latest Loan Orders</h2>
-						<div className='search'>
-							<div className='input'>
-								<input type='text' placeholder='Search User' />
-							</div>
-							<ul>
-								<li className={isAll ? 'active' : ''} onClick={handleAll}>
-									All
-								</li>
-								<li className={isLoaned ? 'active' : ''} onClick={handleLoaned}>
-									Loaned
-								</li>
-								<li
-									className={isOverdue ? 'active' : ''}
-									onClick={handleOverdue}
-								>
-									Overdue
-								</li>
-								<li className={isPaid ? 'active' : ''} onClick={handlePaid}>
-									Paid
-								</li>
-								<li
-									className={isProcessing ? 'active' : ''}
-									onClick={handleProcessing}
-								>
-									Processing
-								</li>
-								<li
-									className={isApproved ? 'active' : ''}
-									onClick={handleApproved}
-								>
-									Approved
-								</li>
-								<li className={isDenied ? 'active' : ''} onClick={handleDenied}>
-									Denied
-								</li>
-							</ul>
-						</div>
-						<div className='table'>
-							<ul>
-								<li>Credit Officer</li>
-								<li>Customer</li>
-								<li>Loan Status</li>
-								<li>Email</li>
-								<li>Phone Number</li>
-							</ul>
-							{user?.teller &&
-								customers?.data?.map(
-									(e) =>
-										user.id === e.attributes.user.data.id && (
+			<div className='mobile'>
+				<h1>Customers</h1>
+				<div className='all'>
+					<div className='container'>
+						<div className='orders'>
+							<div className='inner'>
+								<h2>Latest Loan Orders</h2>
+								<div className='search'>
+									<div className='input'>
+										<input type='text' placeholder='Search User' />
+									</div>
+									<ul>
+										<li className={isAll ? 'active' : ''} onClick={handleAll}>
+											All
+										</li>
+										<li
+											className={isLoaned ? 'active' : ''}
+											onClick={handleLoaned}
+										>
+											Loaned
+										</li>
+										<li
+											className={isOverdue ? 'active' : ''}
+											onClick={handleOverdue}
+										>
+											Overdue
+										</li>
+										<li className={isPaid ? 'active' : ''} onClick={handlePaid}>
+											Paid
+										</li>
+										<li
+											className={isProcessing ? 'active' : ''}
+											onClick={handleProcessing}
+										>
+											Processing
+										</li>
+										<li
+											className={isApproved ? 'active' : ''}
+											onClick={handleApproved}
+										>
+											Approved
+										</li>
+										<li
+											className={isDenied ? 'active' : ''}
+											onClick={handleDenied}
+										>
+											Denied
+										</li>
+									</ul>
+								</div>
+								<div className='table'>
+									<ul>
+										<li>Credit Officer</li>
+										<li>Customer</li>
+										<li>Loan Status</li>
+										<li>Email</li>
+										<li>Phone Number</li>
+									</ul>
+									{user?.teller &&
+										customers?.data?.map(
+											(e) =>
+												user.id === e.attributes.user.data.id && (
+													<div className='loanee_details' key={e.id}>
+														{e.attributes.loans.data.map((loan) => (
+															<div className='loan' key={loan.id}>
+																<p className='id'>
+																	{e.attributes.user.data.attributes.username}
+																</p>
+																<p className='name'>
+																	{e.attributes.firstname +
+																		' ' +
+																		e.attributes.lastname}
+																</p>
+																{console.log(loan.attributes)}
+																{loan.attributes.disbursed && (
+																	<p className='loaned btn'>Disbursed</p>
+																)}
+																{loan.attributes.paid && (
+																	<p className='paid btn'>Paid</p>
+																)}
+																{loan.attributes.due_soon && (
+																	<p className='due_soon btn'>Loan Due Soon</p>
+																)}
+																{loan.attributes.overdue && (
+																	<p className='overdue btn'>Loan Overdue</p>
+																)}
+																{loan.attributes.processing && (
+																	<p className='processing btn'>Processing</p>
+																)}
+																{loan.attributes.denied && (
+																	<p className='overdue btn'>Denied</p>
+																)}
+																{loan.attributes.approved && (
+																	<p className='paid btn'>Approved</p>
+																)}
+																{loan.attributes.loan_start && (
+																	<p className='start btn'>Loaned</p>
+																)}
+																<p className='total'>
+																	{/* <TbCurrencyNaira fontSize={20} color='#1F4173' /> */}
+																	{e.attributes.email}
+																</p>
+																<p className='number'>{e.attributes.phone_1}</p>
+															</div>
+														))}
+													</div>
+												)
+										)}
+									{user?.supervisor &&
+										customers?.data.map((e) => (
 											<div className='loanee_details' key={e.id}>
 												{e.attributes.loans.data.map((loan) => (
 													<div className='loan' key={loan.id}>
@@ -160,7 +216,6 @@ const UsersPage = ({ customers }) => {
 																' ' +
 																e.attributes.lastname}
 														</p>
-														{console.log(loan.attributes)}
 														{loan.attributes.disbursed && (
 															<p className='loaned btn'>Disbursed</p>
 														)}
@@ -179,105 +234,64 @@ const UsersPage = ({ customers }) => {
 														{loan.attributes.denied && (
 															<p className='overdue btn'>Denied</p>
 														)}
+														{loan.attributes.loan_start && (
+															<p className='start btn'>Loaned</p>
+														)}
 														{loan.attributes.approved && (
 															<p className='paid btn'>Approved</p>
+														)}
+														<p className='total'>{e.attributes.email}</p>
+														<p className='total'>{e.attributes.phone_1}</p>
+													</div>
+												))}
+											</div>
+										))}
+									{(user?.manager || user?.md) &&
+										customers?.data?.map((e) => (
+											<div className='loanee_details' key={e.id}>
+												{e.attributes.loans.data.map((loan) => (
+													<div className='loan' key={loan.id}>
+														<p className='id'>
+															{e.attributes.user.data.attributes.username}
+														</p>
+														<p className='name'>
+															{e.attributes.firstname +
+																' ' +
+																e.attributes.lastname}
+														</p>
+														{loan.attributes.disbursed && (
+															<p className='loaned btn'>Disbursed</p>
+														)}
+														{loan.attributes.paid && (
+															<p className='paid btn'>Paid</p>
+														)}
+														{loan.attributes.due_soon && (
+															<p className='due_soon btn'>Loan Due Soon</p>
+														)}
+														{loan.attributes.overdue && (
+															<p className='overdue btn'>Loan Overdue</p>
+														)}
+														{loan.attributes.processing && (
+															<p className='processing btn'>Processing</p>
 														)}
 														{loan.attributes.loan_start && (
 															<p className='start btn'>Loaned</p>
 														)}
-														<p className='total'>
-															{/* <TbCurrencyNaira fontSize={20} color='#1F4173' /> */}
-															{e.attributes.email}
-														</p>
-														<p className='number'>{e.attributes.phone_1}</p>
+														{loan.attributes.approved && (
+															<p className='paid btn'>Approved</p>
+														)}
+														{loan.attributes.denied && (
+															<p className='overdue btn'>Denied</p>
+														)}
+														<p className='total'>{e.attributes.email}</p>
+														{console.log(loan.attributes)}
+														<p className='total'>{e.attributes.phone_1}</p>
 													</div>
 												))}
 											</div>
-										)
-								)}
-							{user?.supervisor &&
-								customers?.data.map((e) => (
-									<div className='loanee_details' key={e.id}>
-										{e.attributes.loans.data.map((loan) => (
-											<div className='loan' key={loan.id}>
-												<p className='id'>
-													{e.attributes.user.data.attributes.username}
-												</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.disbursed && (
-													<p className='loaned btn'>Disbursed</p>
-												)}
-												{loan.attributes.paid && (
-													<p className='paid btn'>Paid</p>
-												)}
-												{loan.attributes.due_soon && (
-													<p className='due_soon btn'>Loan Due Soon</p>
-												)}
-												{loan.attributes.overdue && (
-													<p className='overdue btn'>Loan Overdue</p>
-												)}
-												{loan.attributes.processing && (
-													<p className='processing btn'>Processing</p>
-												)}
-												{loan.attributes.denied && (
-													<p className='overdue btn'>Denied</p>
-												)}
-												{loan.attributes.loan_start && (
-													<p className='start btn'>Loaned</p>
-												)}
-												{loan.attributes.approved && (
-													<p className='paid btn'>Approved</p>
-												)}
-												<p className='total'>{e.attributes.email}</p>
-												<p className='total'>{e.attributes.phone_1}</p>
-											</div>
 										))}
-									</div>
-								))}
-							{(user?.manager || user?.md) &&
-								customers?.data?.map((e) => (
-									<div className='loanee_details' key={e.id}>
-										{e.attributes.loans.data.map((loan) => (
-											<div className='loan' key={loan.id}>
-												<p className='id'>
-													{e.attributes.user.data.attributes.username}
-												</p>
-												<p className='name'>
-													{e.attributes.firstname + ' ' + e.attributes.lastname}
-												</p>
-												{loan.attributes.disbursed && (
-													<p className='loaned btn'>Disbursed</p>
-												)}
-												{loan.attributes.paid && (
-													<p className='paid btn'>Paid</p>
-												)}
-												{loan.attributes.due_soon && (
-													<p className='due_soon btn'>Loan Due Soon</p>
-												)}
-												{loan.attributes.overdue && (
-													<p className='overdue btn'>Loan Overdue</p>
-												)}
-												{loan.attributes.processing && (
-													<p className='processing btn'>Processing</p>
-												)}
-												{loan.attributes.loan_start && (
-													<p className='start btn'>Loaned</p>
-												)}
-												{loan.attributes.approved && (
-													<p className='paid btn'>Approved</p>
-												)}
-												{loan.attributes.denied && (
-													<p className='overdue btn'>Denied</p>
-												)}
-												<p className='total'>{e.attributes.email}</p>
-												{console.log(loan.attributes)}
-												<p className='total'>{e.attributes.phone_1}</p>
-											</div>
-										))}
-									</div>
-								))}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
