@@ -57,9 +57,6 @@ export const Container = styled.div`
 			background: none;
 			color: #e80000;
 
-			@media not all and (min-width: 768px) {
-			}
-
 			&:hover {
 				background: #e80000;
 				color: #fff;
