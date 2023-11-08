@@ -93,6 +93,31 @@ const Customer = ({ customers, token, payHistory }) => {
 
 	console.log(customers)
 
+	const handleSupervisorApprove = async (e) => {
+		const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				data: {
+					super_approve: true,
+					processing: false,
+					approval_reason: approvalComment,
+					// customer: {
+					//   id: e.data.id,
+					// },
+				},
+			}),
+		})
+
+		const data = loanRes.json()
+		refreshData()
+
+		console.log(data)
+	}
+
 	const handleApprove = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
 			method: 'PUT',
@@ -103,6 +128,7 @@ const Customer = ({ customers, token, payHistory }) => {
 			body: JSON.stringify({
 				data: {
 					processing: false,
+					super_approve: false,
 					approved: true,
 					approval_reason: approvalComment,
 					// customer: {
@@ -604,6 +630,12 @@ const Customer = ({ customers, token, payHistory }) => {
 															<span className='paid btn'>Paid</span>
 														</p>
 													)}
+													{loan.attributes.super_approve && (
+														<p>
+															Loan Status:{' '}
+															<span className='paid btn'>In progress</span>
+														</p>
+													)}
 													{loan.attributes.approved && (
 														<p>
 															Loan Status:{' '}
@@ -674,8 +706,27 @@ const Customer = ({ customers, token, payHistory }) => {
 													)}
 
 													{user &&
-														user.manager &&
+														user.supervisor &&
 														loan.attributes.processing && (
+															<div className='btns'>
+																<button
+																	className='approve'
+																	onClick={() => handleSupervisorApprove(loan)}
+																>
+																	Approve
+																</button>
+																<button
+																	className='decline'
+																	onClick={() => handleDecline(loan)}
+																>
+																	Decline
+																</button>
+															</div>
+														)}
+
+													{user &&
+														user.manager &&
+														loan.attributes.super_approve && (
 															<div className='btns'>
 																<button
 																	className='approve'

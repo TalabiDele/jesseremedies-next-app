@@ -126,6 +126,9 @@ const Reports = ({ token, users, customers, loans }) => {
 																		{loan.attributes.approved && (
 																			<p className='paid btn'>Approved</p>
 																		)}
+																		{loan.attributes.super_approve && (
+																			<p className='paid btn'>In progress</p>
+																		)}
 																		{loan.attributes.due_soon && (
 																			<p className='due_soon btn'>
 																				Loan Due Soon
@@ -228,6 +231,9 @@ const Reports = ({ token, users, customers, loans }) => {
 																		</p>
 																		{loan.attributes.disbursed && (
 																			<p className='loaned btn'>Disbursed</p>
+																		)}
+																		{loan.attributes.super_approve && (
+																			<p className='paid btn'>In progress</p>
 																		)}
 																		{loan.attributes.paid && (
 																			<p className='paid btn'>Paid</p>

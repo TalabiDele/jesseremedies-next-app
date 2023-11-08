@@ -184,6 +184,9 @@ const UsersPage = ({ customers }) => {
 																{loan.attributes.processing && (
 																	<p className='processing btn'>Processing</p>
 																)}
+																{loan.attributes.super_approve && (
+																	<p className='paid btn'>In progress</p>
+																)}
 																{loan.attributes.denied && (
 																	<p className='overdue btn'>Denied</p>
 																)}
@@ -203,7 +206,7 @@ const UsersPage = ({ customers }) => {
 													</div>
 												)
 										)}
-									{user?.supervisor &&
+									{(user?.supervisor || user?.manager || user?.md) &&
 										customers?.data.map((e) => (
 											<div className='loanee_details' key={e.id}>
 												{e.attributes.loans.data.map((loan) => (
@@ -225,6 +228,9 @@ const UsersPage = ({ customers }) => {
 														{loan.attributes.due_soon && (
 															<p className='due_soon btn'>Loan Due Soon</p>
 														)}
+														{loan.attributes.super_approve && (
+															<p className='paid btn'>In progress</p>
+														)}
 														{loan.attributes.overdue && (
 															<p className='overdue btn'>Loan Overdue</p>
 														)}
@@ -241,50 +247,6 @@ const UsersPage = ({ customers }) => {
 															<p className='paid btn'>Approved</p>
 														)}
 														<p className='total'>{e.attributes.email}</p>
-														<p className='total'>{e.attributes.phone_1}</p>
-													</div>
-												))}
-											</div>
-										))}
-									{(user?.manager || user?.md) &&
-										customers?.data?.map((e) => (
-											<div className='loanee_details' key={e.id}>
-												{e.attributes.loans.data.map((loan) => (
-													<div className='loan' key={loan.id}>
-														<p className='id'>
-															{e.attributes.user.data.attributes.username}
-														</p>
-														<p className='name'>
-															{e.attributes.firstname +
-																' ' +
-																e.attributes.lastname}
-														</p>
-														{loan.attributes.disbursed && (
-															<p className='loaned btn'>Disbursed</p>
-														)}
-														{loan.attributes.paid && (
-															<p className='paid btn'>Paid</p>
-														)}
-														{loan.attributes.due_soon && (
-															<p className='due_soon btn'>Loan Due Soon</p>
-														)}
-														{loan.attributes.overdue && (
-															<p className='overdue btn'>Loan Overdue</p>
-														)}
-														{loan.attributes.processing && (
-															<p className='processing btn'>Processing</p>
-														)}
-														{loan.attributes.loan_start && (
-															<p className='start btn'>Loaned</p>
-														)}
-														{loan.attributes.approved && (
-															<p className='paid btn'>Approved</p>
-														)}
-														{loan.attributes.denied && (
-															<p className='overdue btn'>Denied</p>
-														)}
-														<p className='total'>{e.attributes.email}</p>
-														{console.log(loan.attributes)}
 														<p className='total'>{e.attributes.phone_1}</p>
 													</div>
 												))}
