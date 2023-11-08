@@ -29,6 +29,7 @@ const Customer = ({ customers, token, payHistory }) => {
 	const [approvalComment, setApprovalComment] = useState('')
 	const [isHistory, setIsHistory] = useState(false)
 	const [isPay, setIsPay] = useState(true)
+	const [payDay, setPayDay] = useState()
 
 	const router = useRouter()
 
@@ -57,10 +58,6 @@ const Customer = ({ customers, token, payHistory }) => {
 	let month = date.getMonth() + 1
 	let year = date.getFullYear()
 
-	console.log(date.getDate())
-
-	console.log(customers[0].attributes.loans.data[0])
-
 	useEffect(() => {
 		if (date.getDate() === 17) {
 			console.log('Its today')
@@ -73,7 +70,8 @@ const Customer = ({ customers, token, payHistory }) => {
 				payHistory?.forEach((history) => {
 					console.log(moment().format('YYYY-MM-DD'))
 					if (
-						history.attributes.payment_date === moment().format('YYYY-MM-DD')
+						history.attributes.payment_date === moment().format('YYYY-MM-DD') &&
+						customer?.customer_type === 'sme'
 					) {
 						console.log(loan)
 						setIsPay(false)
@@ -87,9 +85,8 @@ const Customer = ({ customers, token, payHistory }) => {
 				})
 			})
 		})
-
-		console.log(moment().day())
 	}, [])
+	console.log(moment().weekday(5).format('DD MMM YYYY'))
 
 	console.log(customers)
 
@@ -548,17 +545,7 @@ const Customer = ({ customers, token, payHistory }) => {
 																			setLoanInterest(e.target.value)
 																		}
 																	/>
-																	<label htmlFor='monthly_payment'>
-																		Monthly Payment
-																	</label>
-																	<input
-																		type='number'
-																		placeholder='N100,000'
-																		value={loanPayment}
-																		onChange={(e) =>
-																			setLoanPayment(e.target.value)
-																		}
-																	/>
+
 																	<label htmlFor='monthly_payment'>
 																		Purpose of Loan
 																	</label>
@@ -608,7 +595,12 @@ const Customer = ({ customers, token, payHistory }) => {
 														{loan.attributes.duration} months
 													</p>
 													<p>
-														<span>Monthly Payment: </span>
+														<span>
+															{e.attributes.customer_type === 'sme'
+																? 'Weekly Payment'
+																: 'Monthly Payment'}
+															:{' '}
+														</span>
 														<TbCurrencyNaira />
 														{addCommas(loan.attributes.monthly_payment)}
 													</p>
@@ -686,6 +678,12 @@ const Customer = ({ customers, token, payHistory }) => {
 														<p>
 															<span>Disburse Date: </span>
 															{loan.attributes.disburse_date}
+														</p>
+													)}
+													{isPay && (
+														<p>
+															<span>Due Date: </span>
+															{moment().weekday(5).format('DD MMM YYYY')}
 														</p>
 													)}
 													{loan.attributes.processing && (
@@ -777,44 +775,45 @@ const Customer = ({ customers, token, payHistory }) => {
 													</button>
 												</div>
 
-												{loan?.attributes.loan_start && (
-													<div className=''>
-														{(user?.manager ||
-															user?.md ||
-															user?.supervisor) && (
-															<div className=' mb-[2rem]'>
-																<div className=' mb-[1rem]'>
-																	<h1 className=' font-bold text-xl mb-[1rem]'>
-																		Payment for this week
-																	</h1>
-																	{isPay && (
-																		<button
-																			className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
-																			onClick={() => handlePayment(loan)}
-																		>
-																			Paid
-																		</button>
-																	)}
-																	{!isPay && (
-																		<p className=''>Paid for this week</p>
-																	)}
-																	{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
+												{loan?.attributes.loan_start &&
+													e.attributes.customer_type === 'sme' && (
+														<div className=''>
+															{(user?.manager ||
+																user?.md ||
+																user?.supervisor) && (
+																<div className=' mb-[2rem]'>
+																	<div className=' mb-[1rem]'>
+																		<h1 className=' font-bold text-xl mb-[1rem]'>
+																			Payment for this week
+																		</h1>
+																		{isPay && (
+																			<button
+																				className=' bg-[#0043f1] text-white rounded-md text-md py-[0.5rem] px-[1rem] mr-[1rem]'
+																				onClick={() => handlePayment(loan)}
+																			>
+																				Paid
+																			</button>
+																		)}
+																		{!isPay && (
+																			<p className=''>Paid for this week</p>
+																		)}
+																		{/* <button className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'>
 																	Not Paid
 																</button> */}
-																</div>
+																	</div>
 
-																<div className=''>
-																	<button
-																		className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'
-																		onClick={() => setIsHistory(true)}
-																	>
-																		View Payment history
-																	</button>
+																	<div className=''>
+																		<button
+																			className=' bg-[#e80000] text-white rounded-md text-md py-[0.5rem] px-[1rem]'
+																			onClick={() => setIsHistory(true)}
+																		>
+																			View Payment history
+																		</button>
+																	</div>
 																</div>
-															</div>
-														)}
-													</div>
-												)}
+															)}
+														</div>
+													)}
 											</>
 										))}
 									</div>
