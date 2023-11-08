@@ -133,6 +133,11 @@ export const AuthProvider = ({ children }) => {
 		'is_guarantor_id',
 		null
 	)
+	const [workAddress, setWorkAddress] = useLocalStorage('work_address', '')
+	const [guarantorOrigin, setGuarantorOrigin] = useLocalStorage(
+		'guarantor_origin',
+		''
+	)
 
 	const router = useRouter()
 
@@ -510,6 +515,10 @@ export const AuthProvider = ({ children }) => {
 				setGuarantorId,
 				isGuarantorId,
 				setIsGuarantorId,
+				workAddress,
+				setWorkAddress,
+				guarantorOrigin,
+				setGuarantorOrigin,
 			}}
 		>
 			{children}

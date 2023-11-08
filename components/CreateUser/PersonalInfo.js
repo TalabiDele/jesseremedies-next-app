@@ -341,7 +341,7 @@ const PersonalInfo = ({
 							/>
 						</div>
 						<div className='no_flex'>
-							<label htmlFor='dependants'>Salary Data</label>
+							<label htmlFor='dependants'>Salary Date</label>
 							<input
 								type='number'
 								// placeholder="3"

@@ -36,6 +36,8 @@ const GuarantorInfo = () => {
 		setGuarantorId,
 		isGuarantorId,
 		setIsGuarantorId,
+		guarantorOrigin,
+		setGuarantorOrigin,
 	} = useContext(AuthContext)
 
 	const router = useRouter()
@@ -72,6 +74,10 @@ const GuarantorInfo = () => {
 			})
 		} else if (guarantorPhone === '') {
 			toast.error("Guarantor's number is required!", {
+				duration: 6000,
+			})
+		} else if (guarantorEmail === '') {
+			toast.error("Guarantor's email is required!", {
 				duration: 6000,
 			})
 		} else {
@@ -206,9 +212,19 @@ const GuarantorInfo = () => {
 						<div className='no_flex'>
 							<label htmlFor='email'>Guarantor Email</label>
 							<input
+								placeholder='johndoe@email.com'
 								type='email'
 								value={guarantorEmail}
 								onChange={(e) => setGuarantorEmail(e.target.value)}
+							/>
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='email'>Guarantor State of Origin</label>
+							<input
+								placeholder='Ogun State'
+								type='text'
+								value={guarantorOrigin}
+								onChange={(e) => setGuarantorOrigin(e.target.value)}
 							/>
 						</div>
 					</div>

@@ -69,14 +69,16 @@ const Payment = ({ email }) => {
 
 	return (
 		<div>
-			<div className=''>
-				<div
-					onClick={handleInit}
-					className='  text-[#0043f1] font-bold border-2 border-[#0043f1] rounded-md w-[7rem] flex justify-center cursor-pointer my-[2rem] py-[0.5rem]'
-				>
-					Add Card
+			{!reference && (
+				<div className=''>
+					<div
+						onClick={handleInit}
+						className='  text-[#0043f1] font-bold border-2 border-[#0043f1] rounded-md w-[7rem] flex justify-center cursor-pointer my-[2rem] py-[0.5rem] hover:bg-[#0043f1] hover:text-white duration-300 ease-in-out'
+					>
+						Add Card
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	)
 }

@@ -59,7 +59,7 @@ const Customer = ({ customers, token, payHistory }) => {
 
 	console.log(date.getDate())
 
-	console.log(user)
+	console.log(customers[0].attributes.loans.data[0])
 
 	useEffect(() => {
 		if (date.getDate() === 17) {
@@ -208,35 +208,37 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		setLoading(true)
 
-		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-			body: JSON.stringify({
-				data: {
-					interest,
-					duration,
-					processing: true,
-					monthly_payment: Math.floor(
-						(parseInt(loanAmount) / 100) *
-							parseInt(interest) *
-							parseInt(duration) +
-							parseInt(loanAmount) / parseInt(duration)
-					),
-					loan_id: 'S00' + Math.random().toString(36).substr(2, 2),
-					amount: loanAmount,
-					purpose: loanPurpose,
-					customer: {
-						id: e.id,
-						payment: {
-							authorization_code: authCode,
-						},
-					},
+		const loanRes = await fetch(
+			`${API_URL}/loans/${customers[0].attributes.loans.data[0].id}?populate=*`,
+			{
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`,
 				},
-			}),
-		})
+				body: JSON.stringify({
+					data: {
+						interest,
+						duration:
+							parseInt(
+								customers[0].attributes.loans.data[0].attributes.duration
+							) + parseInt(duration),
+						monthly_payment:
+							parseInt(
+								customers[0].attributes.loans.data[0].attributes.monthly_payment
+							) +
+							Math.floor(
+								(parseInt(loanAmount) / 100) * parseInt(interest) +
+									parseInt(loanAmount) / parseInt(duration)
+							),
+						amount:
+							parseInt(
+								customers[0].attributes.loans.data[0].attributes.amount
+							) + parseInt(loanAmount),
+					},
+				}),
+			}
+		)
 
 		const data = await loanRes.json()
 
@@ -269,14 +271,11 @@ const Customer = ({ customers, token, payHistory }) => {
 			},
 			body: JSON.stringify({
 				data: {
-					interest: loanInterest ? loanInterest : e.attributes.interest,
-					duration: loanDuration ? loanDuration : e.attributes.duration,
+					interest: loanInterest,
+					duration: loanDuration,
 					monthly_payment: Math.floor(
-						(parseInt(amount ? amount : e.attributes.amount) / 100) *
-							parseInt(loanInterest ? loanInterest : e.attributes.interest) *
-							parseInt(loanDuration ? loanDuration : e.attributes.duration) +
-							parseInt(amount ? amount : e.attributes.amount) /
-								parseInt(duration ? duration : e.attributes.duration)
+						(parseInt(amount) / 100) * parseInt(loanInterest) +
+							parseInt(amount) / parseInt(loanDuration)
 					),
 					amount,
 					purpose,
@@ -284,7 +283,7 @@ const Customer = ({ customers, token, payHistory }) => {
 			}),
 		})
 
-		const data = loanRes.json()
+		const data = await loanRes.json()
 		console.log(data)
 
 		refreshData()

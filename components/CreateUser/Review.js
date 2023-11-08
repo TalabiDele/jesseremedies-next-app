@@ -133,6 +133,9 @@ const Review = ({ token }) => {
 		setGuarantorId,
 		isGuarantorId,
 		setIsGuarantorId,
+		workAddress,
+		guarantorOrigin,
+		setGuarantorOrigin,
 	} = useContext(AuthContext)
 
 	console.log(dob)
@@ -178,6 +181,7 @@ const Review = ({ token }) => {
 					work_number: workNumber,
 					current_income: income,
 					asset,
+					guarantor_origin: guarantorOrigin,
 					salary_day: salaryDate,
 					asset_type: assetType,
 					value_of_asset: assetValue,
@@ -194,6 +198,7 @@ const Review = ({ token }) => {
 					guarantor_length: guarantorLength,
 					card_number: cardNumber,
 					cvv,
+					work_address: workAddress,
 					employee_position: position,
 					employment_type: employmentType,
 					dependants,
@@ -827,7 +832,7 @@ const Review = ({ token }) => {
 							<h3 className=' text-[0.7rem]'>Basis for Recommendation</h3>
 							<input type='text' className=' border-b border-black w-[100%]' />
 							<div className='officer'>
-								<h3>Relationship Officer</h3>
+								<h3>Credit Officer</h3>
 								<div className='details'>
 									<p>
 										Name:{' '}

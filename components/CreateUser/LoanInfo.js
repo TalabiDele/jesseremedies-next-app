@@ -96,6 +96,7 @@ const LoanInfo = ({
 							name='customer_type'
 							id='customer_type'
 							onChange={(e) => setCustomerType(e.target.value)}
+							value={customerType}
 							className='customer_type mb-[1rem]'
 						>
 							<option value='' selected>

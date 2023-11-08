@@ -42,6 +42,8 @@ const FinancialInfo = ({
 		cardExpiry,
 		setCardExpiry,
 		setAuthCode,
+		workAddress,
+		setWorkAddress,
 	} = useContext(AuthContext)
 
 	const handleSubmit = (e) => {
@@ -56,7 +58,7 @@ const FinancialInfo = ({
 	return (
 		<Container>
 			<div className='container'>
-				<h1>Loan Information</h1>
+				<h1>Business Information</h1>
 				<form action='' onSubmit={handleSubmit}>
 					{/* <div className="no_flex"> */}
 					<div className='flex_three'>
@@ -110,6 +112,17 @@ const FinancialInfo = ({
 							/>
 						</div>
 						<div className='no_flex'>
+							<label htmlFor='work_address'>Work Address</label>
+							<input
+								type='text'
+								placeholder='address'
+								value={workAddress}
+								onChange={(e) => setWorkAddress(e.target.value)}
+							/>
+						</div>
+					</div>
+					<div className='flex_three'>
+						<div className='no_flex'>
 							<label htmlFor='income'>Current net Income</label>
 							<input
 								type='number'
@@ -118,8 +131,6 @@ const FinancialInfo = ({
 								onChange={(e) => setIncome(e.target.value)}
 							/>
 						</div>
-					</div>
-					<div className='flex_three'>
 						<div className='no_flex'>
 							<label htmlFor='asset'>Asset</label>
 							<input
