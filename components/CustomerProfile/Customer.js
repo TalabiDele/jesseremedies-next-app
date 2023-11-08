@@ -208,9 +208,7 @@ const Customer = ({ customers, token, payHistory }) => {
 					approved: false,
 					disbursed: false,
 					loan_start: true,
-					// customer: {
-					//   id: e.data.id,
-					// },
+					disburse_date: `${year}-${month}-0${day}`,
 				},
 			}),
 		})
@@ -684,6 +682,12 @@ const Customer = ({ customers, token, payHistory }) => {
 																parseInt(loan.attributes.amount)
 														)}
 													</p>
+													{loan.attributes.disburse_date && (
+														<p>
+															<span>Disburse Date: </span>
+															{loan.attributes.disburse_date}
+														</p>
+													)}
 													{loan.attributes.processing && (
 														<>
 															<textarea
