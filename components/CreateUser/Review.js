@@ -328,10 +328,10 @@ const Review = ({ token }) => {
 		console.log('Office ID data', idData)
 
 		const guarantorIdForm = new FormData()
-		idForm.append('files', isGuarantorId)
-		idForm.append('ref', 'api::customer.customer')
-		idForm.append('refId', e?.data?.id)
-		idForm.append('field', 'identification')
+		guarantorIdForm.append('files', isGuarantorId)
+		guarantorIdForm.append('ref', 'api::customer.customer')
+		guarantorIdForm.append('refId', e?.data?.id)
+		guarantorIdForm.append('field', 'guarantor_id')
 
 		const guarantorIdUpload = await fetch(`${API_URL}/upload`, {
 			method: 'POST',
@@ -342,7 +342,7 @@ const Review = ({ token }) => {
 			body: guarantorIdForm,
 		})
 
-		const guarantorIdData = await idUpload.json()
+		const guarantorIdData = await guarantorIdUpload.json()
 		console.log('Office ID data', guarantorIdData)
 
 		const officeIdData = new FormData()

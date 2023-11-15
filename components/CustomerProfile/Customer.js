@@ -940,7 +940,6 @@ const Customer = ({ customers, token, payHistory }) => {
 														<div className='image_modal'>
 															<MdCancel
 																fontSize={40}
-																color='#2e7cf6'
 																className='cancel'
 																onClick={removeDocument}
 															/>

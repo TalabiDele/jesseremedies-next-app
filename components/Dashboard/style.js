@@ -6,7 +6,6 @@ export const Container = styled.div`
 	top: 5rem;
 	right: 0;
 	left: 0;
-	bottom: 0;
 	overflow-y: scroll;
 	height: 100vh;
 
@@ -36,6 +35,7 @@ export const Container = styled.div`
 		display: grid;
 		grid-template-columns: 70% 30%;
 		margin-top: 1rem;
+		padding-bottom: 10rem;
 
 		@media not all and (min-width: 768px) {
 			grid-template-columns: repeat(1, 1fr);

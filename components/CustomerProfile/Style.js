@@ -323,8 +323,8 @@ export const Container = styled.div`
 			height: 100%;
 			top: 0;
 			left: 0;
-			background: #042b6997;
-			z-index: 1;
+			background: #2f2f3096;
+			z-index: 10;
 			display: grid;
 			justify-content: center;
 			align-items: center;
@@ -333,10 +333,12 @@ export const Container = styled.div`
 
 			svg {
 				position: absolute;
-				right: 43rem;
+				color: #fff;
+				/* right: 43rem; */
 				top: 7rem;
 				z-index: 3;
 				cursor: pointer;
+				right: 50%;
 			}
 		}
 	}

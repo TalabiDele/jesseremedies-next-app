@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
 
 	const date = new Date()
 
-	// console.log(date.getMonth() + 1)
+	console.log(API_URL)
 
 	const currentMonth = date.getMonth() + 1
 
