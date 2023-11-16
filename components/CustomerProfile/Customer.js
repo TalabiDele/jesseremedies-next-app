@@ -918,6 +918,49 @@ const Customer = ({ customers, token, payHistory }) => {
 												</div>
 											</div>
 										</div>
+										<div className='financial_wrapper'>
+											<h3>Guarantor Information</h3>
+											<div className='financial'>
+												<div className='finance'>
+													<p>
+														Name: <span>{e.attributes.guarantor_name}</span>
+													</p>
+													<p>
+														Email: <span>{e.attributes.guarantor_email}</span>
+													</p>
+													<p>
+														Phone Number:{' '}
+														<span>{e.attributes.guarantor_phone}</span>
+													</p>
+													<p>
+														Occupation:{' '}
+														<span>{e.attributes.guarantor_occupation}</span>
+													</p>
+													<p>
+														Position at work:{' '}
+														<span>{e.attributes.guarantor_position}</span>
+													</p>
+													<p>
+														Home Address:{' '}
+														<span>{e.attributes.guarantor_home}</span>
+													</p>
+													<p>
+														Relationship:{' '}
+														<span>{e.attributes.guarantor_relation}</span>
+													</p>
+													<p>
+														Current Employer:{' '}
+														<span>{e.attributes.guarantor_employer}</span>
+													</p>
+													<p>
+														Office Address:{' '}
+														<span>
+															{addCommas(e.attributes.guarantor_office)}
+														</span>
+													</p>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div className='documents'>
