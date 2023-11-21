@@ -147,6 +147,10 @@ export const AuthProvider = ({ children }) => {
 
 	const currentMonth = date.getMonth() + 1
 
+	let day = date.getDate()
+	let month = date.getMonth() + 1
+	let year = date.getFullYear()
+
 	useEffect(() => {
 		checkUserLoggedIn()
 		handleCustomers()
@@ -171,25 +175,46 @@ export const AuthProvider = ({ children }) => {
 			// console.log(
 			// 	customer?.attributes?.payments?.data[0]?.attributes?.auth_code
 			// )
-			loans?.forEach((loan) => {
-				console.log(customer?.attributes?.payments?.data[0])
-				handleCharge(
-					customer?.attributes?.email,
-					parseInt(loan?.attributes?.monthly_payment),
-					customer?.attributes?.payments?.data[0]?.attributes
-						?.authorization_code
-				)
-				if (
-					loan?.attributes?.disbursed &&
-					date.getDate() === parseInt(customer?.attributes.salary_day)
-				) {
-					handleCharge(
-						customer?.attributes?.email,
-						loan?.attributes?.monthly_payment
-						// customer?.attributes?.payments?.data[0]?.attributes?.authorization_code
-					)
-				}
-			})
+			if (customer?.attributes.customer_type === 'Salary Earner') {
+				loans?.forEach((loan) => {
+					if (loan?.attributes.loaned) {
+						console.log(customer?.attributes?.payments?.data[0])
+						handleCharge(
+							customer?.attributes?.email,
+							parseInt(loan?.attributes?.monthly_payment),
+							customer?.attributes?.payments?.data[0]?.attributes
+								?.authorization_code
+						)
+						if (
+							loan?.attributes?.disbursed &&
+							date.getDate() === parseInt(customer?.attributes.salary_day)
+						) {
+							handleCharge(
+								customer?.attributes?.email,
+								loan?.attributes?.monthly_payment
+								// customer?.attributes?.payments?.data[0]?.attributes?.authorization_code
+							)
+						}
+					}
+				})
+			}
+		})
+	}
+
+	const handleMonthlyPayment = async (customer, amount) => {
+		const res = await fetch(`${API_URL}/monthly-payments`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				customer: {
+					id: customer.id,
+				},
+				date: `${year}-${month}-0${day}`,
+				amount,
+			}),
 		})
 	}
 
@@ -215,6 +240,10 @@ export const AuthProvider = ({ children }) => {
 		const data = await res.json()
 
 		console.log(data)
+
+		if (data?.success) {
+			handleMonthlyPayment(data?.amount)
+		}
 	}
 
 	// Get all customers
