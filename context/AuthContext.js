@@ -3,6 +3,7 @@ import { NEXT_PUBLIC_URL, API_URL } from '@/config/index'
 import { parseCookies } from '@/helpers/index'
 import { useRouter } from 'next/router'
 import useLocalStorage from '@/components/hooks/useLocalStorage'
+import moment from 'moment'
 
 const AuthContext = createContext()
 
@@ -158,7 +159,16 @@ export const AuthProvider = ({ children }) => {
 
 		handlePayment()
 
+		console.log(moment().format('YYYY-MM-DD'))
+
 		// console.log(loans)
+		customers?.forEach((e) => {
+			console.log(e)
+
+			// handleCharge()
+
+			console.log('payments', e.attributes.monthly_payments)
+		})
 
 		// Update a field after payment is made
 		// Check if that field is updated to avoid double debit
@@ -175,52 +185,59 @@ export const AuthProvider = ({ children }) => {
 			// console.log(
 			// 	customer?.attributes?.payments?.data[0]?.attributes?.auth_code
 			// )
-			if (customer?.attributes.customer_type === 'Salary Earner') {
+
+			console.log(moment().format('YYYY-MM-DD'))
+
+			if (customer?.attributes.customer_type === 'salary earner') {
+				console.log(customer)
 				loans?.forEach((loan) => {
-					if (loan?.attributes.loaned) {
-						console.log(customer?.attributes?.payments?.data[0])
-						handleCharge(
-							customer?.attributes?.email,
-							parseInt(loan?.attributes?.monthly_payment),
-							customer?.attributes?.payments?.data[0]?.attributes
-								?.authorization_code
-						)
-						if (
-							loan?.attributes?.disbursed &&
-							date.getDate() === parseInt(customer?.attributes.salary_day)
-						) {
-							handleCharge(
-								customer?.attributes?.email,
-								loan?.attributes?.monthly_payment
-								// customer?.attributes?.payments?.data[0]?.attributes?.authorization_code
-							)
-						}
+					if (
+						loan?.attributes?.loan_start &&
+						date.getDate() === parseInt(customer?.attributes.salary_day)
+					) {
+						customer?.attributes?.monthly_payments?.data?.forEach((month) => {
+							if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
+								handleCharge(
+									customer?.attributes?.email,
+									loan?.attributes?.monthly_payment,
+									customer?.attributes?.payments?.data[0]?.attributes
+										?.authorization_code
+								)
+							}
+						})
 					}
 				})
 			}
 		})
 	}
 
-	const handleMonthlyPayment = async (customer, amount) => {
+	const handleMonthlyPayment = async (customer, amount, reference) => {
 		const res = await fetch(`${API_URL}/monthly-payments`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
+				// Authorization: `Bearer ${token}`,
 			},
 			body: JSON.stringify({
-				customer: {
-					id: customer.id,
+				data: {
+					customer: {
+						id: customer.id,
+					},
+					date: `${year}-${month}-0${day}`,
+					amount,
+					reference,
 				},
-				date: `${year}-${month}-0${day}`,
-				amount,
 			}),
 		})
+
+		const data = await res.json()
+
+		console.log(data)
 	}
 
 	// Charge customers monthly
 	const handleCharge = async (email, amount, auth) => {
-		console.log(auth)
+		// console.log(auth)
 		const res = await fetch(
 			`https://api.paystack.co/transaction/charge_authorization`,
 			{
@@ -239,11 +256,13 @@ export const AuthProvider = ({ children }) => {
 
 		const data = await res.json()
 
-		console.log(data)
+		console.log('charge', data)
 
-		if (data?.success) {
-			handleMonthlyPayment(data?.amount)
-		}
+		customers?.forEach((e) => {
+			if (data?.status) {
+				handleMonthlyPayment(e, data?.data?.amount, data?.data?.reference)
+			}
+		})
 	}
 
 	// Get all customers
