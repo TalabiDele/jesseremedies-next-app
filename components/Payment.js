@@ -14,6 +14,8 @@ const Payment = ({ email }) => {
 
 	const { reference } = router.query
 
+	console.log(PAYSTACK_KEY)
+
 	useEffect(() => {
 		if (reference) {
 			handleVerify()
