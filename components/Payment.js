@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { usePaystackPayment } from 'react-paystack'
-import { API_URL, NEXT_PUBLIC_URL } from '../config'
+import { API_URL, NEXT_PUBLIC_URL, PAYSTACK_KEY } from '../config'
 import { useRouter } from 'next/router'
 import AuthContext from '@/context/AuthContext'
 import toast from 'react-hot-toast'
@@ -25,7 +25,7 @@ const Payment = ({ email }) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
+				Authorization: `Bearer ${PAYSTACK_KEY}`,
 			},
 			body: JSON.stringify({
 				email,
@@ -49,7 +49,7 @@ const Payment = ({ email }) => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
+					Authorization: `Bearer ${PAYSTACK_KEY}`,
 				},
 			}
 		)

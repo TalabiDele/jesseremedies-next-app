@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react'
-import { NEXT_PUBLIC_URL, API_URL } from '@/config/index'
+import { NEXT_PUBLIC_URL, API_URL, PAYSTACK_KEY } from '@/config/index'
 import { parseCookies } from '@/helpers/index'
 import { useRouter } from 'next/router'
 import useLocalStorage from '@/components/hooks/useLocalStorage'
@@ -145,6 +145,8 @@ export const AuthProvider = ({ children }) => {
 	const date = new Date()
 
 	console.log(API_URL)
+	console.log(PAYSTACK_KEY)
+	console.log(NEXT_PUBLIC_URL)
 
 	const currentMonth = date.getMonth() + 1
 
@@ -244,7 +246,7 @@ export const AuthProvider = ({ children }) => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer ${'sk_test_20495f33758cf7978aca8001adf66504cca65b25'}`,
+					Authorization: `Bearer ${PAYSTACK_KEY}`,
 				},
 				body: JSON.stringify({
 					authorization_code: auth,
@@ -381,11 +383,14 @@ export const AuthProvider = ({ children }) => {
 		// console.log(data);
 		// setUserData(data);
 
+		console.log('login', data)
+
 		if (res.ok) {
 			setUser(data.user.user)
 			// setUserData(data);
 			router.push('/dashboard')
 		} else {
+			toast.error(data.message)
 			setErrorMessage(data.message)
 			setError(true)
 		}
