@@ -35,6 +35,7 @@ const Payment = ({ email }) => {
 		})
 
 		const data = await res.json()
+		// console.log(data.data.authorization_url)
 
 		window.location.replace(data.data.authorization_url)
 	}
