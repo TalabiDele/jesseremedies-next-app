@@ -36,9 +36,6 @@ const Payment = ({ email }) => {
 
 		const data = await res.json()
 
-		console.log(data)
-		// console.log(data)
-
 		window.location.replace(data.data.authorization_url)
 	}
 
@@ -55,8 +52,6 @@ const Payment = ({ email }) => {
 		)
 
 		const data = await res.json()
-
-		console.log(data.data.authorization.authorization_code)
 
 		setAuthCode(data.data.authorization.authorization_code)
 

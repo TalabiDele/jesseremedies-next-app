@@ -14,12 +14,7 @@ const UsersPage = ({ customers }) => {
 
 	const { user } = useContext(AuthContext)
 
-	console.log(customers)
-
-	console.log(user)
-
 	const displayCustomer = (e) => {
-		console.log('working')
 		router.push(`/${e.slug}`)
 	}
 
@@ -168,7 +163,6 @@ const UsersPage = ({ customers }) => {
 																		' ' +
 																		e.attributes.lastname}
 																</p>
-																{console.log(loan.attributes)}
 																{loan.attributes.disbursed && (
 																	<p className='loaned btn'>Disbursed</p>
 																)}

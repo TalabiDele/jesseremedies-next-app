@@ -33,8 +33,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 	const router = useRouter()
 
-	console.log(payHistory)
-
 	const {
 		setLoading,
 		user,
@@ -59,21 +57,13 @@ const Customer = ({ customers, token, payHistory }) => {
 	let year = date.getFullYear()
 
 	useEffect(() => {
-		if (date.getDate() === 17) {
-			console.log('Its today')
-		} else {
-			console.log('Not today')
-		}
-
 		customers?.forEach((customer) => {
 			customer?.attributes.loans.data.forEach((loan) => {
 				payHistory?.forEach((history) => {
-					console.log(moment().format('YYYY-MM-DD'))
 					if (
 						history.attributes.payment_date === moment().format('YYYY-MM-DD') &&
 						customer?.customer_type === 'sme'
 					) {
-						console.log(loan)
 						setIsPay(false)
 
 						if (moment().day() === 6 || moment().day() === 0) {
@@ -86,9 +76,6 @@ const Customer = ({ customers, token, payHistory }) => {
 			})
 		})
 	}, [])
-	console.log(moment().weekday(5).format('DD MMM YYYY'))
-
-	console.log(customers)
 
 	const handleSupervisorApprove = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
@@ -111,8 +98,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		const data = loanRes.json()
 		refreshData()
-
-		console.log(data)
 	}
 
 	const handleApprove = async (e) => {
@@ -137,8 +122,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		const data = loanRes.json()
 		refreshData()
-
-		console.log(data)
 	}
 
 	const handleDecline = async (e) => {
@@ -161,8 +144,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		const data = loanRes.json()
 		refreshData()
-
-		console.log(data)
 	}
 
 	const handleDisburse = async (e) => {
@@ -187,8 +168,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		const data = loanRes.json()
 		refreshData()
-
-		console.log(data)
 	}
 
 	const handleStart = async (e) => {
@@ -212,8 +191,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		const data = loanRes.json()
 		refreshData()
-
-		console.log(data)
 	}
 
 	const displayDocument = (e) => {
@@ -225,8 +202,6 @@ const Customer = ({ customers, token, payHistory }) => {
 	}
 
 	const addLoan = async (e) => {
-		console.log(e)
-
 		setLoading(true)
 
 		const loanRes = await fetch(
@@ -278,7 +253,6 @@ const Customer = ({ customers, token, payHistory }) => {
 				duration: 6000,
 			})
 		}
-		console.log(data)
 
 		setLoading(false)
 	}
@@ -305,7 +279,6 @@ const Customer = ({ customers, token, payHistory }) => {
 		})
 
 		const data = await loanRes.json()
-		console.log(data)
 
 		refreshData()
 		setAmount('')
@@ -322,7 +295,6 @@ const Customer = ({ customers, token, payHistory }) => {
 	}
 
 	const handlePayment = async (e) => {
-		console.log(e.id)
 		const res = await fetch(`${API_URL}/weekly-payments?populate=*`, {
 			method: 'POST',
 			headers: {
@@ -346,8 +318,6 @@ const Customer = ({ customers, token, payHistory }) => {
 				duration: 6000,
 			})
 		}
-
-		console.log(data)
 	}
 
 	const refreshData = () => router.replace(router.asPath)

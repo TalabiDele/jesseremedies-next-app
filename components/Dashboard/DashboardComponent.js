@@ -23,17 +23,7 @@ const DashboardComponent = ({ loans, customers }) => {
 
 	const { reference } = router.query
 
-	console.log(user)
-
-	console.log('Loans', loans)
-	console.log('Customers', customers)
-
-	useEffect(() => {
-		console.log('UseEffect')
-	}, [])
-
 	const displayCustomer = (e) => {
-		console.log('working')
 		router.push(`/${e.slug}`)
 	}
 
@@ -106,9 +96,6 @@ const DashboardComponent = ({ loans, customers }) => {
 		setIsApproved(false)
 		setIsDenied(true)
 	}
-	// var a = moment([2007, 0, 29]);
-	// var b = moment([2007, 0, 28]);
-	// console.log(a.diff(b, "days"));
 	return (
 		<Container>
 			<div className='mobile'>
@@ -287,7 +274,6 @@ const DashboardComponent = ({ loans, customers }) => {
 																				displayCustomer(e.attributes)
 																			}
 																		>
-																			{console.log(e?.attributes?.loans)}
 																			<p className='id'>
 																				{loan.attributes.loan_id}
 																			</p>
@@ -470,7 +456,6 @@ const DashboardComponent = ({ loans, customers }) => {
 																			' ' +
 																			e.attributes.lastname}
 																	</p>
-																	{console.log(loan.attributes)}
 																	{loan.attributes.disbursed && (
 																		<p className='loaned btn'>Disbursed</p>
 																	)}
@@ -716,7 +701,6 @@ const DashboardComponent = ({ loans, customers }) => {
 													/>
 												)}
 												<div className='details'>
-													{console.log(c)}
 													<h3>
 														{c.attributes.firstname +
 															' ' +

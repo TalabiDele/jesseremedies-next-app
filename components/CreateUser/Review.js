@@ -138,23 +138,17 @@ const Review = ({ token }) => {
 		setGuarantorOrigin,
 	} = useContext(AuthContext)
 
-	console.log(dob)
-
 	const imageUploaded = async (e) => {
-		console.log(passport)
 		// e.preventDefault();
 		// setUserInfo({ ...userInfo, user_image: e });
 		const res = await fetch(`${API_URL}/customers/${e?.data?.id}?populate=*`)
 		const data = await res.json()
-		console.log(data)
 	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		setLoading(true)
-
-		console.log(token)
 
 		const res = await fetch(`${API_URL}/customers?populate=*`, {
 			method: 'POST',
@@ -218,7 +212,6 @@ const Review = ({ token }) => {
 		})
 
 		const data = await res.json()
-		console.log(data)
 
 		if (res.ok) {
 			handleLoanRes(data)
@@ -271,21 +264,16 @@ const Review = ({ token }) => {
 
 			router.push('/dashboard')
 		} else {
-			console.log(data.error.message)
 			toast.error(data.error.message, {
 				duration: 6000,
 			})
 		}
-
-		// console.log(data.data.id)
 
 		setLoading(false)
 	}
 
 	const handleUploads = async (e) => {
 		setLoading(true)
-
-		console.log(passport)
 		const passportData = new FormData()
 		passportData.append('files', passport)
 		passportData.append('ref', 'api::customer.customer')
@@ -302,7 +290,6 @@ const Review = ({ token }) => {
 		})
 
 		const data = await resUpload.json()
-		console.log('passport data', data)
 
 		// if (resUpload.ok) {
 		//   imageUploaded(data);
@@ -325,7 +312,6 @@ const Review = ({ token }) => {
 		})
 
 		const idData = await idUpload.json()
-		console.log('Office ID data', idData)
 
 		const guarantorIdForm = new FormData()
 		guarantorIdForm.append('files', isGuarantorId)
@@ -343,7 +329,6 @@ const Review = ({ token }) => {
 		})
 
 		const guarantorIdData = await guarantorIdUpload.json()
-		console.log('Office ID data', guarantorIdData)
 
 		const officeIdData = new FormData()
 		officeIdData.append('files', isOffice)
@@ -361,7 +346,6 @@ const Review = ({ token }) => {
 		})
 
 		const officeData = await officeIdUpload.json()
-		console.log('Office ID data', officeData)
 
 		const payslipForm = new FormData()
 		payslipForm.append('files', isPaySlip)
@@ -379,7 +363,6 @@ const Review = ({ token }) => {
 		})
 
 		const payslipData = await payslipRes.json()
-		console.log('payslip data', payslipData)
 
 		const utilityForm = new FormData()
 		utilityForm.append('files', isUtility)
@@ -397,7 +380,6 @@ const Review = ({ token }) => {
 		})
 
 		const utilityData = await resUtility.json()
-		console.log('utility data', utilityData)
 
 		const cacForm = new FormData()
 		cacForm.append('files', isCac)
@@ -415,7 +397,6 @@ const Review = ({ token }) => {
 		})
 
 		const cacData = await resCac.json()
-		console.log('cac data', cacData)
 
 		const memoForm = new FormData()
 		memoForm.append('files', isMemo)
@@ -434,8 +415,6 @@ const Review = ({ token }) => {
 
 		const memoData = await resMemo.json()
 
-		console.log('memo data', memoData)
-
 		const guarantorForm = new FormData()
 		guarantorForm.append('files', guarantorPassport)
 		guarantorForm.append('ref', 'api::customer.customer')
@@ -453,8 +432,6 @@ const Review = ({ token }) => {
 
 		const guarantorData = await resGuarantor.json()
 
-		console.log('guarantor data', guarantorData)
-
 		const signatureForm = new FormData()
 		signatureForm.append('files', isSign)
 		signatureForm.append('ref', 'api::customer.customer')
@@ -471,8 +448,6 @@ const Review = ({ token }) => {
 		})
 
 		const signatureData = await resSignature.json()
-
-		console.log('signature data', signatureData)
 
 		setLoading(false)
 	}
@@ -495,19 +470,9 @@ const Review = ({ token }) => {
 		})
 
 		const data = await res.json()
-
-		console.log(data)
 	}
 
-	console.log(
-		Math.floor(
-			(parseInt(loanAmount) / 100) * parseInt(interest) * parseInt(duration) +
-				parseInt(loanAmount) / parseInt(duration)
-		)
-	)
-
 	const handleLoanRes = async (e) => {
-		console.log(e)
 		setLoading(true)
 		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
 			method: 'POST',
@@ -539,7 +504,6 @@ const Review = ({ token }) => {
 		})
 
 		const loanData = loanRes.json()
-		console.log(loanData)
 
 		handlePayment(e)
 

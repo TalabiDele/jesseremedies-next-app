@@ -218,10 +218,6 @@ const PersonalInfo = ({
 		setIsGender(false)
 	}
 
-	const handleDate = (e) => {
-		console.log(e.target.value)
-	}
-
 	return (
 		<Container>
 			<div className='container'>

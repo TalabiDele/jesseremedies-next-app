@@ -21,15 +21,7 @@ const Dashboard = ({ loans, customers }) => {
 	const { user, addCommas } = useContext(AuthContext)
 	const router = useRouter()
 
-	console.log('Loans', loans)
-	console.log('Customers', customers)
-
-	useEffect(() => {
-		console.log('UseEffect')
-	}, [])
-
 	const displayCustomer = (e) => {
-		console.log('working')
 		router.push(`/${e.slug}`)
 	}
 
@@ -102,9 +94,6 @@ const Dashboard = ({ loans, customers }) => {
 		setIsApproved(false)
 		setIsDenied(true)
 	}
-	// var a = moment([2007, 0, 29]);
-	// var b = moment([2007, 0, 28]);
-	// console.log(a.diff(b, "days"));
 	return (
 		<Container>
 			<h1>Dashboard</h1>
@@ -376,7 +365,6 @@ const Dashboard = ({ loans, customers }) => {
 																' ' +
 																e.attributes.lastname}
 														</p>
-														{console.log(loan.attributes)}
 														{loan.attributes.disbursed && (
 															<p className='loaned btn'>Disbursed</p>
 														)}
@@ -561,7 +549,6 @@ const Dashboard = ({ loans, customers }) => {
 																' ' +
 																e.attributes.lastname}
 														</p>
-														{console.log(loan.attributes)}
 														{loan.attributes.disbursed && (
 															<p className='loaned btn'>Disbursed</p>
 														)}
@@ -746,7 +733,6 @@ const Dashboard = ({ loans, customers }) => {
 																' ' +
 																e.attributes.lastname}
 														</p>
-														{console.log(loan.attributes)}
 														{loan.attributes.disbursed && (
 															<p className='loaned btn'>Disbursed</p>
 														)}
@@ -960,7 +946,6 @@ const Dashboard = ({ loans, customers }) => {
 												/>
 											)}
 											<div className='details'>
-												{console.log(c)}
 												<h3>
 													{c.attributes.firstname + ' ' + c.attributes.lastname}
 												</h3>

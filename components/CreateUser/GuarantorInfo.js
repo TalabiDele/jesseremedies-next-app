@@ -97,8 +97,6 @@ const GuarantorInfo = () => {
 		const base64 = await convertBase64(e.target.files[0])
 
 		setIsGuarantorId(base64)
-
-		console.log(isGuarantorId)
 	}
 
 	return (

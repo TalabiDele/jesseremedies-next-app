@@ -34,8 +34,6 @@ const LoanInfo = ({
 		setCustomerType,
 	} = useContext(AuthContext)
 
-	// console.log("S00" + Math.random().toString(36).substr(2, 2));
-
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 

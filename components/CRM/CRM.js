@@ -11,7 +11,6 @@ const CRM = ({ crms }) => {
 	const router = useRouter()
 
 	const displayCustomer = (e) => {
-		console.log(e)
 		router.push(`/${e?.attributes?.slug}`)
 	}
 
@@ -38,9 +37,6 @@ const CRM = ({ crms }) => {
 							key={e.id}
 							onClick={() => displayCustomer(e)}
 						>
-							{/* {console.log(moment(e.attributes.date).format())}
-						{moment(e.attributes.data).format()} */}
-							{/* <p>{moment(e.attributes.date).format()}</p> */}
 							<p>{moment(e.attributes.createdAt).format('MMM DD Y')}</p>
 							<p>
 								{e.attributes.firstname} {e.attributes.lastname}
@@ -55,7 +51,6 @@ const CRM = ({ crms }) => {
 
 							{/* {e?.attributes.loans?.data.map((loan) => ( */}
 							<p className=' flex items-center'>
-								{console.log(e.attributes.loans?.data[0])}
 								<TbCurrencyNaira />
 								{addCommas(e.attributes.loans?.data[0]?.attributes.amount)}
 							</p>

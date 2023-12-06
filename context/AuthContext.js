@@ -144,10 +144,6 @@ export const AuthProvider = ({ children }) => {
 
 	const date = new Date()
 
-	console.log(API_URL)
-	console.log(PAYSTACK_KEY)
-	console.log(NEXT_PUBLIC_URL)
-
 	const currentMonth = date.getMonth() + 1
 
 	let day = date.getDate()
@@ -161,15 +157,8 @@ export const AuthProvider = ({ children }) => {
 
 		handlePayment()
 
-		console.log(moment().format('YYYY-MM-DD'))
-
-		// console.log(loans)
 		customers?.forEach((e) => {
-			console.log(e)
-
 			// handleCharge()
-
-			console.log('payments', e.attributes.monthly_payments)
 		})
 
 		// Update a field after payment is made
@@ -184,14 +173,7 @@ export const AuthProvider = ({ children }) => {
 
 	const handlePayment = () => {
 		customers?.forEach((customer) => {
-			// console.log(
-			// 	customer?.attributes?.payments?.data[0]?.attributes?.auth_code
-			// )
-
-			console.log(moment().format('YYYY-MM-DD'))
-
 			if (customer?.attributes.customer_type === 'salary earner') {
-				console.log(customer)
 				loans?.forEach((loan) => {
 					if (
 						loan?.attributes?.loan_start &&
@@ -233,13 +215,10 @@ export const AuthProvider = ({ children }) => {
 		})
 
 		const data = await res.json()
-
-		console.log(data)
 	}
 
 	// Charge customers monthly
 	const handleCharge = async (email, amount, auth) => {
-		// console.log(auth)
 		const res = await fetch(
 			`https://api.paystack.co/transaction/charge_authorization`,
 			{
@@ -258,8 +237,6 @@ export const AuthProvider = ({ children }) => {
 
 		const data = await res.json()
 
-		console.log('charge', data)
-
 		customers?.forEach((e) => {
 			if (data?.status) {
 				handleMonthlyPayment(e, data?.data?.amount, data?.data?.reference)
@@ -276,8 +253,6 @@ export const AuthProvider = ({ children }) => {
 		const data = await res.json()
 
 		setCustomers(data.data)
-
-		console.log(customers)
 	}
 
 	// Get all loans
@@ -289,8 +264,6 @@ export const AuthProvider = ({ children }) => {
 		const data = await res.json()
 
 		setLoans(data.data)
-
-		console.log(loans)
 	}
 
 	// Register
@@ -331,7 +304,6 @@ export const AuthProvider = ({ children }) => {
 			setEmailMessage('Check email for confirmation!')
 			setIsLoading(false)
 		} else {
-			console.log('not working')
 			setEmailError(true)
 			setTimeout(() => {
 				setLoading(false)
@@ -352,9 +324,6 @@ export const AuthProvider = ({ children }) => {
 		})
 
 		const data = await res.json()
-
-		// console.log(data);
-		// setUserData(data);
 
 		if (res.ok) {
 			setUser(data.user.user)
@@ -379,11 +348,6 @@ export const AuthProvider = ({ children }) => {
 		})
 
 		const data = await res.json()
-
-		// console.log(data);
-		// setUserData(data);
-
-		console.log('login', data)
 
 		if (res.ok) {
 			setUser(data.user.user)

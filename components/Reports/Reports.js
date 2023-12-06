@@ -6,46 +6,16 @@ import { TbCurrencyNaira } from 'react-icons/tb'
 const Reports = ({ token, users, customers, loans }) => {
 	const { user, addCommas } = useContext(AuthContext)
 
-	console.log('users', users)
-	console.log('customers', customers)
-	console.log('loans', loans)
-
 	useEffect(() => {
 		// getSum();
 	}, [])
 
 	const getSum = (c) => {
-		//   console.log(
-		//     cust.attributes.loans.data.reduce(
-		//       (n, { attributes }) => n + +parseInt(attributes.amount),
-		//       0
-		//     )
-		//   );
-
 		loans.data.reduce(function (prev, current) {
-			//   console.log(
-			//     current.attributes.customer.data !== null &&
-			//       current.attributes.customer.data.id === c.id
-			//   );
-			//   if (
-			//     current.attributes.customer.data !== null &&
-			//     current.attributes.customer.data.id === c.id
-			//   ) {
 			return prev + +current.attributes.amount
-			// console.log(prev + +parseInt(current.attributes.amount));
-			//   console.log(prev + +parseInt(current.attributes.amount));
-			//   }
 		}, 0)
-		// console.log(sum);
 
 		return <p>{sum}</p>
-
-		// const sum = loans.data.reduce((prev, current) => {
-		//   return prev + +parseInt(current.attributes.amount);
-		//   //   console.log(current.attributes.loans.data.attributes);
-		// });
-
-		// console.log(sum);
 	}
 
 	let ans = 0
@@ -71,9 +41,6 @@ const Reports = ({ token, users, customers, loans }) => {
 															key={cust.attributes.id}
 														>
 															<div className='total_loaned'>
-																{/* <h3>Total Amount Loaned</h3> */}
-																{/* {console.log(cust.attributes.loans.data)} */}
-																{/* {loans.data.map} */}
 																<p>
 																	{loans.data.map(
 																		(cur) =>
@@ -183,9 +150,6 @@ const Reports = ({ token, users, customers, loans }) => {
 															key={cust.attributes.id}
 														>
 															<div className='total_loaned'>
-																{/* <h3>Total Amount Loaned</h3> */}
-																{/* {console.log(cust.attributes.loans.data)} */}
-																{/* {loans.data.map} */}
 																<p>
 																	{loans.data.map(
 																		(cur) =>

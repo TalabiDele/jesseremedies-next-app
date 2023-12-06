@@ -23,13 +23,10 @@ export async function getServerSideProps({ params, req }) {
 		`${API_URL}/customers?filters[slug]=${slug}&populate=*`
 	)
 	const customers = await res.json()
-	console.log(customers)
 
 	const resPay = await fetch(`${API_URL}/weekly-payments?populate=*`)
 
 	const payHistory = await resPay.json()
-
-	console.log(payHistory)
 
 	return {
 		props: { customers: customers.data, token, payHistory: payHistory.data },
