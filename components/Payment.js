@@ -37,7 +37,9 @@ const Payment = ({ email }) => {
 		})
 
 		const data = await res.json()
-		// console.log(data.data.authorization_url)
+		console.log(PAYSTACK_KEY)
+
+		console.log(data.data.authorization_url)
 
 		window.location.replace(data.data.authorization_url)
 	}
