@@ -27,7 +27,7 @@ const Payment = ({ email }) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${PAYSTACK_KEY}`,
+				Authorization: `Bearer sk_live_19fb1c95c6cf69c4b77ee4614d1d3276c86859b7`,
 			},
 			body: JSON.stringify({
 				email,
