@@ -135,6 +135,7 @@ const Customer = ({ customers, token, payHistory }) => {
 				data: {
 					processing: false,
 					denied: true,
+					super_approve: false,
 					// customer: {
 					//   id: e.data.id,
 					// },

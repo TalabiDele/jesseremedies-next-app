@@ -14,8 +14,6 @@ const Payment = ({ email }) => {
 
 	const { reference } = router.query
 
-	console.log(PAYSTACK_KEY)
-
 	useEffect(() => {
 		if (reference) {
 			handleVerify()
@@ -27,7 +25,7 @@ const Payment = ({ email }) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer sk_live_19fb1c95c6cf69c4b77ee4614d1d3276c86859b7`,
+				Authorization: `Bearer ${PAYSTACK_KEY}`,
 			},
 			body: JSON.stringify({
 				email,
@@ -37,9 +35,6 @@ const Payment = ({ email }) => {
 		})
 
 		const data = await res.json()
-		console.log(PAYSTACK_KEY)
-
-		console.log(data.data.authorization_url)
 
 		window.location.replace(data.data.authorization_url)
 	}
@@ -51,7 +46,7 @@ const Payment = ({ email }) => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: `Bearer sk_live_19fb1c95c6cf69c4b77ee4614d1d3276c86859b7`,
+					Authorization: `Bearer ${PAYSTACK_KEY}`,
 				},
 			}
 		)
