@@ -101,7 +101,7 @@ const LoanInfo = ({
 								Choose a customer type
 							</option>
 							<option value='sme'>SME</option>
-							<option value='salary earner'>Salary Earner</option>
+							<option value='salary earner'>Salary Earner/Monthly</option>
 						</select>
 						{/* <label htmlFor='monthly_payment'>Monthly Payment</label>
 						<input
