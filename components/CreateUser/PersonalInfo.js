@@ -84,6 +84,22 @@ const PersonalInfo = ({
 		setIsOffice,
 		isGuarantor,
 		setIsGuarantor,
+		spouseName,
+		setSpouseName,
+		maidenName,
+		setMaidenName,
+		spousePhone,
+		setSpousePhone,
+		accountName,
+		setAccountName,
+		bankName,
+		setBankName,
+		accountNumber,
+		setAccountNumber,
+		landmark,
+		setLandMark,
+		colour,
+		setColour,
 	} = useContext(AuthContext)
 
 	const convertBase64 = (file) => {
@@ -383,6 +399,90 @@ const PersonalInfo = ({
 								placeholder='081*********'
 								value={referenceNumber}
 								onChange={(e) => setReferenceNumber(e.target.value)}
+							/>
+						</div>
+					</div>
+
+					<div className='flex_two'>
+						<div className='no_flex'>
+							<label htmlFor='spouse'>Spouse Name</label>
+							<input
+								type='text'
+								placeholder='Rufus Giwa'
+								value={spouseName}
+								onChange={(e) => setSpouseName(e.target.value)}
+							/>
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='maidenName'>Maiden Name</label>
+							<input
+								type='text'
+								placeholder='Doe'
+								value={maidenName}
+								onChange={(e) => setMaidenName(e.target.value)}
+							/>
+						</div>
+					</div>
+
+					<div className='flex_two'>
+						<div className='no_flex'>
+							<label htmlFor='spousePhone'>Spouse Phone Number</label>
+							<input
+								type='number'
+								placeholder='080********'
+								value={spousePhone}
+								onChange={(e) => setSpousePhone(e.target.value)}
+							/>
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='accountName'>Account Name</label>
+							<input
+								type='text'
+								placeholder='John Doe'
+								value={accountName}
+								onChange={(e) => setAccountName(e.target.value)}
+							/>
+						</div>
+					</div>
+
+					<div className='flex_two'>
+						<div className='no_flex'>
+							<label htmlFor='bank'>Bank Name</label>
+							<input
+								type='text'
+								placeholder='Sterling Bank'
+								value={bankName}
+								onChange={(e) => setBankName(e.target.value)}
+							/>
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='accountNumber'>Account Number</label>
+							<input
+								type='number'
+								placeholder='1234567890'
+								value={accountNumber}
+								onChange={(e) => setAccountNumber(e.target.value)}
+							/>
+						</div>
+					</div>
+
+					<div className='flex_two'>
+						<div className='no_flex'>
+							<label htmlFor='landmark'>Landmark</label>
+							<input
+								type='text'
+								placeholder='Roundabout'
+								value={landmark}
+								onChange={(e) => setLandMark(e.target.value)}
+							/>
+						</div>
+						<div className='no_flex'>
+							<label htmlFor='colour'>Colour of Building</label>
+							<input
+								type='text'
+								placeholder='White'
+								value={colour}
+								onChange={(e) => setColour(e.target.value)}
 							/>
 						</div>
 					</div>

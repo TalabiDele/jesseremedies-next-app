@@ -136,6 +136,22 @@ const Review = ({ token }) => {
 		workAddress,
 		guarantorOrigin,
 		setGuarantorOrigin,
+		spouseName,
+		setSpouseName,
+		maidenName,
+		setMaidenName,
+		spousePhone,
+		setSpousePhone,
+		accountName,
+		setAccountName,
+		bankName,
+		setBankName,
+		accountNumber,
+		setAccountNumber,
+		landmark,
+		setLandMark,
+		colour,
+		setColour,
 	} = useContext(AuthContext)
 
 	const imageUploaded = async (e) => {
@@ -198,6 +214,14 @@ const Review = ({ token }) => {
 					dependants,
 					state_or_origin: origin,
 					gender,
+					spouse: spouseName,
+					maiden_name: maidenName,
+					spouse_phone: spousePhone,
+					account_name: accountName,
+					bank_name: bankName,
+					bank_account_number: accountNumber,
+					landmark_building: landmark,
+					colour,
 					// card_expiry: cardExpiry,
 					state,
 					payment: {
@@ -472,6 +496,14 @@ const Review = ({ token }) => {
 		const data = await res.json()
 	}
 
+	console.log(
+		'total',
+		Math.floor(
+			(parseInt(50000) / 100) * parseInt(20) * parseInt(2) + parseInt(50000)
+		) /
+			(parseInt(2) * 4)
+	)
+
 	const handleLoanRes = async (e) => {
 		setLoading(true)
 		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
@@ -485,10 +517,19 @@ const Review = ({ token }) => {
 					interest,
 					duration,
 					processing: true,
-					monthly_payment: Math.floor(
-						(parseInt(loanAmount) / 100) * parseInt(interest) +
-							parseInt(loanAmount) / parseInt(duration)
-					),
+					monthly_payment:
+						customerType === 'sme'
+							? Math.floor(
+									(parseInt(loanAmount) / 100) *
+										parseInt(interest) *
+										parseInt(duration) +
+										parseInt(loanAmount)
+							  ) /
+							  (parseInt(duration) * 4)
+							: Math.floor(
+									(parseInt(loanAmount) / 100) * parseInt(interest) +
+										parseInt(loanAmount) / parseInt(duration)
+							  ),
 					total_payment:
 						Math.floor(parseInt(loanAmount) / 100) *
 							parseInt(interest) *
@@ -636,6 +677,30 @@ const Review = ({ token }) => {
 								</p>
 								<p>
 									Reference Phone Number: <span>{referenceNumber}</span>
+								</p>
+								<p>
+									Spouse name: <span>{spouseName}</span>
+								</p>
+								<p>
+									Maiden name: <span>{maidenName}</span>
+								</p>
+								<p>
+									Spouse phone number: <span>{spousePhone}</span>
+								</p>
+								<p>
+									Account name: <span>{accountName}</span>
+								</p>
+								<p>
+									bank name: <span>{bankName}</span>
+								</p>
+								<p>
+									Account number: <span>{accountNumber}</span>
+								</p>
+								<p>
+									Landmark building: <span>{landmark}</span>
+								</p>
+								<p>
+									Colour of building: <span>{colour}</span>
 								</p>
 							</div>
 						</div>

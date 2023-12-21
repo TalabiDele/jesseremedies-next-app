@@ -106,6 +106,15 @@ export const AuthProvider = ({ children }) => {
 		'employment_type',
 		''
 	)
+	const [spouseName, setSpouseName] = useLocalStorage('spouse_name', '')
+	const [maidenName, setMaidenName] = useLocalStorage('maiden_name', '')
+	const [spousePhone, setSpousePhone] = useLocalStorage('spouse_phone', '')
+	const [accountName, setAccountName] = useLocalStorage('account_name', '')
+	const [bankName, setBankName] = useLocalStorage('bank_name', '')
+	const [accountNumber, setAccountNumber] = useLocalStorage('accountNumber', '')
+	const [landmark, setLandMark] = useLocalStorage('landmark', '')
+	const [colour, setColour] = useLocalStorage('colour', '')
+
 	const [dependants, setDependants] = useLocalStorage('dependants', null)
 	const [origin, setOrigin] = useLocalStorage('origin', '')
 	const [salaryDate, setSalaryDate] = useLocalStorage('salaryDate', null)
@@ -536,6 +545,22 @@ export const AuthProvider = ({ children }) => {
 				setWorkAddress,
 				guarantorOrigin,
 				setGuarantorOrigin,
+				spouseName,
+				setSpouseName,
+				maidenName,
+				setMaidenName,
+				spousePhone,
+				setSpousePhone,
+				accountName,
+				setAccountName,
+				bankName,
+				setBankName,
+				accountNumber,
+				setAccountNumber,
+				landmark,
+				setLandMark,
+				colour,
+				setColour,
 			}}
 		>
 			{children}
