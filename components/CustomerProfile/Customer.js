@@ -559,11 +559,16 @@ const Customer = ({ customers, token, payHistory }) => {
 															(loan.attributes.amount / 100) *
 																loan.attributes.interest
 														)}
-														) monthly
+														){' '}
+														{e.attributes.customer_type === 'sme'
+															? 'Weekly'
+															: 'Monthly'}
 													</p>
 													<p>
 														<span>Duration of Loan: </span>
-														{loan.attributes.duration} months
+														{e.attributes.customer_type === 'sme'
+															? `${loan?.attributes?.duration * 4} weeks`
+															: `${loan?.attributes.duration} months`}
 													</p>
 													<p>
 														<span>
