@@ -504,6 +504,14 @@ const Review = ({ token }) => {
 			(parseInt(2) * 4)
 	)
 
+	console.log(
+		Math.floor(
+			((parseInt(loanAmount) / 100) * parseInt(interest) * parseInt(duration) +
+				parseInt(loanAmount)) /
+				(parseInt(duration) * 4)
+		)
+	)
+
 	const handleLoanRes = async (e) => {
 		setLoading(true)
 		const loanRes = await fetch(`${API_URL}/loans?populate=*`, {
@@ -520,12 +528,12 @@ const Review = ({ token }) => {
 					monthly_payment:
 						customerType === 'sme'
 							? Math.floor(
-									(parseInt(loanAmount) / 100) *
+									((parseInt(loanAmount) / 100) *
 										parseInt(interest) *
 										parseInt(duration) +
-										parseInt(loanAmount)
-							  ) /
-							  (parseInt(duration) * 4)
+										parseInt(loanAmount)) /
+										(parseInt(duration) * 4)
+							  )
 							: Math.floor(
 									(parseInt(loanAmount) / 100) * parseInt(interest) +
 										parseInt(loanAmount) / parseInt(duration)
