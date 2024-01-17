@@ -563,9 +563,7 @@ const Customer = ({ customers, token, payHistory }) => {
 													</p>
 													<p>
 														<span>Duration of Loan: </span>
-														{e.attributes.customer_type === 'sme'
-															? `${loan?.attributes?.duration * 4} weeks`
-															: `${loan?.attributes.duration} months`}
+														{loan?.attributes.duration} months
 													</p>
 													<p>
 														<span>
