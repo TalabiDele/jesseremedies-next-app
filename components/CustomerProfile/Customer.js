@@ -202,6 +202,19 @@ const Customer = ({ customers, token, payHistory }) => {
 		setIsImage(false)
 	}
 
+	console.log(
+		'Calculation',
+		Math.floor(
+			(((parseInt(customers[0].attributes.loans.data[0].attributes.amount) +
+				parseInt(loanAmount)) /
+				100) *
+				parseInt(interest) *
+				parseInt(duration) +
+				parseInt(loanAmount)) /
+				(parseInt(duration) * 4)
+		)
+	)
+
 	const addLoan = async (e) => {
 		setLoading(true)
 
@@ -221,13 +234,33 @@ const Customer = ({ customers, token, payHistory }) => {
 								customers[0].attributes.loans.data[0].attributes.duration
 							) + parseInt(duration),
 						monthly_payment:
-							parseInt(
-								customers[0].attributes.loans.data[0].attributes.monthly_payment
-							) +
-							Math.floor(
-								(parseInt(loanAmount) / 100) * parseInt(interest) +
-									parseInt(loanAmount) / parseInt(duration)
-							),
+							customers[0]?.attributes?.customer_type === 'sme'
+								? Math.floor(
+										(((parseInt(
+											customers[0].attributes.loans.data[0].attributes.amount
+										) +
+											parseInt(loanAmount)) /
+											100) *
+											parseInt(interest) *
+											parseInt(duration) +
+											parseInt(loanAmount)) /
+											(parseInt(duration) * 4)
+								  )
+								: parseInt(
+										customers[0].attributes.loans.data[0].attributes
+											.monthly_payment
+								  ) +
+								  Math.floor(
+										(parseInt(loanAmount) / 100) * parseInt(interest) +
+											parseInt(loanAmount) / parseInt(duration)
+								  ),
+						// parseInt(
+						// 	customers[0].attributes.loans.data[0].attributes.monthly_payment
+						// ) +
+						// Math.floor(
+						// 	(parseInt(loanAmount) / 100) * parseInt(interest) +
+						// 		parseInt(loanAmount) / parseInt(duration)
+						// ),
 						amount:
 							parseInt(
 								customers[0].attributes.loans.data[0].attributes.amount
@@ -258,6 +291,8 @@ const Customer = ({ customers, token, payHistory }) => {
 		setLoading(false)
 	}
 
+	console.log(customers[0].attributes.customer_type)
+
 	const editLoan = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${id}?populate=*`, {
 			method: 'PUT',
@@ -269,10 +304,19 @@ const Customer = ({ customers, token, payHistory }) => {
 				data: {
 					interest: loanInterest,
 					duration: loanDuration,
-					monthly_payment: Math.floor(
-						(parseInt(amount) / 100) * parseInt(loanInterest) +
-							parseInt(amount) / parseInt(loanDuration)
-					),
+					monthly_payment:
+						customers[0]?.attributes?.customer_type === 'sme'
+							? Math.floor(
+									((parseInt(amount) / 100) *
+										parseInt(loanInterest) *
+										parseInt(loanDuration) +
+										parseInt(amount)) /
+										(parseInt(loanDuration) * 4)
+							  )
+							: Math.floor(
+									(parseInt(amount) / 100) * parseInt(loanInterest) +
+										parseInt(amount) / parseInt(loanDuration)
+							  ),
 					amount,
 					purpose,
 				},
@@ -853,6 +897,18 @@ const Customer = ({ customers, token, payHistory }) => {
 													<p>
 														Current Employer:{' '}
 														<span>{e.attributes.employer}</span>
+													</p>
+													<p>
+														Account name:{' '}
+														<span>{e.attributes.account_name}</span>
+													</p>
+													<p>
+														{console.log(e.attributes)}
+														Account number:{' '}
+														<span>{e.attributes.bank_account_number}</span>
+													</p>
+													<p>
+														Bank name: <span>{e.attributes.bank_name}</span>
 													</p>
 													<p>
 														Date Started:{' '}

@@ -14,10 +14,6 @@ const UsersPage = ({ customers }) => {
 
 	const { user } = useContext(AuthContext)
 
-	const displayCustomer = (e) => {
-		router.push(`/${e.slug}`)
-	}
-
 	const handleAll = () => {
 		setIsAll(true)
 		setIsLoaned(false)
@@ -88,6 +84,10 @@ const UsersPage = ({ customers }) => {
 		setIsDenied(true)
 	}
 
+	const displayCustomer = (e) => {
+		router.push(`/${e.slug}`)
+	}
+
 	return (
 		<Container>
 			<div className='mobile'>
@@ -152,7 +152,11 @@ const UsersPage = ({ customers }) => {
 										customers?.data?.map(
 											(e) =>
 												user.id === e.attributes.user.data.id && (
-													<div className='loanee_details' key={e.id}>
+													<div
+														className='loanee_details'
+														key={e.id}
+														onClick={() => displayCustomer(e.attributes)}
+													>
 														{e.attributes.loans.data.map((loan) => (
 															<div className='loan' key={loan.id}>
 																<p className='id'>
