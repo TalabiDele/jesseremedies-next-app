@@ -147,6 +147,8 @@ const Customer = ({ customers, token, payHistory }) => {
 		refreshData()
 	}
 
+	console.log(moment().format('YYYY-MM-DD'))
+
 	const handleDisburse = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
 			method: 'PUT',
@@ -185,7 +187,7 @@ const Customer = ({ customers, token, payHistory }) => {
 					approved: false,
 					disbursed: false,
 					loan_start: true,
-					disburse_date: `${year}-${month}-0${day}`,
+					disburse_date: moment().format('YYYY-MM-DD'),
 				},
 			}),
 		})
@@ -201,19 +203,6 @@ const Customer = ({ customers, token, payHistory }) => {
 	const removeDocument = () => {
 		setIsImage(false)
 	}
-
-	console.log(
-		'Calculation',
-		Math.floor(
-			(((parseInt(customers[0].attributes.loans.data[0].attributes.amount) +
-				parseInt(loanAmount)) /
-				100) *
-				parseInt(interest) *
-				parseInt(duration) +
-				parseInt(loanAmount)) /
-				(parseInt(duration) * 4)
-		)
-	)
 
 	const addLoan = async (e) => {
 		setLoading(true)
@@ -290,8 +279,6 @@ const Customer = ({ customers, token, payHistory }) => {
 
 		setLoading(false)
 	}
-
-	console.log(customers[0].attributes.customer_type)
 
 	const editLoan = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${id}?populate=*`, {
@@ -903,7 +890,6 @@ const Customer = ({ customers, token, payHistory }) => {
 														<span>{e.attributes.account_name}</span>
 													</p>
 													<p>
-														{console.log(e.attributes)}
 														Account number:{' '}
 														<span>{e.attributes.bank_account_number}</span>
 													</p>
