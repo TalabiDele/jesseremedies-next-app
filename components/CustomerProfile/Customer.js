@@ -147,8 +147,6 @@ const Customer = ({ customers, token, payHistory }) => {
 		refreshData()
 	}
 
-	console.log(moment().format('YYYY-MM-DD'))
-
 	const handleDisburse = async (e) => {
 		const loanRes = await fetch(`${API_URL}/loans/${e.id}?populate=*`, {
 			method: 'PUT',
@@ -335,7 +333,7 @@ const Customer = ({ customers, token, payHistory }) => {
 			},
 			body: JSON.stringify({
 				data: {
-					payment_date: `${year}-${month}-0${day}`,
+					payment_date: moment().format('YYYY-MM-DD'),
 					loan: {
 						id: e.id,
 					},

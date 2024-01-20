@@ -216,7 +216,7 @@ export const AuthProvider = ({ children }) => {
 					customer: {
 						id: customer.id,
 					},
-					date: `${year}-${month}-0${day}`,
+					date: moment().format('YYYY-MM-DD'),
 					amount,
 					reference,
 				},
