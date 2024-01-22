@@ -166,9 +166,9 @@ export const AuthProvider = ({ children }) => {
 
 		handlePayment()
 
-		customers?.forEach((e) => {
-			// handleCharge()
-		})
+		// customers?.forEach((e) => {
+		// 	// handleCharge()
+		// })
 
 		// Update a field after payment is made
 		// Check if that field is updated to avoid double debit
@@ -182,7 +182,7 @@ export const AuthProvider = ({ children }) => {
 
 	const handlePayment = () => {
 		customers?.forEach((customer) => {
-			if (customer?.attributes.customer_type === 'salary earner') {
+			if (customer?.attributes?.customer_type === 'salary earner') {
 				loans?.forEach((loan) => {
 					if (
 						loan?.attributes?.loan_start &&
