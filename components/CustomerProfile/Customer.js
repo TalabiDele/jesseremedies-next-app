@@ -75,6 +75,42 @@ const Customer = ({ customers, token, payHistory }) => {
 				})
 			})
 		})
+
+		console.log(month)
+
+		customers[0]?.attributes?.monthly_payments?.data?.forEach((month) => {
+			if (
+				moment(month.attributes.date).month() + 1 ===
+					newDate.date(customers[0]?.attributes?.salary_day).month() + 1 &&
+				moment(month.attributes.date).year() ===
+					newDate.date(customers[0]?.attributes?.salary_day).year()
+			) {
+				// console.log(
+				// 	month.attributes.date,
+				// 	newDate
+				// 		.date(customers[0]?.attributes?.salary_day)
+				// 		.format('YYYY-MM-DD')
+				// )
+
+				console.log(newDate.date(customers[0]?.attributes?.salary_day).year())
+
+				newDate.add(1, 'month')
+
+				setPayDay(
+					newDate
+						.date(customers[0]?.attributes?.salary_day)
+						.format('DD MMM YYYY')
+				)
+			} else {
+				setPayDay(
+					newDate
+						.date(customers[0]?.attributes?.salary_day)
+						.format('DD MMM YYYY')
+				)
+			}
+		})
+
+		console.log(customers[0]?.attributes)
 	}, [])
 
 	const handleSupervisorApprove = async (e) => {
@@ -351,6 +387,8 @@ const Customer = ({ customers, token, payHistory }) => {
 	}
 
 	const refreshData = () => router.replace(router.asPath)
+
+	const newDate = moment()
 
 	return (
 		<>
@@ -680,11 +718,18 @@ const Customer = ({ customers, token, payHistory }) => {
 															{loan.attributes.disburse_date}
 														</p>
 													)}
-													{isPay && (
+													{e?.attributes?.customer_type === 'salary earner' ? (
 														<p>
-															<span>Due Date: </span>
-															{moment().weekday(5).format('DD MMM YYYY')}
+															Due date:
+															<span>{payDay}</span>
 														</p>
+													) : (
+														isPay && (
+															<p>
+																<span>Due Date: </span>
+																{moment().weekday(5).format('DD MMM YYYY')}
+															</p>
+														)
 													)}
 													{loan.attributes.processing && (
 														<>

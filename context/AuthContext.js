@@ -188,16 +188,27 @@ export const AuthProvider = ({ children }) => {
 						loan?.attributes?.loan_start &&
 						date.getDate() === parseInt(customer?.attributes.salary_day)
 					) {
-						customer?.attributes?.monthly_payments?.data?.forEach((month) => {
-							if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
-								handleCharge(
-									customer?.attributes?.email,
-									loan?.attributes?.monthly_payment,
-									customer?.attributes?.payments?.data[0]?.attributes
-										?.authorization_code
-								)
-							}
-						})
+						console.log(loan?.attributes?.monthly_payment, loan?.attributes)
+						if (customer?.attributes?.monthly_payments?.data?.length > 0) {
+							customer?.attributes?.monthly_payments?.data?.forEach((month) => {
+								if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
+									console.log(parseInt(customer?.attributes.salary_day))
+									handleCharge(
+										customer?.attributes?.email,
+										loan?.attributes?.monthly_payment,
+										customer?.attributes?.payments?.data[0]?.attributes
+											?.authorization_code
+									)
+								}
+							})
+						} else {
+							handleCharge(
+								customer?.attributes?.email,
+								loan?.attributes?.monthly_payment,
+								customer?.attributes?.payments?.data[0]?.attributes
+									?.authorization_code
+							)
+						}
 					}
 				})
 			}
@@ -224,6 +235,8 @@ export const AuthProvider = ({ children }) => {
 		})
 
 		const data = await res.json()
+
+		console.log(data)
 	}
 
 	// Charge customers monthly
@@ -245,6 +258,8 @@ export const AuthProvider = ({ children }) => {
 		)
 
 		const data = await res.json()
+
+		console.log(data)
 
 		customers?.forEach((e) => {
 			if (data?.status) {
