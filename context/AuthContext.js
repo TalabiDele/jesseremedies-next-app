@@ -183,32 +183,34 @@ export const AuthProvider = ({ children }) => {
 	const handlePayment = () => {
 		customers?.forEach((customer) => {
 			if (customer?.attributes?.customer_type === 'salary earner') {
+				console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
 				loans?.forEach((loan) => {
 					if (
 						loan?.attributes?.loan_start &&
 						date.getDate() === parseInt(customer?.attributes.salary_day)
 					) {
-						console.log(loan?.attributes?.monthly_payment, loan?.attributes)
-						if (customer?.attributes?.monthly_payments?.data?.length > 0) {
-							customer?.attributes?.monthly_payments?.data?.forEach((month) => {
-								if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
-									console.log(parseInt(customer?.attributes.salary_day))
-									handleCharge(
-										customer?.attributes?.email,
-										loan?.attributes?.monthly_payment,
-										customer?.attributes?.payments?.data[0]?.attributes
-											?.authorization_code
-									)
-								}
-							})
-						} else {
-							handleCharge(
-								customer?.attributes?.email,
-								loan?.attributes?.monthly_payment,
-								customer?.attributes?.payments?.data[0]?.attributes
-									?.authorization_code
-							)
-						}
+						// if (customer?.attributes?.monthly_payments?.data?.length > 0) {
+						console.log(customer?.attributes)
+						customer?.attributes?.monthly_payments?.data?.forEach((month) => {
+							if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
+								console.log(parseInt(customer?.attributes.salary_day))
+								handleCharge(
+									customer?.attributes?.email,
+									loan?.attributes?.monthly_payment,
+									customer?.attributes?.payments?.data[0]?.attributes
+										?.authorization_code
+								)
+							}
+						})
+						// } else {
+						// 	console.log(parseInt(customer?.attributes.salary_day))
+						// 	handleCharge(
+						// 		customer?.attributes?.email,
+						// 		loan?.attributes?.monthly_payment,
+						// 		customer?.attributes?.payments?.data[0]?.attributes
+						// 			?.authorization_code
+						// 	)
+						// }
 					}
 				})
 			}
