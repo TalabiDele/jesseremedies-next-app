@@ -77,6 +77,11 @@ const Customer = ({ customers, token, payHistory }) => {
 		})
 
 		console.log(month)
+		const newDate = moment()
+
+		setPayDay(
+			newDate.date(customers[0]?.attributes?.salary_day).format('DD MMM YYYY')
+		)
 
 		customers[0]?.attributes?.monthly_payments?.data?.forEach((month) => {
 			if (
@@ -101,16 +106,19 @@ const Customer = ({ customers, token, payHistory }) => {
 						.date(customers[0]?.attributes?.salary_day)
 						.format('DD MMM YYYY')
 				)
+
+				console.log(payDay)
 			} else {
 				setPayDay(
 					newDate
 						.date(customers[0]?.attributes?.salary_day)
 						.format('DD MMM YYYY')
 				)
+				console.log('working')
 			}
 		})
 
-		console.log(customers[0]?.attributes)
+		// console.log(customers[0]?.attributes)
 	}, [])
 
 	const handleSupervisorApprove = async (e) => {
@@ -387,8 +395,6 @@ const Customer = ({ customers, token, payHistory }) => {
 	}
 
 	const refreshData = () => router.replace(router.asPath)
-
-	const newDate = moment()
 
 	return (
 		<>

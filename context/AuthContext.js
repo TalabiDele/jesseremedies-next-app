@@ -148,6 +148,7 @@ export const AuthProvider = ({ children }) => {
 		'guarantor_origin',
 		''
 	)
+	const [isDebit, setIsDebit] = useState(false)
 
 	const router = useRouter()
 
@@ -164,7 +165,9 @@ export const AuthProvider = ({ children }) => {
 		handleCustomers()
 		handleLoans()
 
+		// if (customers) {
 		handlePayment()
+		// }
 
 		// customers?.forEach((e) => {
 		// 	// handleCharge()
@@ -180,37 +183,85 @@ export const AuthProvider = ({ children }) => {
 		// if(date.getDate() === )
 	}, [])
 
-	const handlePayment = () => {
-		customers?.forEach((customer) => {
+	const handlePayment = async () => {
+		// console.log(customers)
+
+		const res = await fetch(`${API_URL}/customers?populate=*`, {
+			method: 'GET',
+		})
+
+		const data = await res.json()
+
+		// setCustomers(data.data)
+
+		data?.data?.map((customer) => {
 			if (customer?.attributes?.customer_type === 'salary earner') {
 				console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
-				loans?.forEach((loan) => {
+				customer?.attributes?.loans?.data?.map((loan) => {
+					console.log(customer?.attributes?.loans.data[0])
 					if (
 						loan?.attributes?.loan_start &&
 						date.getDate() === parseInt(customer?.attributes.salary_day)
 					) {
-						// if (customer?.attributes?.monthly_payments?.data?.length > 0) {
-						console.log(customer?.attributes)
-						customer?.attributes?.monthly_payments?.data?.forEach((month) => {
-							if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
-								console.log(parseInt(customer?.attributes.salary_day))
-								handleCharge(
-									customer?.attributes?.email,
-									loan?.attributes?.monthly_payment,
-									customer?.attributes?.payments?.data[0]?.attributes
-										?.authorization_code
-								)
-							}
-						})
-						// } else {
-						// 	console.log(parseInt(customer?.attributes.salary_day))
-						// 	handleCharge(
-						// 		customer?.attributes?.email,
-						// 		loan?.attributes?.monthly_payment,
-						// 		customer?.attributes?.payments?.data[0]?.attributes
-						// 			?.authorization_code
-						// 	)
-						// }
+						console.log('current user', customer)
+						console.log(
+							customer?.attributes?.email,
+							Number(
+								customer?.attributes?.loans?.data[0]?.attributes
+									?.monthly_payment
+							),
+							customer?.attributes?.payments?.data[0]?.attributes
+								?.authorization_code
+						)
+						if (customer?.attributes?.monthly_payments?.data?.length > 0) {
+							console.log(customer?.attributes)
+							customer?.attributes?.monthly_payments?.data?.map((month) => {
+								if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
+									console.log(
+										customer?.attributes?.email,
+										Number(
+											customer?.attributes?.loans?.data[0]?.attributes
+												?.monthly_payment
+										),
+										customer?.attributes?.payments?.data[0]?.attributes
+											?.authorization_code
+									)
+									setIsDebit(true)
+									// handleCharge(
+									// 	customer?.attributes?.email,
+									// 	Number(
+									// 		customer?.attributes?.loans?.data[0]?.attributes
+									// 			?.monthly_payment
+									// 	),
+									// 	customer?.attributes?.payments?.data[0]?.attributes
+									// 		?.authorization_code
+									// )
+								}
+							})
+						} else {
+							console.log(
+								customer?.attributes?.email,
+								Number(
+									customer?.attributes?.loans?.data[0]?.attributes
+										?.monthly_payment
+								),
+								customer?.attributes?.payments?.data[0]?.attributes
+									?.authorization_code,
+								customer.id
+							)
+							setIsDebit(true)
+							console.log(parseInt(customer?.attributes.salary_day))
+							handleCharge(
+								customer?.attributes?.email,
+								Number(
+									customer?.attributes?.loans?.data[0]?.attributes
+										?.monthly_payment
+								),
+								customer?.attributes?.payments?.data[0]?.attributes
+									?.authorization_code,
+								customer
+							)
+						}
 					}
 				})
 			}
@@ -218,6 +269,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const handleMonthlyPayment = async (customer, amount, reference) => {
+		console.log(customer)
 		const res = await fetch(`${API_URL}/monthly-payments`, {
 			method: 'POST',
 			headers: {
@@ -227,7 +279,7 @@ export const AuthProvider = ({ children }) => {
 			body: JSON.stringify({
 				data: {
 					customer: {
-						id: customer.id,
+						id: customer,
 					},
 					date: moment().format('YYYY-MM-DD'),
 					amount,
@@ -242,7 +294,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	// Charge customers monthly
-	const handleCharge = async (email, amount, auth) => {
+	const handleCharge = async (email, amount, auth, customer) => {
 		const res = await fetch(
 			`https://api.paystack.co/transaction/charge_authorization`,
 			{
@@ -262,12 +314,15 @@ export const AuthProvider = ({ children }) => {
 		const data = await res.json()
 
 		console.log(data)
+		console.log(customer.id)
 
-		customers?.forEach((e) => {
-			if (data?.status) {
-				handleMonthlyPayment(e, data?.data?.amount, data?.data?.reference)
-			}
-		})
+		if (data?.status) {
+			handleMonthlyPayment(
+				customer?.id,
+				data?.data?.amount,
+				data?.data?.reference
+			)
+		}
 	}
 
 	// Get all customers
