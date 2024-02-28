@@ -196,25 +196,25 @@ export const AuthProvider = ({ children }) => {
 
 		data?.data?.map((customer) => {
 			if (customer?.attributes?.customer_type === 'salary earner') {
-				console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
+				// console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
 				customer?.attributes?.loans?.data?.map((loan) => {
-					console.log(customer?.attributes?.loans.data[0])
+					// console.log(customer?.attributes?.loans.data[0])
 					if (
 						loan?.attributes?.loan_start &&
 						date.getDate() === parseInt(customer?.attributes.salary_day)
 					) {
-						console.log('current user', customer)
-						console.log(
-							customer?.attributes?.email,
-							Number(
-								customer?.attributes?.loans?.data[0]?.attributes
-									?.monthly_payment
-							),
-							customer?.attributes?.payments?.data[0]?.attributes
-								?.authorization_code
-						)
+						// console.log('current user', customer)
+						// console.log(
+						// 	customer?.attributes?.email,
+						// 	Number(
+						// 		customer?.attributes?.loans?.data[0]?.attributes
+						// 			?.monthly_payment
+						// 	),
+						// 	customer?.attributes?.payments?.data[0]?.attributes
+						// 		?.authorization_code
+						// )
 						if (customer?.attributes?.monthly_payments?.data?.length > 0) {
-							console.log(customer?.attributes)
+							// console.log(customer?.attributes)
 							customer?.attributes?.monthly_payments?.data?.map((month) => {
 								if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
 									console.log(
@@ -227,28 +227,29 @@ export const AuthProvider = ({ children }) => {
 											?.authorization_code
 									)
 									setIsDebit(true)
-									// handleCharge(
-									// 	customer?.attributes?.email,
-									// 	Number(
-									// 		customer?.attributes?.loans?.data[0]?.attributes
-									// 			?.monthly_payment
-									// 	),
-									// 	customer?.attributes?.payments?.data[0]?.attributes
-									// 		?.authorization_code
-									// )
+									handleCharge(
+										customer?.attributes?.email,
+										Number(
+											customer?.attributes?.loans?.data[0]?.attributes
+												?.monthly_payment
+										),
+										customer?.attributes?.payments?.data[0]?.attributes
+											?.authorization_code,
+										customer
+									)
 								}
 							})
 						} else {
-							console.log(
-								customer?.attributes?.email,
-								Number(
-									customer?.attributes?.loans?.data[0]?.attributes
-										?.monthly_payment
-								),
-								customer?.attributes?.payments?.data[0]?.attributes
-									?.authorization_code,
-								customer.id
-							)
+							// console.log(
+							// 	customer?.attributes?.email,
+							// 	Number(
+							// 		customer?.attributes?.loans?.data[0]?.attributes
+							// 			?.monthly_payment
+							// 	),
+							// 	customer?.attributes?.payments?.data[0]?.attributes
+							// 		?.authorization_code,
+							// 	customer.id
+							// )
 							setIsDebit(true)
 							console.log(parseInt(customer?.attributes.salary_day))
 							handleCharge(
