@@ -195,7 +195,22 @@ export const AuthProvider = ({ children }) => {
 		// setCustomers(data.data)
 
 		data?.data?.map((customer) => {
+			console.log(customer)
+
+			let sum = 0
+
+			// handleSum(customer)
 			if (customer?.attributes?.customer_type === 'salary earner') {
+				// console.log('salary')
+				customer?.attributes?.monthly_payments?.data?.map((pay) => {
+					sum += parseInt(pay.attributes.amount.replace('00', ''))
+				})
+
+				handleLoanUpdate(
+					customer?.attributes?.loans?.data[0]?.id,
+					sum,
+					customer?.attributes?.loans?.data[0]?.attributes?.total_payment
+				)
 				// console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
 				customer?.attributes?.loans?.data?.map((loan) => {
 					// console.log(customer?.attributes?.loans.data[0])
@@ -269,6 +284,29 @@ export const AuthProvider = ({ children }) => {
 		})
 	}
 
+	const handleLoanUpdate = async (id, monthly, total) => {
+		console.log(monthly, total)
+		if (parseInt(monthly) === parseInt(total)) {
+			const res = await fetch(`${API_URL}/loans/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
+				body: JSON.stringify({
+					data: {
+						loan_start: false,
+						paid: true,
+					},
+				}),
+			})
+
+			const data = await res.json()
+
+			console.log(data)
+		}
+	}
+
 	const handleMonthlyPayment = async (customer, amount, reference) => {
 		console.log(customer)
 		const res = await fetch(`${API_URL}/monthly-payments`, {
@@ -294,8 +332,21 @@ export const AuthProvider = ({ children }) => {
 		console.log(data)
 	}
 
+	// console.log()
+
+	const handleSum = (customer) => {
+		let sum = 0
+
+		customer?.attributes?.monthly_payments?.data?.map((pay) => {
+			sum += parseInt(pay.attributes.amount.replace('00', ''))
+		})
+		console.log('Sum', sum)
+	}
+
 	// Charge customers monthly
 	const handleCharge = async (email, amount, auth, customer) => {
+		let sum = 0
+
 		const res = await fetch(
 			`https://api.paystack.co/transaction/charge_authorization`,
 			{
@@ -322,6 +373,16 @@ export const AuthProvider = ({ children }) => {
 				customer?.id,
 				data?.data?.amount,
 				data?.data?.reference
+			)
+
+			customer?.attributes?.monthly_payments?.data?.map((pay) => {
+				sum += parseInt(pay.attributes.amount.replace('00', ''))
+			})
+
+			handleLoanUpdate(
+				customer?.attributes?.loan?.data[0]?.id,
+				sum,
+				customer?.attributes?.loan?.data[0]?.attributes?.total_payment
 			)
 		}
 	}
@@ -634,6 +695,7 @@ export const AuthProvider = ({ children }) => {
 				setLandMark,
 				colour,
 				setColour,
+				handleLoanUpdate,
 			}}
 		>
 			{children}

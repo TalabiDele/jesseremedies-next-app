@@ -48,6 +48,7 @@ const Customer = ({ customers, token, payHistory }) => {
 		monthlyPayment,
 		setMonthlyPayment,
 		authCode,
+		handleLoanUpdate,
 	} = useContext(AuthContext)
 
 	const date = new Date()
@@ -333,6 +334,8 @@ const Customer = ({ customers, token, payHistory }) => {
 				data: {
 					interest: loanInterest,
 					duration: loanDuration,
+					loan_start: true,
+					paid: false,
 					monthly_payment:
 						customers[0]?.attributes?.customer_type === 'sme'
 							? Math.floor(
