@@ -198,6 +198,7 @@ export const AuthProvider = ({ children }) => {
 			console.log(customer)
 
 			let sum = 0
+			let loanSum = 0
 
 			// handleSum(customer)
 			if (customer?.attributes?.customer_type === 'salary earner') {
@@ -206,14 +207,23 @@ export const AuthProvider = ({ children }) => {
 					sum += parseInt(pay.attributes.amount.replace('00', ''))
 				})
 
-				handleLoanUpdate(
-					customer?.attributes?.loans?.data[0]?.id,
-					sum,
-					customer?.attributes?.loans?.data[0]?.attributes?.total_payment
-				)
+				customer?.attributes?.loans?.data?.map((loan) => {
+					console.log(loan?.attributes?.total_payment)
+					loanSum += parseInt(loan?.attributes?.total_payment)
+
+					handleLoanUpdate(loan?.id, sum, loanSum)
+				})
+
+				console.log(sum, loanSum)
+
+				console.log(loanSum)
 				// console.log(date.getDate(), parseInt(customer?.attributes.salary_day))
 				customer?.attributes?.loans?.data?.map((loan) => {
 					// console.log(customer?.attributes?.loans.data[0])
+					if (loan?.attributes?.loan_start) {
+						console.log('loan details', customer, loan)
+						console.log(parseInt(loan?.attributes?.monthly_payment + '00'))
+					}
 					if (
 						loan?.attributes?.loan_start &&
 						date.getDate() === parseInt(customer?.attributes.salary_day)
@@ -231,48 +241,73 @@ export const AuthProvider = ({ children }) => {
 						if (customer?.attributes?.monthly_payments?.data?.length > 0) {
 							// console.log(customer?.attributes)
 							customer?.attributes?.monthly_payments?.data?.map((month) => {
+								console.log(
+									parseInt(loan?.attributes?.monthly_payment + '00'),
+									parseInt(month?.attributes?.amount)
+								)
+
 								if (month?.attributes?.date !== moment().format('YYYY-MM-DD')) {
+									console.log('working')
+
 									console.log(
 										customer?.attributes?.email,
-										Number(
-											customer?.attributes?.loans?.data[0]?.attributes
-												?.monthly_payment
-										),
+										Number(loan?.attributes?.monthly_payment),
 										customer?.attributes?.payments?.data[0]?.attributes
 											?.authorization_code
 									)
 									setIsDebit(true)
 									handleCharge(
 										customer?.attributes?.email,
-										Number(
-											customer?.attributes?.loans?.data[0]?.attributes
-												?.monthly_payment
-										),
+										Number(loan?.attributes?.monthly_payment),
 										customer?.attributes?.payments?.data[0]?.attributes
 											?.authorization_code,
 										customer
 									)
 								}
+
+								console.log(
+									parseInt(loan?.attributes?.monthly_payment + '00') !==
+										parseInt(month?.attributes?.amount),
+									month?.attributes?.date,
+									moment().format('YYYY-MM-DD')
+								)
+
+								if (
+									parseInt(loan?.attributes?.monthly_payment + '00') !==
+										parseInt(month?.attributes?.amount) &&
+									month?.attributes?.date === moment().format('YYYY-MM-DD')
+								) {
+									console.log('working')
+
+									console.log(
+										customer?.attributes?.email,
+										Number(loan?.attributes?.monthly_payment),
+										customer?.attributes?.payments?.data[0]?.attributes
+											?.authorization_code
+									)
+
+									// handleCharge(
+									// 	customer?.attributes?.email,
+									// 	Number(loan?.attributes?.monthly_payment),
+									// 	customer?.attributes?.payments?.data[0]?.attributes
+									// 		?.authorization_code,
+									// 	customer
+									// )
+								}
 							})
 						} else {
-							// console.log(
-							// 	customer?.attributes?.email,
-							// 	Number(
-							// 		customer?.attributes?.loans?.data[0]?.attributes
-							// 			?.monthly_payment
-							// 	),
-							// 	customer?.attributes?.payments?.data[0]?.attributes
-							// 		?.authorization_code,
-							// 	customer.id
-							// )
+							console.log(
+								customer?.attributes?.email,
+								Number(loan?.attributes?.monthly_payment),
+								customer?.attributes?.payments?.data[0]?.attributes
+									?.authorization_code,
+								customer.id
+							)
 							setIsDebit(true)
 							console.log(parseInt(customer?.attributes.salary_day))
 							handleCharge(
 								customer?.attributes?.email,
-								Number(
-									customer?.attributes?.loans?.data[0]?.attributes
-										?.monthly_payment
-								),
+								Number(loan?.attributes?.monthly_payment),
 								customer?.attributes?.payments?.data[0]?.attributes
 									?.authorization_code,
 								customer
@@ -285,7 +320,7 @@ export const AuthProvider = ({ children }) => {
 	}
 
 	const handleLoanUpdate = async (id, monthly, total) => {
-		console.log(monthly, total)
+		console.log(monthly, parseInt(total))
 		if (parseInt(monthly) === parseInt(total)) {
 			const res = await fetch(`${API_URL}/loans/${id}`, {
 				method: 'PUT',
@@ -379,11 +414,9 @@ export const AuthProvider = ({ children }) => {
 				sum += parseInt(pay.attributes.amount.replace('00', ''))
 			})
 
-			handleLoanUpdate(
-				customer?.attributes?.loan?.data[0]?.id,
-				sum,
-				customer?.attributes?.loan?.data[0]?.attributes?.total_payment
-			)
+			console.log(sum)
+
+			router.reload()
 		}
 	}
 
@@ -396,6 +429,19 @@ export const AuthProvider = ({ children }) => {
 		const data = await res.json()
 
 		setCustomers(data.data)
+
+		customers?.map((customer) =>
+			customer?.attributes?.loans?.data?.map((loan) => {
+				if (loan?.attributes?.loan_start) {
+					console.log(
+						customer?.attributes?.email,
+						Number(loan?.attributes?.monthly_payment),
+						customer?.attributes?.payments?.data[0]?.attributes
+							?.authorization_code
+					)
+				}
+			})
+		)
 	}
 
 	// Get all loans

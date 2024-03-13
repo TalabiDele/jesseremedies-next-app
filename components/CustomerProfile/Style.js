@@ -166,14 +166,35 @@ export const Container = styled.div`
 		}
 	}
 
+	button {
+		padding: 0.5rem 1rem;
+		border-radius: 5px;
+		border: none;
+		margin-left: 1rem;
+		cursor: pointer;
+		transition: all 0.2s ease-in-out;
+
+		@media not all and (min-width: 768px) {
+			padding: 0.5rem;
+		}
+	}
+
+	.add_loan {
+		border: 1px solid #e80000;
+		background: none;
+		color: #e80000;
+
+		&:hover {
+			background: #e80000;
+			color: #fff;
+		}
+	}
+
 	.edit_loan {
 		background: none;
 		border: 1px solid #2e7cf6;
 		color: #2e7cf6;
-		transition: all 0.2s ease-in;
-		border-radius: 5px;
 		width: 10rem;
-		padding: 0.5rem 1rem;
 		cursor: pointer;
 		font-weight: bold;
 

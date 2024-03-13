@@ -30,6 +30,8 @@ const Customer = ({ customers, token, payHistory }) => {
 	const [isHistory, setIsHistory] = useState(false)
 	const [isPay, setIsPay] = useState(true)
 	const [payDay, setPayDay] = useState()
+	const [isNewAdd, setIsNewAdd] = useState(false)
+	const [loanId, setLoanId] = useState()
 
 	const router = useRouter()
 
@@ -247,60 +249,140 @@ const Customer = ({ customers, token, payHistory }) => {
 		setIsImage(false)
 	}
 
+	const addNewLoan = async () => {
+		setLoading(true)
+
+		console.log(
+			Math.floor(
+				(parseInt(loanAmount) / 100) * parseInt(interest) * parseInt(duration)
+			) + parseInt(loanAmount)
+		)
+
+		const loanRes = await fetch(`${API_URL}/loans`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				data: {
+					interest,
+					customer: {
+						id: customers[0].id,
+					},
+					duration: parseInt(duration),
+					monthly_payment:
+						customers[0]?.attributes?.customer_type === 'sme'
+							? Math.floor(
+									((parseInt(loanAmount) / 100) *
+										parseInt(interest) *
+										parseInt(duration) +
+										parseInt(loanAmount)) /
+										(parseInt(duration) * 4)
+							  )
+							: Math.floor(
+									(parseInt(loanAmount) / 100) * parseInt(interest) +
+										parseInt(loanAmount) / parseInt(duration)
+							  ),
+					// parseInt(
+					// 	customers[0].attributes.loans.data[0].attributes.monthly_payment
+					// ) +
+					// Math.floor(
+					// 	(parseInt(loanAmount) / 100) * parseInt(interest) +
+					// 		parseInt(loanAmount) / parseInt(duration)
+					// ),
+					amount: parseInt(loanAmount),
+					total_payment:
+						Math.floor(
+							(parseInt(loanAmount) / 100) *
+								parseInt(interest) *
+								parseInt(duration)
+						) + parseInt(loanAmount),
+				},
+			}),
+		})
+
+		const data = await loanRes.json()
+
+		console.log(data)
+
+		if (loanRes.ok) {
+			toast.success('Loan added!', {
+				duration: 6000,
+			})
+			refreshData()
+			setInterest('')
+			setDuration('')
+			setMonthlyPayment('')
+			setLoanAmount('')
+			setIsNewAdd(false)
+		} else {
+			toast.error(data.error.message, {
+				duration: 6000,
+			})
+		}
+
+		setLoading(false)
+	}
+
 	const addLoan = async (e) => {
 		setLoading(true)
 
-		const loanRes = await fetch(
-			`${API_URL}/loans/${customers[0].attributes.loans.data[0].id}?populate=*`,
-			{
-				method: 'PUT',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${token}`,
-				},
-				body: JSON.stringify({
-					data: {
-						interest,
-						duration:
-							parseInt(
-								customers[0].attributes.loans.data[0].attributes.duration
-							) + parseInt(duration),
-						monthly_payment:
-							customers[0]?.attributes?.customer_type === 'sme'
-								? Math.floor(
-										(((parseInt(
-											customers[0].attributes.loans.data[0].attributes.amount
-										) +
-											parseInt(loanAmount)) /
-											100) *
-											parseInt(interest) *
-											parseInt(duration) +
-											parseInt(loanAmount)) /
-											(parseInt(duration) * 4)
-								  )
-								: parseInt(
-										customers[0].attributes.loans.data[0].attributes
-											.monthly_payment
-								  ) +
-								  Math.floor(
-										(parseInt(loanAmount) / 100) * parseInt(interest) +
-											parseInt(loanAmount) / parseInt(duration)
-								  ),
-						// parseInt(
-						// 	customers[0].attributes.loans.data[0].attributes.monthly_payment
-						// ) +
-						// Math.floor(
-						// 	(parseInt(loanAmount) / 100) * parseInt(interest) +
-						// 		parseInt(loanAmount) / parseInt(duration)
-						// ),
-						amount:
-							parseInt(
-								customers[0].attributes.loans.data[0].attributes.amount
-							) + parseInt(loanAmount),
-					},
-				}),
+		customers[0].attributes?.loans?.data?.map((loan) => {
+			if (loan?.attributes?.loan_start) {
+				setLoanId(loan?.id)
 			}
-		)
+		})
+
+		console.log(loanId)
+
+		const loanRes = await fetch(`${API_URL}/loans/${loanId}?populate=*`, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify({
+				data: {
+					interest,
+					duration:
+						parseInt(
+							customers[0].attributes.loans.data[0].attributes.duration
+						) + parseInt(duration),
+					monthly_payment:
+						customers[0]?.attributes?.customer_type === 'sme'
+							? Math.floor(
+									(((parseInt(
+										customers[0].attributes.loans.data[0].attributes.amount
+									) +
+										parseInt(loanAmount)) /
+										100) *
+										parseInt(interest) *
+										parseInt(duration) +
+										parseInt(loanAmount)) /
+										(parseInt(duration) * 4)
+							  )
+							: parseInt(
+									customers[0].attributes.loans.data[0].attributes
+										.monthly_payment
+							  ) +
+							  Math.floor(
+									(parseInt(loanAmount) / 100) * parseInt(interest) +
+										parseInt(loanAmount) / parseInt(duration)
+							  ),
+					// parseInt(
+					// 	customers[0].attributes.loans.data[0].attributes.monthly_payment
+					// ) +
+					// Math.floor(
+					// 	(parseInt(loanAmount) / 100) * parseInt(interest) +
+					// 		parseInt(loanAmount) / parseInt(duration)
+					// ),
+					amount:
+						parseInt(customers[0].attributes.loans.data[0].attributes.amount) +
+						parseInt(loanAmount),
+				},
+			}),
+		})
 
 		const data = await loanRes.json()
 
@@ -466,6 +548,63 @@ const Customer = ({ customers, token, payHistory }) => {
 								</div>
 							</Wrapper>
 						)}
+						{isNewAdd && (
+							<Wrapper>
+								<div className='edit_modal'>
+									<div className='form' action='' onSubmit={addNewLoan}>
+										<h1>Add a New Loan</h1>
+										<div className='no_flex'>
+											<label htmlFor='loan_amount'>Loan Amount Requested</label>
+											<input
+												type='number'
+												placeholder='N 50,000'
+												value={loanAmount}
+												onChange={(e) => setLoanAmount(e.target.value)}
+											/>
+											<label htmlFor='duration'>Duration of Loan</label>
+											<input
+												type='number'
+												placeholder='3 months'
+												value={duration}
+												onChange={(e) => setDuration(e.target.value)}
+											/>
+											<label htmlFor='interest'>Interest Rate</label>
+											<input
+												type='number'
+												placeholder='10%'
+												value={interest}
+												onChange={(e) => setInterest(e.target.value)}
+											/>
+											{/* <label htmlFor='monthly_payment'>Monthly Payment</label>
+											<input
+												type='number'
+												placeholder='N100,000'
+												value={monthlyPayment}
+												onChange={(e) => setMonthlyPayment(e.target.value)}
+											/> */}
+											<label htmlFor='monthly_payment'>Purpose of Loan</label>
+											<input
+												type='text'
+												placeholder='State Purpose'
+												value={loanPurpose}
+												onChange={(e) => setLoanPurpose(e.target.value)}
+											/>
+										</div>
+										<div className='btns'>
+											<button
+												className='cancel'
+												onClick={() => setIsNewAdd(false)}
+											>
+												Cancel
+											</button>
+											<button className='submit' onClick={() => addNewLoan(e)}>
+												Continue
+											</button>
+										</div>
+									</div>
+								</div>
+							</Wrapper>
+						)}
 						<div className='container' key={e.id}>
 							<div className='wrapper'>
 								<div className='personal'>
@@ -501,9 +640,10 @@ const Customer = ({ customers, token, payHistory }) => {
 										<p>{e.attributes.gender}</p>
 									</div>
 								</div>
+
 								<div className='button'>
 									<button className='add_loan' onClick={() => setIsAdd(true)}>
-										Add Loan
+										Top up Loan
 									</button>
 								</div>
 							</div>
@@ -661,7 +801,7 @@ const Customer = ({ customers, token, payHistory }) => {
 															<span className='loaned btn'>Disbursed</span>
 														</p>
 													)}
-													{loan.attributes.paid && (
+													{loan?.attributes?.paid && (
 														<p>
 															Loan Status:{' '}
 															<span className='paid btn'>Paid</span>
@@ -714,12 +854,13 @@ const Customer = ({ customers, token, payHistory }) => {
 													<p>
 														<span>Total: </span>
 														<TbCurrencyNaira />
-														{addCommas(
+														{addCommas(loan?.attributes.total_payment)}
+														{/* {addCommas(
 															(loan.attributes.amount / 100) *
 																loan.attributes.interest *
 																loan.attributes.duration +
 																parseInt(loan.attributes.amount)
-														)}
+														)} */}
 													</p>
 													{loan.attributes.disburse_date && (
 														<p>
@@ -820,13 +961,23 @@ const Customer = ({ customers, token, payHistory }) => {
 																</button>
 															</div>
 														)}
-
-													<button
-														className='edit_loan'
-														onClick={() => handleEdit(loan.id)}
-													>
-														Edit Loan
-													</button>
+													{loan?.attributes?.paid ? (
+														<div className='button'>
+															<button
+																className='add_loan'
+																onClick={() => setIsNewAdd(true)}
+															>
+																Add Loan
+															</button>
+														</div>
+													) : (
+														<button
+															className='edit_loan'
+															onClick={() => handleEdit(loan.id)}
+														>
+															Edit Loan
+														</button>
+													)}
 												</div>
 
 												{loan?.attributes.loan_start &&
