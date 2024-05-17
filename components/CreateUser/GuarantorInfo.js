@@ -76,10 +76,6 @@ const GuarantorInfo = () => {
 			toast.error("Guarantor's number is required!", {
 				duration: 6000,
 			})
-		} else if (guarantorEmail === '') {
-			toast.error("Guarantor's email is required!", {
-				duration: 6000,
-			})
 		} else {
 			router.push('/create_user/review')
 		}

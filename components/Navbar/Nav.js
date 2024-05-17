@@ -29,12 +29,12 @@ const Nav = () => {
 
 	const handleSearchChange = async (e) => {
 		e.preventDefault()
-		setIsSearch(true)
+		setSearch(true)
 
 		setSearch(e.target.value)
 
 		if (e.target.value === '') {
-			setIsSearch(false)
+			setSearch(false)
 		}
 
 		router.push(`/search?term=${search}`)
